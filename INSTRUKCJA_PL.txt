@@ -1,0 +1,29 @@
+﻿NOVA CUT 5.2.1 — AUTOMATYCZNA NAPRAWA FOLDEROW (Windows)
+=======================================================
+
+1. Rozpakuj TEN ZIP (Wyodrebnij wszystkie). Nie uruchamiaj plikow wprost z archiwum.
+2. Otworz GitHub Desktop. Wybierz repozytorium NOVA-CUT-WINDOWS.
+3. Kliknij Repository > Show in Explorer, aby sprawdzic ktory folder jest repozytorium.
+4. Kliknij dwukrotnie URUCHOM_NAPRAWE.cmd w rozpakowanym folderze naprawy.
+5. W oknie wyboru folderu wybierz DOKLADNIE ten sam folder co w punkcie 3:
+   NOVA-CUT-WINDOWS (a nie app, assets, Pobrane ani sam rozpakowany ZIP).
+6. Skrypt sprawdzi czy folder jest repozytorium GitHub zdalnego adresu
+   adamhalo327-jpg/NOVA-CUT-WINDOWS, a potem umiesci wszystkie pliki
+   na prawidlowych sciezkach. Dotychczasowe pliki otrzymaja kopie zapasowa.
+7. Gdy pojawi sie SUKCES, wroc do GitHub Desktop > Changes.
+8. Zaznacz nowe pliki, Summary: NOVA CUT 5.2.1 - naprawiona struktura
+9. Kliknij Commit to main, potem Push origin.
+10. Na GitHubie sprawdz: app/index.html, scripts/check-project.js,
+    assets/novacut.ico i .github/workflows/build-windows.yml.
+11. Otworz Actions > NOVA CUT - Windows EXE. Uruchom workflow, jesli
+    nie uruchomil sie automatycznie. Po sukcesie pobierz nowy EXE.
+
+UWAGI
+- Nie usuwamy .git i nie wykonujemy automatycznie git push.
+- Dzialanie nie wymaga Pythona, npm ani Node.js; wystarcza Windows PowerShell.
+- Poniewaz uruchamiasz lokalny skrypt, Windows moze wyswietlic ostrzezenie.
+  Mozesz przeczytac napraw_foldery.ps1 w Notatniku przed uruchomieniem.
+- Archiwum PROJEKT zawiera tylko pliki NOVA CUT 5.2.1; skrypt sprawdza
+  ich zawartosc po skopiowaniu (SHA-256).
+- Jesli GitHub Desktop nie pokazuje Changes po skopiowaniu, sprawdz
+  czy otwierasz to samo repozytorium i czy pliki nie byly juz identyczne.
