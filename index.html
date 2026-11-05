@@ -1,0 +1,510 @@
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>NOVA CUT 5.2 — WINDOWS EDITION</title><style>
+:root{color-scheme:dark;--bg:#080b12;--panel:#121824;--panel2:#1a2230;--border:#303b4f;--fg:#edf4ff;--sub:#9daec2;--mint:#46e6c8;--pink:#cb91ff;--blue:#76aaff;--warn:#ffcb94}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:14px system-ui,-apple-system,Segoe UI,sans-serif}button,input,select{font:inherit}button{border:1px solid #35465d;border-radius:10px;background:#243247;color:var(--fg);padding:9px 12px;cursor:pointer}button:hover{background:#33445c}button:disabled{opacity:.4;cursor:not-allowed}.primary{border-color:var(--mint);background:var(--mint);color:#071e1b;font-weight:800}.primary:hover{background:#95ffe7}.danger{border-color:#79465b;background:#4b2534}.small{font-size:12px;padding:6px 9px}.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.spread{justify-content:space-between}.muted{color:var(--sub);font-size:12px;line-height:1.55}header{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;gap:10px;border-bottom:1px solid var(--border);background:#101520}.brand{font-size:22px;font-weight:950;letter-spacing:1.1px}.brand b{color:var(--mint)}.chip{border-radius:20px;color:var(--sub);border:1px solid var(--border);font-size:11px;padding:5px 8px}.app{max-width:1800px;margin:auto;padding:13px;display:grid;grid-template-columns:minmax(240px,290px) minmax(0,1fr) minmax(250px,290px);gap:12px}.panel,.viewer,.timeline{border:1px solid var(--border);background:var(--panel);border-radius:16px;padding:14px;min-width:0}h2{font-size:15px;margin:0 0 12px}h3{font-size:12px;color:var(--sub);text-transform:uppercase;letter-spacing:.6px;margin:20px 0 9px}.upload{display:block;border:1px dashed #4c8b8a;background:#14252b;border-radius:11px;text-align:center;padding:15px;color:var(--mint);font-weight:750;cursor:pointer}.upload input{display:none}.upload small{color:var(--sub);font-weight:400;display:block;margin-top:5px}.assets{display:flex;flex-direction:column;gap:7px;max-height:190px;overflow:auto}.asset{background:var(--panel2);border:1px solid var(--border);border-radius:9px;padding:9px;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px}.asset span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}.stage{background:radial-gradient(ellipse at center,#242e40,#06080e 75%);height:min(53vh,480px);min-height:250px;display:flex;align-items:center;justify-content:center;border-radius:13px;overflow:hidden;position:relative}.stage canvas{display:block;max-width:100%;max-height:100%;object-fit:contain;touch-action:none;box-shadow:0 0 32px #000a}.placeholder{position:absolute;text-align:center;padding:12px;color:var(--sub);pointer-events:none}.placeholder strong{display:block;font-size:20px;color:var(--fg);margin-bottom:9px}.control{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;margin:12px 0}.time{font-variant-numeric:tabular-nums;color:var(--sub)}.msg{min-height:20px;font-size:12px;color:var(--sub);margin-top:8px}.field{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0;font-size:12px;color:var(--sub)}.field input[type=range]{width:53%}input[type=range]{accent-color:var(--mint)}input[type=text],input[type=number],select,textarea{width:100%;min-width:0;background:#0c121c;border:1px solid var(--border);border-radius:8px;color:var(--fg);padding:8px}input[type=number]{max-width:110px}input[type=color]{width:45px;height:34px;background:transparent;border:0}textarea{resize:vertical}.textitem{padding:8px;border-radius:9px;background:#202e41;border:1px solid var(--border);margin:5px 0;display:flex;align-items:center;gap:7px}.textitem.active{border-color:var(--mint)}.textitem button:first-child{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}.timeline{grid-column:1/-1}.tools{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:13px}.tracks{overflow-x:auto;border:1px solid var(--border);border-radius:11px;background:#0d1420}.ruler{height:28px;position:relative;background:#141d2a;border-bottom:1px solid var(--border);font-size:10px;color:var(--sub)}.tick{position:absolute;top:6px;border-left:1px solid #506078;padding-left:4px}.trackrow{display:flex;min-height:61px;border-bottom:1px solid #26344a}.trackrow:last-child{border-bottom:0}.tracklabel{width:94px;min-width:94px;display:flex;align-items:center;padding:9px;font-weight:700;font-size:12px;border-right:1px solid var(--border);background:#162030;position:sticky;left:0;z-index:4}.trackcontent{position:relative;min-height:61px;flex:1}.clip{position:absolute;top:8px;height:44px;border:1px solid #80b7ff;border-radius:8px;background:linear-gradient(130deg,#284b77,#1f3759);display:flex;align-items:center;justify-content:center;text-align:center;padding:5px 7px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;user-select:none}.clip.selected{outline:2px solid var(--mint);outline-offset:1px}.clip.audio{background:linear-gradient(130deg,#483068,#30234c);border-color:#c59cff}.clip.caption{background:linear-gradient(130deg,#6a4d25,#49391d);border-color:#ffc870}.playhead{position:absolute;top:28px;bottom:0;width:2px;background:#ff7777;pointer-events:none;z-index:3}.playhead:before{content:'▼';position:absolute;top:-19px;left:-6px;font-size:13px;color:#ff7777}.editor{display:grid;grid-template-columns:1fr 1fr;gap:10px}.editor label{font-size:12px;color:var(--sub)}.editor input{margin-top:5px}.bottomnote{margin:13px 0 0}.exportprogress{width:100%;accent-color:var(--mint)}footer{text-align:center;font-size:12px;color:var(--sub);padding:8px 15px 25px}.hide{display:none!important}@media(max-width:1090px){.app{grid-template-columns:260px minmax(0,1fr)}.settings{grid-column:1/-1}}@media(max-width:720px){header{padding:9px 11px}.brand{font-size:19px}.app{display:flex;flex-direction:column;padding:8px;gap:8px}.stage{height:350px;min-height:230px}.panel,.viewer,.timeline{padding:12px}.chip{display:none}.tracklabel{width:74px;min-width:74px;font-size:10px}.editor{grid-template-columns:1fr 1fr}button{padding:8px 10px}}
+.stickerPalette{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.stickerPalette button{font-size:22px;padding:7px}.stickercard{display:flex;align-items:center;gap:6px;background:#1d2a3d;border:1px solid var(--border);border-radius:9px;padding:7px;margin-top:6px}.stickercard button:first-child{flex:1;text-align:left}.stickercard.active{border-color:var(--mint)}.studioNote{border:1px solid #43516b;border-radius:10px;padding:9px;margin-top:12px;background:#172135;color:#b6c9db;font-size:12px;line-height:1.55}.studioNote b{color:var(--mint)}
+
+.clip.imageclip{border-color:#61e5b1;background:linear-gradient(130deg,#17664d,#244b58);padding-right:18px}.resize-handle{position:absolute;right:0;top:0;bottom:0;width:17px;border-left:2px solid #afffdc;background:#ffffff22;cursor:ew-resize;touch-action:none;z-index:2;display:flex;align-items:center;justify-content:center;color:white;font-weight:900}.resize-handle:after{content:'⋮';font-size:20px}.clip.imageclip{overflow:visible}.clip.imageclip .resize-handle{border-radius:0 7px 7px 0}.trackcontent{touch-action:pan-x}.clip{touch-action:none;user-select:none;cursor:grab}.clip.dragging{opacity:.8;z-index:20;outline:2px dashed #fff;cursor:grabbing}.clip.overlay{background:linear-gradient(135deg,#663b9e,#375f9c)}.clip.audio{background:linear-gradient(135deg,#156c66,#174f58)}.clip.sfx{background:linear-gradient(135deg,#9a5b25,#7b3e5e)}.trackrow{min-height:46px}.trackcontent{min-height:42px}.tracklabel{font-size:11px}.viewer{align-self:start}select,input[type=number]{max-width:100%}.settings .field select{width:100%}#audioLibrary .asset{gap:6px}#audioLibrary .asset span{overflow:hidden;text-overflow:ellipsis}#notice{min-height:34px}@media(max-width:900px){.timeline{overflow:hidden}.tracks{overflow:auto;max-width:100%}}
+</style></head><body>
+<header><div class="row"><div class="brand">NOVA <b>CUT</b></div><span class="chip">5.2 · WINDOWS EDITION</span></div><div class="row"><button id="saveProject" class="small">💾 Projekt JSON</button><button id="loadProjectBtn" class="small">📂 Otwórz projekt</button><input id="loadProject" type="file" accept="application/json,.json" hidden><button id="export" class="primary">⬇ Eksportuj (przeglądarka)</button></div></header>
+<main class="app">
+<section class="panel"><h2>🎞 Multimedia</h2><label class="upload">＋ Dodaj filmy / zdjęcia<input id="mediaInput" type="file" accept="video/*,image/*" multiple><small>Możesz zaznaczyć kilka plików</small></label><div id="assetList" class="assets" style="margin-top:10px"></div><h3>🎵 Muzyka / efekty audio</h3><label class="upload">＋ Dodaj plik audio<input id="audioInput" type="file" accept="audio/*" multiple><small>MP3, WAV, M4A · Możesz dodać kilka plików</small></label><div class="row" style="margin-top:8px"><span id="audioName" class="muted">Brak audio</span><button id="removeAudio" class="small">Usuń wybrane audio</button></div><div id="audioLibrary" class="assets" style="margin-top:8px"></div><h3>Format filmu</h3><div class="row" id="ratioBar"><button class="small primary" data-ratio="source">Oryginał</button><button class="small" data-ratio="9:16">9:16</button><button class="small" data-ratio="16:9">16:9</button><button class="small" data-ratio="1:1">1:1</button></div><h3>📱 Szybkie formaty</h3><div class="row"><button class="small template" data-format="9:16">TikTok / Shorts</button><button class="small template" data-format="16:9">YouTube</button><button class="small template" data-format="1:1">Instagram</button></div><h3>🎨 Naklejki i elementy</h3><div class="stickerPalette" id="stickerPalette"><button data-sticker="🔥">🔥</button><button data-sticker="❤️">❤️</button><button data-sticker="✨">✨</button><button data-sticker="⭐">⭐</button><button data-sticker="🎬">🎬</button><button data-sticker="👍">👍</button><button data-sticker="💥">💥</button><button data-sticker="🚀">🚀</button></div><div id="stickerList"></div><h3>🎧 Efekty dźwiękowe</h3><div class="row"><button class="small sfx" data-sfx="whoosh">🌬 Whoosh</button><button class="small sfx" data-sfx="pop">🫧 Pop</button><button class="small sfx" data-sfx="beep">🔔 Beep</button><button class="small sfx" data-sfx="impact">💥 Impact</button></div><p class="muted">Efekt zostanie dodany w miejscu kursora na ścieżce SFX.</p><h3>📝 Napisy</h3><button id="addText" class="small">＋ Dodaj napis na osi czasu</button><div id="textList"></div><p class="muted">Napisy możesz przesuwać palcem bezpośrednio w podglądzie.</p></section>
+<section class="viewer"><div class="stage"><canvas id="canvas" width="720" height="405"></canvas><div id="placeholder" class="placeholder"><strong>Twoje studio montażowe</strong>Dodaj pierwszy klip wideo lub zdjęcie.</div></div><div class="control"><button id="stepBack" class="small">−5 s</button><button id="play" class="primary">▶ Odtwórz</button><button id="stepNext" class="small">+5 s</button><span class="time"><span id="now">00:00</span> / <span id="total">00:00</span></span></div><div id="notice" class="msg" role="status" aria-live="polite">Pliki są przetwarzane lokalnie na urządzeniu.</div></section>
+<section class="panel settings"><h2>⚙ Narzędzia</h2><h3>✂ Wybrany klip</h3><div id="clipDetails" class="muted">Wybierz klip na osi czasu.</div><div class="editor"><label>Ścieżka<select id="clipTrack"><option value="0">V1 · Główna</option><option value="1">V2 · Nakładka</option></select></label><label>Prędkość<select id="clipSpeed"><option value="0.25">0,25×</option><option value="0.5">0,5×</option><option value="0.75">0,75×</option><option value="1">1×</option><option value="1.25">1,25×</option><option value="1.5">1,5×</option><option value="2">2×</option><option value="3">3×</option><option value="4">4×</option></select></label><label>Pozycja na osi (s)<input id="clipAt" type="number" min="0" step="0.1"></label><label>Od (sek.)<input id="trimStart" type="number" min="0" step="0.1"></label><label>Do (sek.)<input id="trimEnd" type="number" min="0" step="0.1"></label></div><div class="row" style="margin-top:10px"><button id="split" class="small">✂ Podziel w miejscu kursora</button><button id="clipLeft" class="small">← W lewo</button><button id="clipRight" class="small">W prawo →</button><button id="deleteClip" class="small danger">Usuń klip</button></div><div id="photoStretchPanel" class="hide" style="margin-top:12px;padding:10px;border:1px solid #317b65;border-radius:10px;background:#122e29"><strong>🖼 Długość zdjęcia</strong><div class="editor" style="margin-top:8px"><label>Czas trwania (sek.)<input id="imageDuration" type="number" min="0.1" max="86400" step="0.1" value="5"></label><label>Dopasowanie<select id="imageFitMode"><option value="selected">Do końca wybranego audio</option><option value="all">Do końca wszystkich ścieżek audio</option></select></label></div><div class="row" style="margin-top:10px"><button id="fitImageAudio" class="small primary">🎵 Dopasuj zdjęcie do audio</button><button id="fitImageProject" class="small">⏱ Do końca projektu</button></div><div class="muted" style="margin-top:7px">Możesz także przeciągnąć prawą krawędź zielonego klipu zdjęcia na osi czasu. Długość obrazu nie jest ograniczona do 5 s.</div></div><div class="row" style="margin-top:9px"><button id="duplicateClip" class="small">⧉ Duplikuj klip</button><button id="addOverlay" class="small">⤴ Na V2</button></div><h3>✨ Efekty</h3><div class="field"><label>Jasność <span id="brightLabel">100%</span></label><input id="brightness" type="range" min="25" max="175" value="100"></div><div class="field"><label>Kontrast <span id="contrastLabel">100%</span></label><input id="contrast" type="range" min="25" max="175" value="100"></div><div class="field"><label>Nasycenie <span id="saturationLabel">100%</span></label><input id="saturation" type="range" min="0" max="200" value="100"></div><div class="field"><label>Szarość <span id="grayLabel">0%</span></label><input id="grayscale" type="range" min="0" max="100" value="0"></div><h3>🌈 EFFECTS STUDIO</h3><div class="studioNote"><b>Funkcje 3.0 + PRO:</b> Efekty i filtry działają na cały projekt. Naklejki i napisy mają własne czasy na osi.</div><label class="field">Preset kolorów<select id="effectPreset"><option value="none">Bez efektu</option><option value="cinema">🎬 Kinowy</option><option value="vintage">📼 Retro</option><option value="cold">❄️ Zimny</option><option value="warm">☀️ Ciepły</option><option value="dream">🌈 Sen</option><option value="noir">⬛ Noir</option></select></label><label class="field">Efekt dynamiczny<select id="motionEffect"><option value="none">Brak</option><option value="pulse">Pulsowanie</option><option value="shake">Drgania</option><option value="zoom">Powolne przybliżenie</option><option value="flash">Błysk</option></select></label><div class="field"><label>Moc efektu <span id="effectStrengthLabel">60%</span></label><input id="effectStrength" type="range" min="0" max="100" value="60"></div><h3>🔀 Przejścia klipów</h3><label class="field">Rodzaj<select id="transitionType"><option value="none">Cięcie</option><option value="black">Wygaszenie do czerni</option><option value="white">Błysk do bieli</option></select></label><h3>🔊 Dźwięk</h3><div class="field">Głośność wybranego klipu audio<input id="selectedAudioVolume" type="range" min="0" max="100" value="75"></div><div class="row"><button id="deleteAudioClip" class="small danger">Usuń klip audio</button></div><div class="field">Audio klipów<input id="clipVolume" type="range" min="0" max="100" value="100"></div><div class="field">Muzyka<input id="musicVolume" type="range" min="0" max="100" value="65"></div><h3>🖋 Wybrany napis</h3><div class="row"><input id="textValue" type="text" placeholder="Tekst napisu"></div><div class="field">Rozmiar<input id="fontSize" type="range" min="18" max="110" value="52"></div><div class="field">Kolor<input id="textColor" type="color" value="#ffffff"></div><div class="editor"><label>Start (s)<input id="textStart" type="number" min="0" step="0.1"></label><label>Koniec (s)<input id="textEnd" type="number" min="0" step="0.1"></label></div><label class="field">Animacja napisu<select id="textAnimation"><option value="none">Brak</option><option value="fade">Pojawianie</option><option value="pop">Wyskakiwanie</option><option value="slide">Wjazd od dołu</option><option value="type">Pisanie</option></select></label><label class="field">Styl napisu<select id="textStyle"><option value="outline">Klasyczny kontur</option><option value="shadow">Miękki cień</option><option value="neon">Neon</option><option value="box">Tło pod tekstem</option></select></label><button id="deleteText" class="small danger" style="margin-top:8px">Usuń napis</button></section>
+<section class="timeline"><div class="row spread"><h2>⏱ PRO TIMELINE · przeciągaj klipy palcem lub myszą</h2><div class="row"><span class="muted">Skala</span><input id="zoom" type="range" min="24" max="100" value="48" aria-label="Powiększenie osi czasu"></div></div><div class="tools"><button id="seekStart" class="small">⏮ Początek</button><button id="fadeBtn" class="small">◐ Przejście: wyłączone</button><button id="clearProject" class="small danger">Wyczyść projekt</button><span class="muted">Przeciągaj klipy pomiędzy V1/V2 i w czasie. Dwuklik na osi ustawia kursor.</span></div><div id="tracks" class="tracks"><div id="timelineInner" style="position:relative;min-width:600px"><div id="ruler" class="ruler"></div><div class="trackrow"><div class="tracklabel">🎥 V2 · Nakładka</div><div id="overlayTrack" class="trackcontent" data-track="1"></div></div><div class="trackrow"><div class="tracklabel">🎥 V1 · Główna</div><div id="videoTrack" class="trackcontent" data-track="0"></div></div><div class="trackrow"><div class="tracklabel">🎵 AUDIO</div><div id="audioTrack" class="trackcontent" data-track="audio"></div></div><div class="trackrow"><div class="tracklabel">💥 SFX</div><div id="sfxTrack" class="trackcontent"></div></div><div class="trackrow"><div class="tracklabel">📝 Napisy</div><div id="captionTrack" class="trackcontent"></div></div><div class="trackrow"><div class="tracklabel">⭐ Naklejki</div><div id="stickerTrack" class="trackcontent"></div></div><div id="head" class="playhead"></div></div></div><div class="row" style="margin-top:13px"><span class="muted">Przesuwanie:</span><input id="seek" type="range" min="0" max="1000" value="0" style="flex:1;min-width:130px"><span class="muted" id="durationLabel">0.0 s</span></div><p class="muted bottomnote">Warstwa V2 nakłada się na V1. Możesz przesuwać klipy i dodawać ciszę lub nakładki. Tryb automatyczny dobiera silnik eksportu. Dla 4K–8K na Windows naciśnij „Zapisz cały folder eksportu Windows” w Chrome/Edge, następnie uruchom dołączony renderer FFmpeg. Napisy animowane i naklejki w rendererze Windows nie są jeszcze uwzględniane.</p><div class="row" style="margin:10px 0"><label>Silnik <select id="exportEngine"><option value="smart" selected>Automatyczny · najlepsza zgodność</option><option value="ffmpeg">FFmpeg.wasm · MP4 z AAC (do 1080p)</option><option value="recorder">MediaRecorder · efekty, 4K–8K</option></select></label><label>Eksport <select id="quality"><option value="standard">Standard · 720p</option><option value="high" selected>Full HD · 1080p</option><option value="qhd">2K / QHD · 1440p</option><option value="uhd">4K UHD · 2160p</option><option value="sixk">6K · 3240p</option><option value="eightk">8K UHD · 4320p</option></select></label><label>FPS <select id="fps"><option value="24">24</option><option value="30" selected>30</option><option value="60">60</option></select></label><label>Kodek <select id="videoCodec"><option value="auto">Automatyczny</option><option value="h264">H.264 / AVC</option><option value="h265">H.265 / HEVC</option><option value="vp9">VP9</option><option value="vp8">VP8</option></select></label><label>Bitrate <select id="bitrateMode"><option value="auto">Automatyczny</option><option value="manual">Własny</option></select></label><label id="bitrateCustomWrap" class="hide">Mbps <input id="videoBitrate" type="number" min="0.5" max="300" step="0.5" value="25"></label><button type="button" id="preflight" class="small">✓ Sprawdź eksport</button><button type="button" id="desktopExport" class="primary" style="display:none">🎬 Eksport MP4 na Windows (FFmpeg)</button><button type="button" id="desktopCancel" class="danger" style="display:none">Anuluj MP4</button><button type="button" id="folderJob" class="small primary">📁 Zapisz cały folder eksportu Windows</button><button type="button" id="winJob" class="small">💻 Pobierz projekt JSON (Windows)</button><button type="button" id="probeEncoder" class="small">⚙ Kodeki</button><button id="cancelExport" class="small danger" disabled>Anuluj eksport</button><span class="muted" id="exportDimensions" aria-live="polite"></span></div><progress id="progress" class="exportprogress hide" max="1" value="0"></progress><div class="msg" id="codecStatus" aria-live="polite">Kodek i sprzętowe przyspieszanie zależą od przeglądarki.</div><div class="msg" id="audioStatus" aria-live="polite">🔊 Audio: sprawdzenie przed eksportem.</div><div class="msg" id="preflightStatus" role="status" aria-live="polite">Ustaw silnik Automatyczny, aby program dopasował eksport do projektu.</div><div class="msg" id="ffmpegHint">Tryb AUTOMATYCZNY wybiera FFmpeg.wasm (MP4 + AAC) dla krótkich, prostych projektów do 1080p, a MediaRecorder dla większych projektów i efektów Canvas. W razie błędu próbuje drugiego silnika, jeżeli jest dostępny. Dla wyższej niezawodności 4K–8K na PC użyj „Zapisz cały folder eksportu Windows” — Chrome/Edge skopiuje oryginalne pliki wraz z rendererem. Skrypty wymagają Python 3 i FFmpeg. FFmpeg.wasm pobiera ~32 MB przy pierwszym uruchomieniu. Żaden silnik nie może zagwarantować 8K na dowolnym urządzeniu.</div><div class="msg" id="nativeStatus" style="display:none" aria-live="polite">Windows · eksport lokalny FFmpeg z MP4/AAC. Uwaga: animowane napisy, naklejki i efekty ruchu wciąż wymagają eksportu przeglądarkowego.</div><div class="msg" id="exportStatus"></div><p class="muted">4K/6K/8K w przeglądarce mogą być automatycznie obniżane. Dla dokładnego wyjścia 4K/6K/8K na Windows zalecany jest renderer FFmpeg. Przeglądarki mobilne i starsze karty graficzne mogą nie obsługiwać tak dużego eksportu. Rozdzielczość wyjściowa nie zwiększa szczegółowości materiałów źródłowych. Przy nagrywaniu przez MediaRecorder silnik przeglądarki sam decyduje, czy użyje sprzętowego enkodera. Przycisk „Sprawdź kodowanie” bada dostępność interfejsów i preferencji, ale nie gwarantuje sprzętowego eksportu. H.265 bywa niedostępny, a ustawiony bitrate jest tylko wartością żądaną.</p></section></main>
+<footer>NOVA CUT 5.1 · STABLE EXPORT · Edytor lokalny · Zapis JSON nie zawiera plików wideo — po ponownym otwarciu projektu dodaj te same materiały.</footer>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id),canvas=$('canvas'),ctx=canvas.getContext('2d',{alpha:false});
+let uid=0,rafTime=0,mediaActive=new Map(),drag=null,exportCancel=false,audioContext=null,audioDestination=null,audioAnalyser=null,audioSources=new WeakMap(),sfxNodes=[];
+const id=()=>`nc${Date.now().toString(36)}${++uid}`,clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),num=v=>Number.isFinite(Number(v))?Number(v):0,fmt=t=>`${String(Math.floor(Math.max(0,t)/60)).padStart(2,'0')}:${String(Math.floor(Math.max(0,t)%60)).padStart(2,'0')}`,notify=t=>$('notice').textContent=t;
+const S={assets:new Map(),audioAssets:new Map(),clips:[],audioClips:[],texts:[],stickers:[],sfx:[],selClip:null,selAudio:null,selText:null,selSticker:null,ratio:'source',play:false,exporting:false,position:0,zoom:48,fade:false,filters:{brightness:100,contrast:100,saturation:100,grayscale:0},vol:1,musicVol:.65,effectPreset:'none',motionEffect:'none',effectStrength:60,transitionType:'none',pending:[],pendingAudio:[],audioSession:null};
+const dur=c=>Math.max(.02,(c.end-c.start)/(c.speed||1)),end=c=>c.at+dur(c),total=()=>Math.max(0,...S.clips.map(end),...S.audioClips.map(x=>x.at+x.duration),...S.texts.map(x=>x.end),...S.stickers.map(x=>x.end),...S.sfx.map(x=>x.at+.35));
+const live=(c,t)=>t>=c.at&&t<end(c),layerAt=(layer,t)=>S.clips.filter(c=>c.track===layer&&live(c,t)).at(-1)||null;
+function assetFromFile(file,kind){return new Promise((resolve,reject)=>{const url=URL.createObjectURL(file),el=document.createElement(kind==='image'?'img':kind==='audio'?'audio':'video');let finished=false;const bad=()=>{if(finished)return;finished=true;URL.revokeObjectURL(url);reject(Error('Nie udało się otworzyć: '+file.name))};const good=()=>{if(finished)return;finished=true;const duration=kind==='image'?5:el.duration;if(!Number.isFinite(duration)||duration<=0)return bad();resolve({id:id(),name:file.name,size:file.size,kind,duration,el,url,file,desktopPath:window.NovaDesktop?.filePath(file)||''})};el.addEventListener(kind==='image'?'load':'loadedmetadata',good,{once:true});el.addEventListener('error',bad,{once:true});el.src=url;if(kind!=='image'){el.preload='auto';el.playsInline=true;el.load()}setTimeout(bad,20000)})}
+function addClip(a,track=0,at){const prev=Math.max(0,...S.clips.filter(c=>c.track===track).map(end));const c={id:id(),assetId:a.id,track,at:at??prev,start:0,end:a.duration,speed:1};S.clips.push(c);select('clip',c.id);dimensions();notify('Dodano: '+a.name)}
+function addAudio(a,at=S.position){const c={id:id(),assetId:a.id,at:Math.max(0,at),start:0,duration:a.duration,volume:.75};S.audioClips.push(c);select('audio',c.id);notify('Dodano audio: '+a.name)}
+async function importVideo(files){for(const f of files){try{const kind=f.type.startsWith('image/')?'image':'video',a=await assetFromFile(f,kind);const ref=S.pending.find(p=>p.name===a.name&&p.size===a.size&&!p.ok);if(ref){a.id=ref.id;ref.ok=true;S.assets.set(a.id,a);notify('Podłączono ponownie: '+a.name);renderAll()}else{S.assets.set(a.id,a);addClip(a)}}catch(e){notify(e.message)}}dimensions()}
+async function importAudio(files){for(const f of files){try{const a=await assetFromFile(f,'audio');const ref=S.pendingAudio.find(p=>p.name===a.name&&p.size===a.size&&!p.ok);if(ref){a.id=ref.id;ref.ok=true;S.audioAssets.set(a.id,a);notify('Podłączono audio: '+a.name)}else{S.audioAssets.set(a.id,a);addAudio(a,0)}}catch(e){notify(e.message)}}renderAll()}
+$('mediaInput').onchange=async e=>{await importVideo([...e.target.files]);e.target.value=''};
+$('audioInput').onchange=async e=>{await importAudio([...e.target.files]);e.target.value=''};
+const findClip=()=>S.clips.find(c=>c.id===S.selClip),findAudio=()=>S.audioClips.find(c=>c.id===S.selAudio),findText=()=>S.texts.find(c=>c.id===S.selText);
+function select(type,key){S.selClip=type==='clip'?key:null;S.selAudio=type==='audio'?key:null;S.selText=type==='text'?key:null;S.selSticker=type==='sticker'?key:null;renderAll()}
+function assetList(){const box=$('assetList');box.replaceChildren();if(!S.assets.size)box.textContent='Dodaj filmy albo zdjęcia.';for(const a of S.assets.values()){const row=document.createElement('div');row.className='asset';const name=document.createElement('span');name.textContent=(a.kind==='image'?'🖼 ':'🎥 ')+a.name;name.title=a.name;const b=document.createElement('button');b.className='small';b.textContent='＋ V1';b.onclick=()=>addClip(a,0);const over=document.createElement('button');over.className='small';over.textContent='＋ V2';over.onclick=()=>addClip(a,1,S.position);row.append(name,b,over);box.append(row)}}
+function audioLibrary(){const box=$('audioLibrary');box.replaceChildren();for(const a of S.audioAssets.values()){const row=document.createElement('div');row.className='asset';const name=document.createElement('span');name.textContent='🎵 '+a.name;name.title=a.name;const b=document.createElement('button');b.textContent='＋ Na oś';b.className='small';b.onclick=()=>addAudio(a,S.position);row.append(name,b);box.append(row)}const a=findAudio();$('audioName').textContent=a?(S.audioAssets.get(a.assetId)?.name||'Plik audio niedostępny'):'Wybierz klip audio';$('removeAudio').disabled=!a;$('deleteAudioClip').disabled=!a;$('selectedAudioVolume').disabled=!a;$('selectedAudioVolume').value=a?a.volume*100:75}
+function editor(){const c=findClip(),a=c&&S.assets.get(c.assetId);$('photoStretchPanel').classList.toggle('hide',!(c&&a?.kind==='image'));if(c&&a?.kind==='image')$('imageDuration').value=dur(c).toFixed(2);$('clipDetails').textContent=c?`${a?.name||'Brak pliku'} · ${dur(c).toFixed(2)} s · V${c.track+1}`:'Dotknij klipu na osi czasu.';for(const k of ['trimStart','trimEnd','clipAt','clipSpeed','clipTrack','split','clipLeft','clipRight','duplicateClip','addOverlay','deleteClip'])$(k).disabled=!c;if(c){$('trimStart').value=c.start.toFixed(2);$('trimEnd').value=c.end.toFixed(2);$('clipAt').value=c.at.toFixed(2);$('clipSpeed').value=String(c.speed||1);$('clipTrack').value=String(c.track);$('trimStart').max=a?.duration??99999;$('trimEnd').max=a?.kind==='image'?86400:(a?.duration??99999)}const t=findText();for(const k of ['textValue','fontSize','textColor','textStart','textEnd','textAnimation','textStyle','deleteText'])$(k).disabled=!t;if(t){$('textValue').value=t.text;$('fontSize').value=t.size;$('textColor').value=t.color;$('textStart').value=t.start;$('textEnd').value=t.end;$('textAnimation').value=t.animation||'none';$('textStyle').value=t.style||'outline'}}
+function timeline(){const zoom=S.zoom,tlen=total(),span=Math.max(650,Math.ceil(tlen*zoom)+200),offset=94,inner=$('timelineInner');inner.style.width=offset+span+'px';$('ruler').replaceChildren();for(let second=0;second<=span/zoom;second+=Math.max(1,Math.ceil(55/zoom))){const tick=document.createElement('span');tick.className='tick';tick.style.left=offset+second*zoom+'px';tick.textContent=fmt(second);$('ruler').append(tick)}for(const k of ['videoTrack','overlayTrack','audioTrack','sfxTrack','captionTrack','stickerTrack']){$(k).replaceChildren();$(k).style.minWidth=span+'px'}
+ function tile(box,obj,at,seconds,title,cls,onSelect){const el=document.createElement('div');el.className='clip '+(cls||'');el.style.left=Math.max(0,at)*zoom+'px';el.style.width=Math.max(12,seconds*zoom-2)+'px';el.textContent=title;el.title=title+' · '+at.toFixed(1)+' s · '+seconds.toFixed(1)+' s';el.dataset.kind=cls==='audio'?'audio':cls==='sfx'?'sfx':cls==='caption'?'caption':cls==='sticker'?'sticker':'video';el.dataset.item=obj.id;if(box==='videoTrack'||box==='overlayTrack'){const asset=S.assets.get(obj.assetId);if(asset?.kind==='image'){el.classList.add('imageclip');const handle=document.createElement('span');handle.className='resize-handle';handle.title='Przeciągnij, aby wydłużyć lub skrócić zdjęcie';handle.addEventListener('pointerdown',e=>startImageResize(e,el,obj));handle.onclick=e=>e.stopPropagation();el.append(handle)}}el.addEventListener('pointerdown',e=>startDrag(e,el,obj,el.dataset.kind));el.onclick=e=>{e.stopPropagation();onSelect()};$(box).append(el)}
+ for(const c of S.clips){const a=S.assets.get(c.assetId);tile(c.track?'overlayTrack':'videoTrack',c,c.at,dur(c),(a?.kind==='image'?'🖼 ':'🎥 ')+(a?.name||'Brak materiału'),(c.track?'overlay ':'')+(S.selClip===c.id?'selected':''),()=>select('clip',c.id))}
+ for(const c of S.audioClips){const a=S.audioAssets.get(c.assetId);tile('audioTrack',c,c.at,c.duration,'🎵 '+(a?.name||'Brak audio'),'audio'+(S.selAudio===c.id?' selected':''),()=>select('audio',c.id))}
+ for(const x of S.sfx)tile('sfxTrack',x,x.at,.35,'💥 '+x.type,'sfx',()=>{seekTo(x.at);notify('Efekt '+x.type+' · '+x.at.toFixed(2)+' s')});
+ for(const x of S.texts)tile('captionTrack',x,x.start,x.end-x.start,'📝 '+x.text,'caption'+(S.selText===x.id?' selected':''),()=>select('text',x.id));
+ for(const x of S.stickers)tile('stickerTrack',x,x.start,x.end-x.start,x.emoji,'sticker'+(S.selSticker===x.id?' selected':''),()=>select('sticker',x.id));
+ $('head').style.left=offset+S.position*zoom+'px';updateCounters()}
+function startImageResize(e,el,c){if(e.button!==undefined&&e.button!==0)return;e.preventDefault();e.stopPropagation();pause();const handle=e.currentTarget,startX=e.clientX,startDuration=dur(c);handle.setPointerCapture(e.pointerId);const moving=ev=>{const desired=Math.max(.1,startDuration+(ev.clientX-startX)/S.zoom);c.end=c.start+desired*(c.speed||1);el.style.width=Math.max(12,desired*S.zoom-2)+'px';$('durationLabel').textContent=total().toFixed(1)+' s';if(S.selClip===c.id)$('imageDuration').value=desired.toFixed(2)};const done=()=>{handle.removeEventListener('pointermove',moving);handle.removeEventListener('pointerup',done);handle.removeEventListener('pointercancel',done);renderAll();notify('Zmieniono czas zdjęcia na '+dur(c).toFixed(2)+' s.')};handle.addEventListener('pointermove',moving);handle.addEventListener('pointerup',done);handle.addEventListener('pointercancel',done)}
+function startDrag(e,el,obj,kind){if(e.button!==undefined&&e.button!==0)return;e.stopPropagation();drag={el,obj,kind,x:e.clientX,from:obj.at??obj.start,moved:false};el.setPointerCapture(e.pointerId);el.classList.add('dragging');el.onpointermove=ev=>{if(!drag)return;const delta=(ev.clientX-drag.x)/S.zoom;if(Math.abs(ev.clientX-drag.x)>5)drag.moved=true;if(!drag.moved)return;const value=Math.max(0,drag.from+delta);if(kind==='video'||kind==='audio'||kind==='sfx')obj.at=value;else{const d=obj.end-obj.start;obj.start=value;obj.end=value+d}el.style.left=value*S.zoom+'px';$('durationLabel').textContent=total().toFixed(1)+' s'};const done=ev=>{if(!drag)return;const moved=drag.moved;el.classList.remove('dragging');if(moved&&kind==='video'){const target=document.elementFromPoint(ev.clientX,ev.clientY)?.closest('.trackcontent');if(target?.dataset.track==='0'||target?.dataset.track==='1')obj.track=Number(target.dataset.track)}drag=null;el.onpointermove=null;el.onpointerup=null;el.onpointercancel=null;if(moved){pause();renderAll();notify('Przesunięto element na osi czasu.')}};el.onpointerup=done;el.onpointercancel=done}
+function textList(){const box=$('textList');box.replaceChildren();for(const t of S.texts){const row=document.createElement('div');row.className='textitem'+(t.id===S.selText?' active':'');const b=document.createElement('button');b.className='small';b.textContent=t.text;b.onclick=()=>select('text',t.id);const del=document.createElement('button');del.className='small danger';del.textContent='×';del.onclick=()=>{S.texts=S.texts.filter(x=>x.id!==t.id);if(S.selText===t.id)S.selText=null;renderAll()};row.append(b,del);box.append(row)}}
+function stickerList(){const box=$('stickerList');box.replaceChildren();for(const st of S.stickers){const row=document.createElement('div');row.className='stickercard'+(S.selSticker===st.id?' active':'');const b=document.createElement('button');b.textContent=st.emoji+' '+st.start.toFixed(1)+'s';b.className='small';b.onclick=()=>select('sticker',st.id);for(const [symbol,d] of [['−',-12],['+',12]]){const x=document.createElement('button');x.className='small';x.textContent=symbol;x.onclick=()=>st.size=clamp(st.size+d,20,200);row.append(x)}const del=document.createElement('button');del.className='small danger';del.textContent='×';del.onclick=()=>{S.stickers=S.stickers.filter(x=>x.id!==st.id);renderAll()};row.prepend(b);row.append(del);box.append(row)}}
+function renderAll(){assetList();audioLibrary();editor();timeline();textList();stickerList();$('placeholder').classList.toggle('hide',!!S.clips.length);$('fadeBtn').textContent='◐ Przejście: '+(S.transitionType==='black'?'czarne':S.transitionType==='white'?'białe':'brak')}
+function updateCounters(){$('now').textContent=fmt(S.position);$('total').textContent=fmt(total());$('durationLabel').textContent=total().toFixed(1)+' s';$('seek').value=total()?Math.round(S.position/total()*1000):0;$('play').textContent=S.play?'⏸ Pauza':'▶ Odtwórz';$('head').style.left=94+S.position*S.zoom+'px'}
+function pause(){S.play=false;for(const a of [...S.assets.values(),...S.audioAssets.values()])if(a.kind!=='image')a.el.pause();mediaActive.clear();updateCounters()}
+function syncMedia(){const wanted=new Map();for(const layer of [0,1]){const c=layerAt(layer,S.position);if(c){const a=S.assets.get(c.assetId);if(a&&a.kind==='video'){const t=clamp(c.start+(S.position-c.at)*c.speed,c.start,Math.max(c.start,c.end-.03));wanted.set(a.id,{a,time:t,speed:c.speed,gain:S.vol})}}}for(const c of S.audioClips){const a=S.audioAssets.get(c.assetId);if(a&&S.position>=c.at&&S.position<c.at+c.duration){wanted.set(a.id,{a,time:c.start+S.position-c.at,speed:1,gain:S.musicVol*c.volume})}}
+ for(const a of [...S.assets.values(),...S.audioAssets.values()]){if(a.kind==='image')continue;const x=wanted.get(a.id);if(!x){if(!a.el.paused)a.el.pause();setAudioGain(a,0);continue}if(Math.abs(a.el.currentTime-x.time)>.3){try{a.el.currentTime=x.time}catch{}}a.el.playbackRate=x.speed;setAudioGain(a,x.gain);if(S.play&&a.el.paused)a.el.play().catch(e=>{if(S.exporting)$('audioStatus').textContent='⚠️ Nie udało się odtworzyć '+a.name+': '+e.message;});if(!S.play&&!a.el.paused)a.el.pause();if(!audioSources.has(a.el))a.el.volume=clamp(x.gain,0,1)}mediaActive=wanted}
+function seekTo(t){S.position=clamp(num(t),0,total());syncMedia();updateCounters();draw()}
+$('play').onclick=()=>{if(S.exporting)return;if(S.play){pause();return}if(!S.clips.length)return notify('Dodaj najpierw film lub zdjęcie.');if(S.position>=total()-.02)S.position=0;S.play=true;rafTime=performance.now();initAudio().catch(()=>{}).finally(syncMedia);updateCounters()};
+$('stepBack').onclick=()=>seekTo(S.position-5);$('stepNext').onclick=()=>seekTo(S.position+5);$('seekStart').onclick=()=>seekTo(0);$('seek').oninput=e=>{pause();seekTo(total()*num(e.target.value)/1000)};$('zoom').oninput=e=>{S.zoom=num(e.target.value);timeline()};$('tracks').onclick=e=>{if(e.target.closest('.clip'))return;const rect=$('timelineInner').getBoundingClientRect();seekTo((e.clientX-rect.left-94)/S.zoom)};
+function changeClip(){const c=findClip();if(!c)return;const a=S.assets.get(c.assetId),st=num($('trimStart').value),en=num($('trimEnd').value),at=num($('clipAt').value),speed=num($('clipSpeed').value);if(!(en>st+.03&&st>=0&&en<=(a?.kind==='image'?86400:(a?.duration||0))+.01))return notify('Niepoprawny zakres cięcia.');c.start=st;c.end=en;c.at=Math.max(0,at);c.speed=speed||1;c.track=num($('clipTrack').value);renderAll();seekTo(S.position)}
+for(const k of ['trimStart','trimEnd','clipAt','clipSpeed','clipTrack'])$(k).onchange=changeClip;
+$('imageDuration').onchange=()=>{const c=findClip(),a=c&&S.assets.get(c.assetId);if(a?.kind!=='image')return;const seconds=Number($('imageDuration').value);if(!Number.isFinite(seconds)||seconds<.1||seconds>86400)return notify('Podaj czas od 0,1 do 86400 sekund.');c.end=c.start+seconds*(c.speed||1);renderAll();notify('Długość zdjęcia: '+seconds.toFixed(2)+' s')};
+function extendImage(target){const c=findClip(),a=c&&S.assets.get(c.assetId);if(!c||a?.kind!=='image')return notify('Najpierw wybierz zdjęcie na osi czasu.');if(!Number.isFinite(target)||target<=c.at+.05)return notify('Nie ma dłuższej ścieżki do dopasowania. Przesuń zdjęcie wcześniej lub dodaj audio.');c.end=c.start+(target-c.at)*(c.speed||1);renderAll();notify('Dopasowano długość zdjęcia do '+(target-c.at).toFixed(2)+' s.')}
+$('fitImageAudio').onclick=()=>{const selected=findAudio(),all=S.audioClips;if(!all.length)return notify('Dodaj najpierw plik audio na oś czasu.');const target=$('imageFitMode').value==='selected'&&selected?selected.at+selected.duration:Math.max(...all.map(a=>a.at+a.duration));extendImage(target)};
+$('fitImageProject').onclick=()=>{const c=findClip();if(!c)return;const otherEnd=Math.max(0,...S.clips.filter(x=>x.id!==c.id).map(end),...S.audioClips.map(x=>x.at+x.duration),...S.texts.map(x=>x.end),...S.stickers.map(x=>x.end),...S.sfx.map(x=>x.at+.35));extendImage(otherEnd)};
+$('split').onclick=()=>{const c=findClip();if(!c)return;const cut=c.start+(S.position-c.at)*c.speed;if(cut<=c.start+.08||cut>=c.end-.08)return notify('Ustaw kursor wewnątrz wybranego klipu.');const copy={...c,id:id(),start:cut,at:S.position};c.end=cut;S.clips.push(copy);select('clip',copy.id);notify('Podzielono klip.')};
+$('deleteClip').onclick=()=>{if(!findClip())return;S.clips=S.clips.filter(c=>c.id!==S.selClip);S.selClip=null;renderAll();seekTo(S.position)};
+$('duplicateClip').onclick=()=>{const c=findClip();if(!c)return;const n={...c,id:id(),at:end(c)};S.clips.push(n);select('clip',n.id)};
+$('addOverlay').onclick=()=>{const c=findClip();if(c){c.track=1;renderAll()}};
+$('clipLeft').onclick=()=>{const c=findClip();if(c){c.at=Math.max(0,c.at-.5);renderAll()}};
+$('clipRight').onclick=()=>{const c=findClip();if(c){c.at+=.5;renderAll()}};
+$('selectedAudioVolume').oninput=e=>{const c=findAudio();if(c)c.volume=num(e.target.value)/100};
+$('removeAudio').onclick=$('deleteAudioClip').onclick=()=>{if(!findAudio())return;S.audioClips=S.audioClips.filter(c=>c.id!==S.selAudio);S.selAudio=null;renderAll()};
+$('addText').onclick=()=>{const t={id:id(),text:'Nowy napis',start:S.position,end:S.position+3,x:50,y:79,size:52,color:'#ffffff',animation:'none',style:'outline'};S.texts.push(t);select('text',t.id)};
+function changeText(){const t=findText();if(!t)return;const start=num($('textStart').value),finish=num($('textEnd').value);if(finish<=start)return notify('Koniec napisu musi być później niż początek.');Object.assign(t,{text:$('textValue').value,size:num($('fontSize').value),color:$('textColor').value,start,end:finish,animation:$('textAnimation').value,style:$('textStyle').value});timeline();textList()}
+for(const k of ['textValue','fontSize','textColor','textStart','textEnd','textAnimation','textStyle'])$(k).oninput=changeText;
+$('deleteText').onclick=()=>{S.texts=S.texts.filter(t=>t.id!==S.selText);S.selText=null;renderAll()};
+$('stickerPalette').onclick=e=>{const b=e.target.closest('[data-sticker]');if(!b)return;const st={id:id(),emoji:b.dataset.sticker,start:S.position,end:S.position+3,x:50,y:48,size:85};S.stickers.push(st);select('sticker',st.id)};
+let imageDrag=false;canvas.onpointerdown=e=>{if(!S.selText&&!S.selSticker)return;imageDrag=true;canvas.setPointerCapture(e.pointerId)};canvas.onpointermove=e=>{if(!imageDrag)return;const r=canvas.getBoundingClientRect(),x=clamp((e.clientX-r.left)/r.width*100,0,100),y=clamp((e.clientY-r.top)/r.height*100,0,100),obj=findText()||S.stickers.find(s=>s.id===S.selSticker);if(obj){obj.x=x;obj.y=y}};canvas.onpointerup=canvas.onpointercancel=()=>imageDrag=false;
+for(const k of Object.keys(S.filters))$(k).oninput=e=>{S.filters[k]=num(e.target.value);$(k==='brightness'?'brightLabel':k==='contrast'?'contrastLabel':k==='saturation'?'saturationLabel':'grayLabel').textContent=e.target.value+'%'};
+$('clipVolume').oninput=e=>S.vol=num(e.target.value)/100;$('musicVolume').oninput=e=>S.musicVol=num(e.target.value)/100;
+$('effectPreset').onchange=e=>S.effectPreset=e.target.value;$('motionEffect').onchange=e=>S.motionEffect=e.target.value;$('effectStrength').oninput=e=>{S.effectStrength=num(e.target.value);$('effectStrengthLabel').textContent=e.target.value+'%'};
+$('transitionType').onchange=e=>{S.transitionType=e.target.value;S.fade=S.transitionType!=='none';renderAll()};$('fadeBtn').onclick=()=>{S.transitionType=S.transitionType==='none'?'black':'none';$('transitionType').value=S.transitionType;renderAll()};
+function ratio(r){S.ratio=r;document.querySelectorAll('#ratioBar button').forEach(b=>b.classList.toggle('primary',b.dataset.ratio===r));dimensions();exportDetails()}
+document.querySelectorAll('#ratioBar button').forEach(b=>b.onclick=()=>ratio(b.dataset.ratio));document.querySelectorAll('.template').forEach(b=>b.onclick=()=>ratio(b.dataset.format));
+const EXPORT_PRESETS={standard:{long:1280,bitrate:4500000},high:{long:1920,bitrate:10000000},qhd:{long:2560,bitrate:16000000},uhd:{long:3840,bitrate:35000000},sixk:{long:5760,bitrate:60000000},eightk:{long:7680,bitrate:100000000}};
+function targetSize(exportMode=false){let w=960,h=540;const a=S.assets.values().next().value;if(S.ratio==='9:16'){w=9;h=16}else if(S.ratio==='1:1'){w=1;h=1}else if(S.ratio==='source'&&a){w=a.kind==='image'?a.el.naturalWidth:a.el.videoWidth||960;h=a.kind==='image'?a.el.naturalHeight:a.el.videoHeight||540}w=Math.max(1,w);h=Math.max(1,h);const target=exportMode?(EXPORT_PRESETS[$('quality').value]||EXPORT_PRESETS.high).long:960;const scale=exportMode?target/Math.max(w,h):Math.min(1,target/Math.max(w,h));return [Math.max(2,Math.round(w*scale/2)*2),Math.max(2,Math.round(h*scale/2)*2)]}
+function exportDetails(){const [w,h]=targetSize(true);const mbps=Number((EXPORT_PRESETS[$('quality').value]||EXPORT_PRESETS.high).bitrate/1000000);$('exportDimensions').textContent=`${w} × ${h} px · preset ${mbps} Mbps`;if($('bitrateMode').value==='auto')$('videoBitrate').value=mbps;}
+function dimensions(exportMode=false){const [w,h]=targetSize(exportMode);canvas.width=w;canvas.height=h;draw()}
+$('quality').onchange=exportDetails;
+$('bitrateMode').onchange=()=>{$('bitrateCustomWrap').classList.toggle('hide',$('bitrateMode').value!=='manual');exportDetails()};
+$('videoCodec').onchange=()=>updateCodecStatus();
+async function probeHardware(){const [w,h]=targetSize(true);const fps=Number($('fps').value)||30;const codec=$('videoCodec').value;const names={h264:'avc1.42001f',h265:'hev1.1.6.L93.B0',vp9:'vp09.00.10.08',vp8:'vp8'};if(!window.VideoEncoder?.isConfigSupported){$('codecStatus').textContent='Tryb zgodności aktywny: sprawdzenie WebCodecs niedostępne. Eksport użyje MediaRecorder z automatycznymi ustawieniami zastępczymi.';return}try{const c={codec:names[codec]||'avc1.42001f',width:w,height:h,framerate:fps,bitrate:Math.round(Number($('videoBitrate').value||25)*1000000),hardwareAcceleration:'prefer-hardware'};const r=await VideoEncoder.isConfigSupported(c);$('codecStatus').textContent=r.supported?'WebCodecs potwierdza tę konfigurację. Eksport nadal automatycznie dobierze obsługiwany format MediaRecorder.':'WebCodecs nie potwierdza tej konfiguracji — to nie blokuje eksportu! SMART EXPORT automatycznie spróbuje innych ustawień MediaRecorder.'}catch(err){$('codecStatus').textContent='Test WebCodecs jest niedostępny, ale SMART EXPORT może działać przez MediaRecorder.'}}
+$('probeEncoder').onclick=probeHardware;
+function updateCodecStatus(){const m=chooseMime();$('codecStatus').textContent=m?'SMART EXPORT: preferowany '+m+'. W razie problemów spróbuję kolejnych kodeków i rozdzielczości.':'SMART EXPORT: wybrany kodek może być niedostępny, ale program automatycznie spróbuje formatów zastępczych.'}
+
+exportDetails();updateCodecStatus();
+function filterString(){const f=S.filters,p=S.effectStrength/100;let v=`brightness(${f.brightness}%) contrast(${f.contrast}%) saturate(${f.saturation}%) grayscale(${f.grayscale}%)`;const options={cinema:`contrast(${100+25*p}%) saturate(${100-25*p}%) sepia(${12*p}%)`,vintage:`sepia(${60*p}%) saturate(${100-32*p}%)`,cold:`hue-rotate(${180*p}deg)`,warm:`sepia(${24*p}%) saturate(${100+22*p}%)`,dream:`hue-rotate(${80*p}deg) saturate(${100+40*p}%)`,noir:'grayscale(100%) contrast(125%)'};return v+' '+(options[S.effectPreset]||'')}
+function paintLayer(c,t){if(!c)return;const a=S.assets.get(c.assetId);if(!a)return;const el=a.el,w=a.kind==='image'?el.naturalWidth:el.videoWidth,h=a.kind==='image'?el.naturalHeight:el.videoHeight;if(!w||!h)return;const W=canvas.width,H=canvas.height,p=S.effectStrength/100,scale=Math.max(W/w,H/h);let rw=w*scale,rh=h*scale,dx=0,dy=0,m=1;if(S.motionEffect==='pulse')m=1+.06*p*Math.sin(t*5);if(S.motionEffect==='zoom')m=1+.15*p*((t%8)/8);if(S.motionEffect==='shake'){dx=Math.sin(t*43)*W*.015*p;dy=Math.cos(t*37)*H*.015*p}rw*=m;rh*=m;ctx.save();ctx.filter=filterString();if(c.track===1)ctx.globalAlpha=.94;try{ctx.drawImage(el,(W-rw)/2+dx,(H-rh)/2+dy,rw,rh)}catch{}ctx.restore()}
+function draw(){const W=canvas.width,H=canvas.height,t=S.position;ctx.fillStyle='#090d18';ctx.fillRect(0,0,W,H);paintLayer(layerAt(0,t),t);paintLayer(layerAt(1,t),t);if(S.motionEffect==='flash'&&Math.sin(t*9)>.92){ctx.fillStyle=`rgba(255,255,255,${S.effectStrength/320})`;ctx.fillRect(0,0,W,H)}if(S.transitionType!=='none'){const cuts=S.clips.filter(c=>c.track===0).flatMap(c=>[c.at,end(c)]).filter(x=>x>0&&x<total()-.01),d=Math.min(...cuts.map(x=>Math.abs(x-t)),1);if(d<.22){ctx.fillStyle=S.transitionType==='white'?`rgba(255,255,255,${1-d/.22})`:`rgba(0,0,0,${1-d/.22})`;ctx.fillRect(0,0,W,H)}}
+ for(const item of S.texts){if(t<item.start||t>=item.end)continue;const age=t-item.start,anim=item.animation||'none',style=item.style||'outline',fade=clamp(age/.45,0,1);let alpha=1,scale=1,off=0,txt=item.text;if(anim==='fade')alpha=fade;if(anim==='pop')scale=.65+.35*(1-Math.pow(1-fade,3));if(anim==='slide')off=(1-fade)*H*.12;if(anim==='type')txt=txt.slice(0,Math.ceil(txt.length*clamp(age/1.3,0,1)));const sz=item.size*W/720;ctx.save();ctx.globalAlpha=alpha;ctx.translate(item.x/100*W,item.y/100*H+off);ctx.scale(scale,scale);ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=`900 ${sz}px system-ui,sans-serif`;ctx.lineJoin='round';txt.split('\n').forEach((line,i,all)=>{const y=(i-(all.length-1)/2)*sz*1.14;if(style==='box'){const width=ctx.measureText(line).width;ctx.fillStyle='#000b';ctx.fillRect(-width/2-12,y-sz*.65,width+24,sz*1.25)}if(style==='shadow'){ctx.shadowColor='#000';ctx.shadowBlur=sz*.3}else if(style==='neon'){ctx.shadowColor=item.color;ctx.shadowBlur=sz*.4}else if(style==='outline'){ctx.strokeStyle='#000e';ctx.lineWidth=Math.max(3,sz*.1);ctx.strokeText(line,0,y,W*.95)}ctx.fillStyle=item.color;ctx.fillText(line,0,y,W*.95)});ctx.restore()}
+ for(const st of S.stickers){if(t<st.start||t>=st.end)continue;ctx.save();ctx.translate(st.x/100*W,st.y/100*H);ctx.font=`${st.size*W/720}px system-ui,Apple Color Emoji,Segoe UI Emoji`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(st.emoji,0,0);ctx.restore()}}
+// Sounds are synthesized locally, with no downloads or external dependencies.
+async function initAudio(){
+ const AC=window.AudioContext||window.webkitAudioContext;
+ if(!AC)throw Error('Brak Web Audio API — nie można zapewnić dźwięku w eksporcie.');
+ if(!audioContext){
+  audioContext=new AC();
+  audioDestination=audioContext.createMediaStreamDestination();
+  audioAnalyser=audioContext.createAnalyser();
+  audioAnalyser.fftSize=2048;
+  // The analyser observes the same mixed PCM that flows into MediaRecorder.
+  audioAnalyser.connect(audioDestination);
+ }
+ await audioContext.resume();
+ if(audioContext.state!=='running')throw Error('Przeglądarka wstrzymała dźwięk. Dotknij odtwarzania i spróbuj ponownie.');
+ for(const a of [...S.assets.values(),...S.audioAssets.values()]){
+  if(a.kind==='image'||audioSources.has(a.el))continue;
+  try{
+   const source=audioContext.createMediaElementSource(a.el),gain=audioContext.createGain();
+   source.connect(gain);gain.connect(audioContext.destination);gain.connect(audioAnalyser);
+   audioSources.set(a.el,{gain});
+   a.el.muted=false;
+  }catch(e){
+   console.warn('Nie udało się podłączyć dźwięku',a.name,e);
+   throw Error('Nie mogę podłączyć dźwięku z pliku: '+a.name+'. '+e.message);
+  }
+ }
+ const tracks=audioDestination.stream.getAudioTracks();
+ if(!tracks.length||tracks.every(t=>t.readyState!=='live'))throw Error('Nie powstała aktywna ścieżka audio do eksportu.');
+ return audioDestination.stream;
+}
+function audioLevel(){if(!audioAnalyser)return 0;const buf=new Float32Array(audioAnalyser.fftSize);audioAnalyser.getFloatTimeDomainData(buf);let sum=0;for(const x of buf)sum+=x*x;return Math.sqrt(sum/buf.length)}
+function hasProjectAudio(){return S.audioClips.length>0||S.sfx.length>0||S.clips.some(c=>S.assets.get(c.assetId)?.kind==='video')}
+
+function setAudioGain(a,v){const s=audioSources.get(a.el);if(s)s.gain.gain.value=clamp(v,0,1)}
+function playSfx(type,when=0){if(!audioContext)return;const now=audioContext.currentTime+Math.max(0,when),osc=audioContext.createOscillator(),gain=audioContext.createGain(),filter=audioContext.createBiquadFilter();osc.type=type==='impact'?'sawtooth':type==='whoosh'?'triangle':'sine';const base={whoosh:920,pop:550,beep:880,impact:120}[type]||440,stop=type==='whoosh'?.45:type==='impact'?.38:.22;osc.frequency.setValueAtTime(base,now);osc.frequency.exponentialRampToValueAtTime(Math.max(35,base*(type==='whoosh'?.12:type==='impact'?.35:1.35)),now+stop);gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(.22,now+.012);gain.gain.exponentialRampToValueAtTime(.0001,now+stop);filter.type='lowpass';filter.frequency.value=type==='impact'?450:7000;osc.connect(filter);filter.connect(gain);gain.connect(audioContext.destination);gain.connect(audioAnalyser);osc.start(now);osc.stop(now+stop+.01);sfxNodes.push(osc)}
+function triggerSfx(from,to){for(const s of S.sfx)if(s.at>from&&s.at<=to)playSfx(s.type)}
+document.querySelectorAll('.sfx').forEach(b=>b.onclick=()=>{S.sfx.push({id:id(),type:b.dataset.sfx,at:S.position});renderAll();initAudio().then(()=>playSfx(b.dataset.sfx)).catch(()=>{});notify('Dodano dźwięk '+b.dataset.sfx)});
+function loop(now){if(S.play){const dt=Math.min(.12,Math.max(0,(now-rafTime)/1000));rafTime=now;const old=S.position;S.position=Math.min(total(),S.position+dt);triggerSfx(old,S.position);syncMedia();if(S.position>=total()){pause()}updateCounters()}draw();requestAnimationFrame(loop)}requestAnimationFrame(loop);
+function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000)}
+$('saveProject').onclick=()=>{const p={app:'NOVA CUT',version:5.1,ratio:S.ratio,fade:S.fade,effectPreset:S.effectPreset,motionEffect:S.motionEffect,effectStrength:S.effectStrength,transitionType:S.transitionType,filters:S.filters,vol:S.vol,musicVol:S.musicVol,assets:[...S.assets.values()].map(a=>({id:a.id,name:a.name,size:a.size,kind:a.kind,duration:a.duration})),audioAssets:[...S.audioAssets.values()].map(a=>({id:a.id,name:a.name,size:a.size,duration:a.duration})),clips:S.clips,texts:S.texts,stickers:S.stickers,audioClips:S.audioClips,sfx:S.sfx};download(new Blob([JSON.stringify(p,null,2)],{type:'application/json'}),'NOVA-CUT-5.1-projekt.json');notify('Zapisano JSON. Media nie są dołączone — po otwarciu zaimportuj je ponownie.')};
+$('loadProjectBtn').onclick=()=>$('loadProject').click();$('loadProject').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{const p=JSON.parse(await f.text());if(p.app!=='NOVA CUT'||!Array.isArray(p.clips))throw Error('To nie jest projekt NOVA CUT');pause();S.assets.clear();S.audioAssets.clear();S.pending=p.assets||[];S.pendingAudio=p.audioAssets||[];S.clips=p.clips.map((c,i)=>({...c,track:c.track??0,at:c.at??p.clips.slice(0,i).reduce((v,q)=>v+(q.end-q.start),0),speed:c.speed||1}));S.audioClips=p.audioClips||[];S.texts=p.texts||[];S.stickers=p.stickers||[];S.sfx=p.sfx||[];if(p.version<4&&p.audio){S.pendingAudio=[{...p.audio,id:'legacyAudio'}];S.audioClips=[{id:id(),assetId:'legacyAudio',at:0,start:0,duration:Math.max(0,...S.clips.map(end)),volume:1}]};S.filters={brightness:100,contrast:100,saturation:100,grayscale:0,...p.filters};S.vol=p.vol??1;S.musicVol=p.musicVol??.65;S.effectPreset=p.effectPreset||'none';S.motionEffect=p.motionEffect||'none';S.effectStrength=p.effectStrength??60;S.transitionType=p.transitionType||(p.fade?'black':'none');S.selClip=S.selAudio=S.selText=S.selSticker=null;S.position=0;ratio(p.ratio||'source');for(const k of Object.keys(S.filters)){$(k).value=S.filters[k];$(k==='brightness'?'brightLabel':k==='contrast'?'contrastLabel':k==='saturation'?'saturationLabel':'grayLabel').textContent=S.filters[k]+'%'}for(const [k,val] of [['effectPreset',S.effectPreset],['motionEffect',S.motionEffect],['effectStrength',S.effectStrength],['transitionType',S.transitionType],['clipVolume',S.vol*100],['musicVolume',S.musicVol*100]])$(k).value=val;$('effectStrengthLabel').textContent=S.effectStrength+'%';renderAll();notify('Projekt otwarty. Zaimportuj ponownie te same pliki wideo i audio.') }catch(err){notify('Błąd projektu: '+err.message)}e.target.value=''};
+$('clearProject').onclick=()=>{if(!confirm('Usunąć elementy z osi czasu?'))return;pause();S.clips=[];S.audioClips=[];S.texts=[];S.stickers=[];S.sfx=[];S.position=0;S.selClip=S.selAudio=S.selText=S.selSticker=null;renderAll();notify('Wyczyszczono oś czasu. Biblioteka pozostała.')};
+// SMART EXPORT: keep the manual codec as a preference, never a hard failure.
+function preferredMimes(hasAudio=true){
+ // MP4 without an explicit AAC stream may produce a video-only result.
+ // Keep AAC-qualified MP4 first, then reliable WEBM/Opus fallback.
+ const mp4aac=[
+  'video/mp4;codecs="avc1.42E01E,mp4a.40.2"',
+  'video/mp4;codecs="avc1.640028,mp4a.40.2"',
+  'video/mp4;codecs="hvc1.1.6.L93.B0,mp4a.40.2"'
+ ];
+ const webmOpus=['video/webm;codecs="vp9,opus"','video/webm;codecs="vp8,opus"','video/webm;codecs="vp9,vorbis"','video/webm;codecs="vp8,vorbis"','video/webm'];
+ const videoOnly=['video/mp4;codecs="avc1.42E01E"','video/mp4','video/webm;codecs=vp9','video/webm;codecs=vp8'];
+ const c=$('videoCodec').value;
+ const pref=c==='h265'?[mp4aac[2],mp4aac[0],...webmOpus]:c==='vp9'?[webmOpus[0],webmOpus[2],mp4aac[0],...webmOpus]:c==='vp8'?[webmOpus[1],webmOpus[3],mp4aac[0],...webmOpus]:(hasAudio&&c==='auto'?[...webmOpus,mp4aac[0],mp4aac[1]]:[mp4aac[0],mp4aac[1],...webmOpus]);
+ return [...new Set([...pref,...(hasAudio?[]:videoOnly),''])].filter(m=>{
+  try{return !m||MediaRecorder.isTypeSupported(m)}catch{return false}
+ });
+}
+function chooseMime(){return preferredMimes(hasProjectAudio()).find(Boolean)||''}
+
+function exportSizes(){const want=$('quality').value,order=['eightk','sixk','uhd','qhd','high','standard'];const from=order.includes(want)?order.indexOf(want):4;return order.slice(from).filter(key=>!(navigator.deviceMemory&&navigator.deviceMemory<=4&&['eightk','sixk','uhd'].includes(key)))}
+function sizeForPreset(key){let w=960,h=540;const a=S.assets.values().next().value;if(S.ratio==='9:16'){w=9;h=16}else if(S.ratio==='1:1'){w=h=1}else if(S.ratio==='source'&&a){w=a.kind==='image'?a.el.naturalWidth:a.el.videoWidth||960;h=a.kind==='image'?a.el.naturalHeight:a.el.videoHeight||540}const n=EXPORT_PRESETS[key].long,scale=n/Math.max(w,h);return [Math.max(2,Math.round(w*scale/2)*2),Math.max(2,Math.round(h*scale/2)*2)]}
+function bitrateFor(key){const n=$('bitrateMode').value==='manual'?Number($('videoBitrate').value)*1000000:EXPORT_PRESETS[key].bitrate;if(!Number.isFinite(n)||n<500000||n>300000000)throw Error('Bitrate musi wynosić 0,5–300 Mbps.');return Math.round(n)}
+$('cancelExport').onclick=()=>{exportCancel=true;$('exportStatus').textContent='Anulowanie eksportu…'};
+async function exportLegacy(){
+ if(S.exporting)return;
+ if(!S.clips.length)return notify('Dodaj klipy, aby wyeksportować film.');
+ if(S.clips.some(c=>!S.assets.has(c.assetId)))return notify('Brakuje plików źródłowych. Zaimportuj je ponownie.');
+ if(!canvas.captureStream||!window.MediaRecorder)return $('exportStatus').textContent='Brak obsługi nagrywania canvas/MediaRecorder w tej przeglądarce. Nie da się tutaj wygenerować pliku wideo. Spróbuj aktualnego Chrome lub Edge.';
+ S.exporting=true;exportCancel=false;pause();$('export').disabled=true;$('cancelExport').disabled=false;$('progress').classList.remove('hide');$('progress').value=0;
+ let recorder=null,stream=null,stopWatch=null;
+ try{
+  seekTo(0);
+  const requestedFps=Number($('fps').value)||30;
+  const attempts=[];
+  const wantsAudio=hasProjectAudio();
+  let sourceAudio=null;
+  if(wantsAudio){sourceAudio=await initAudio();$('audioStatus').textContent='🔊 Miks audio jest podłączony: '+sourceAudio.getAudioTracks().length+' ścieżka. MP4 wymaga AAC; WEBM używa Opus.';}
+  else $('audioStatus').textContent='ℹ️ W projekcie nie znaleziono klipów muzycznych, SFX ani filmu z dźwiękiem. Eksport bez audio.';
+  const mimes=preferredMimes(wantsAudio);
+
+  let chosen=null;
+  // Retry resolution and codec/bitrate combinations until MediaRecorder actually starts.
+  for(const key of exportSizes()){
+   if(chosen||exportCancel)break;
+   let [w,h]=sizeForPreset(key);
+   try{canvas.width=w;canvas.height=h;draw();if(canvas.width!==w||canvas.height!==h)throw Error('Rozmiar canvas niedostępny');}
+   catch(e){attempts.push(key+': canvas '+e.message);continue}
+   for(const fps of [...new Set([requestedFps,Math.min(requestedFps,30),24])]){
+    if(chosen||exportCancel)break;
+    let candidateStream;
+    try{candidateStream=canvas.captureStream(fps);sourceAudio?.getAudioTracks().forEach(t=>candidateStream.addTrack(t));if(wantsAudio&&candidateStream.getAudioTracks().length!==1)throw Error('Nie udało się dołączyć ścieżki dźwiękowej')}catch(e){attempts.push(key+'/'+fps+'fps: '+e.message);continue}
+    const requestedRate=bitrateFor(key),bitRates=[requestedRate,Math.min(requestedRate,8000000),Math.min(requestedRate,3000000)];
+    for(const mime of mimes){
+     if(chosen||exportCancel)break;
+     if(mime&&MediaRecorder.isTypeSupported&&!MediaRecorder.isTypeSupported(mime))continue;
+     for(const rate of [...new Set(bitRates)]){
+      if(chosen||exportCancel)break;
+      let test;
+      try{
+       const opts=mime?{mimeType:mime,videoBitsPerSecond:rate,...(wantsAudio?{audioBitsPerSecond:192000}:{})}:{videoBitsPerSecond:rate,...(wantsAudio?{audioBitsPerSecond:192000}:{})};
+       test=new MediaRecorder(candidateStream,opts);
+       test.start(250);
+       chosen={recorder:test,stream:candidateStream,mime:test.mimeType||mime||'',fps,key,rate};
+       break;
+      }catch(err){attempts.push(`${key}/${fps}fps ${mime||'auto'}: ${err.message}`);try{if(test?.state==='recording')test.stop()}catch{}}
+     }
+    }
+    if(!chosen)candidateStream.getVideoTracks().forEach(x=>x.stop());
+   }
+  }
+  if(exportCancel)throw Error('Eksport anulowany');
+  if(!chosen)throw Error('Ta przeglądarka odrzuciła wszystkie próby uruchomienia kodera, w tym WEBM i 720p. Spróbuj innej aktualnej przeglądarki.');
+  recorder=chosen.recorder;stream=chosen.stream;
+  const downgraded=chosen.key!==$('quality').value||chosen.fps!==requestedFps;
+  $('exportStatus').textContent=`SMART EXPORT: ${canvas.width}×${canvas.height} / ${chosen.fps} FPS / ${chosen.mime||'format domyślny'}${downgraded?' — automatycznie obniżono ustawienia dla zgodności':''}.`;
+  const chunks=[];
+  const done=new Promise((resolve,reject)=>{recorder.ondataavailable=e=>{if(e.data?.size)chunks.push(e.data)};recorder.onstop=resolve;recorder.onerror=e=>reject(e.error||Error('Błąd MediaRecorder'))});const startedAt=Date.now();
+  S.play=true;rafTime=performance.now();syncMedia();if(wantsAudio&&audioContext.state!=='running')await audioContext.resume();let peakAudio=0;
+  stopWatch=setInterval(()=>{const progress=total()?S.position/total():0;$('progress').value=progress;if(wantsAudio){peakAudio=Math.max(peakAudio,audioLevel());$('audioStatus').textContent=peakAudio>.0003?'🔊 Wykryto sygnał audio w miksie eksportu.':'🔈 Nagrywanie audio: sygnał jest na razie cichy lub niewykryty.';}$('exportStatus').textContent=`Eksport ${Math.round(progress*100)}% · ${canvas.width}×${canvas.height} · ${chosen.fps} FPS${downgraded?' · zgodny tryb':''} · nie zamykaj karty`;if(Date.now()-startedAt>Math.max(15000,(total()+12)*1500)){exportCancel=true;$('exportStatus').textContent='Eksport przekroczył limit czasu — przeglądarka mogła zatrzymać odtwarzanie w tle.';}if(exportCancel||!S.play||S.position>=total())try{if(recorder.state==='recording')recorder.stop()}catch{}},120);
+  await done;
+  if(exportCancel)throw Error('Eksport anulowany');
+  if(!chunks.length)throw Error('Enkoder został uruchomiony, ale nie wygenerował danych. Spróbuj 1080p/30 FPS w Chrome lub Edge.');if(wantsAudio&&peakAudio<.0003)$('audioStatus').textContent='⚠️ Nie wykryto sygnału audio! Sprawdź, czy plik audio jest na osi czasu, jego głośność oraz czy film rzeczywiście ma ścieżkę dźwiękową.';
+  const type=recorder.mimeType||chosen.mime||'video/webm',ext=type.includes('mp4')?'mp4':'webm',blob=new Blob(chunks,{type});if(wantsAudio&&!stream.getAudioTracks().length)throw Error('Eksport został przerwany: strumień wynikowy nie ma audio.');
+  if(wantsAudio){const check=await inspectAudioContainer(blob,ext);if(check===false){$('audioStatus').textContent='⚠️ W pliku nie znaleziono nagłówka ścieżki dźwiękowej. Nie zapisuję potencjalnie niemego filmu; wybierz FFmpeg.wasm do 1080p lub eksport Windows dla 4K–8K.';throw Error('Brak wykrytej ścieżki audio w wyniku.');}if(check===null)$('audioStatus').textContent+=' · Nie można zweryfikować nagłówka audio, sprawdź wynik.';}
+  download(blob,`NOVA-CUT-5.1-${chosen.key}-${chosen.fps}fps.${ext}`);
+  $('progress').value=1;
+  $('exportStatus').textContent=`Gotowe: ${canvas.width}×${canvas.height}, ${chosen.fps} FPS, ${ext.toUpperCase()}, ${(blob.size/1048576).toFixed(1)} MB${downgraded?' (automatycznie dobrano zgodne ustawienia)':''}.`;return true;
+ }catch(err){$('exportStatus').textContent='Eksport: '+err.message;console.error('NOVA CUT eksport:',err);return false}
+ finally{clearInterval(stopWatch);try{if(recorder&&recorder.state==='recording')recorder.stop()}catch{}stream?.getVideoTracks().forEach(x=>x.stop());pause();S.exporting=false;$('export').disabled=false;$('cancelExport').disabled=true;dimensions(false)}
+}
+
+// NOVA CUT 5.1 – opt-in FFmpeg.wasm export, independent of MediaRecorder.
+// CDN wrapper/worker/core are loaded on demand (single thread; no SharedArrayBuffer needed).
+let ffmpegInstance=null,ffmpegLoading=null;
+async function asBlobURL(url,type){const r=await fetch(url);if(!r.ok)throw Error('Nie udało się pobrać '+url+' (HTTP '+r.status+')');return URL.createObjectURL(new Blob([await r.arrayBuffer()],{type}))}
+async function ensureFFmpeg(){
+ if(ffmpegInstance)return ffmpegInstance;
+ if(ffmpegLoading)return ffmpegLoading;
+ ffmpegLoading=(async()=>{
+  $('exportStatus').textContent='FFmpeg: pobieranie modułów z internetu (~32 MB)…';
+  const lib='https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/dist/umd';
+  const base='https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/umd';
+  if(!window.FFmpegWASM){
+   await new Promise((resolve,reject)=>{const el=document.createElement('script');el.src=lib+'/ffmpeg.js';el.onload=resolve;el.onerror=()=>reject(Error('Nie można pobrać @ffmpeg/ffmpeg z CDN. Sprawdź internet.'));document.head.append(el)});
+  }
+  if(!window.FFmpegWASM?.FFmpeg)throw Error('Nie załadowano silnika FFmpeg.wasm.');
+  const ff=new window.FFmpegWASM.FFmpeg();
+  ff.on('log',({message})=>{if(message.includes('time='))$('exportStatus').textContent='FFmpeg: '+message.slice(-120)});
+  const [classWorkerURL,coreURL,wasmURL]=await Promise.all([
+   asBlobURL(lib+'/814.ffmpeg.js','text/javascript'),
+   asBlobURL(base+'/ffmpeg-core.js','text/javascript'),
+   asBlobURL(base+'/ffmpeg-core.wasm','application/wasm')
+  ]);
+  await ff.load({classWorkerURL,coreURL,wasmURL});
+  ffmpegInstance=ff;return ff;
+ })();
+ try{return await ffmpegLoading}finally{ffmpegLoading=null}
+}
+function wavFromBuffer(buffer){
+ const channels=2,n=buffer.length,out=new ArrayBuffer(44+n*channels*2),v=new DataView(out);
+ const str=(off,s)=>{for(let i=0;i<s.length;i++)v.setUint8(off+i,s.charCodeAt(i))};
+ str(0,'RIFF');v.setUint32(4,out.byteLength-8,true);str(8,'WAVE');str(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,2,true);v.setUint32(24,buffer.sampleRate,true);v.setUint32(28,buffer.sampleRate*4,true);v.setUint16(32,4,true);v.setUint16(34,16,true);str(36,'data');v.setUint32(40,n*4,true);
+ const left=buffer.getChannelData(0),right=buffer.getChannelData(1);
+ for(let i=0,p=44;i<n;i++){v.setInt16(p,Math.round(clamp(left[i],-1,1)*32767),true);v.setInt16(p+2,Math.round(clamp(right[i],-1,1)*32767),true);p+=4}
+ return new Uint8Array(out);
+}
+async function offlineMix(duration){
+ const sampleRate=44100,ac=new (window.OfflineAudioContext||window.webkitOfflineAudioContext)(2,Math.ceil(duration*sampleRate),sampleRate);
+ const decoded=new Map(),notes=[];
+ async function getDecoded(a,required){
+  if(decoded.has(a.id))return decoded.get(a.id);
+  try{const buf=await (await fetch(a.url)).arrayBuffer();const b=await ac.decodeAudioData(buf);decoded.set(a.id,b);return b}
+  catch(e){if(required)throw Error('Nie mogę odczytać audio '+a.name+': '+e.message);notes.push('Brak audio w filmie '+a.name);decoded.set(a.id,null);return null}
+ }
+ async function clipAudio(a,at,start,span,rate,vol,required){
+  if(vol<=0||span<=0||at>=duration)return;
+  const decodedBuffer=await getDecoded(a,required);if(!decodedBuffer)return;
+  const remain=Math.min(span,duration-at,(decodedBuffer.duration-start)/(rate||1));if(remain<=0)return;
+  const source=ac.createBufferSource(),gain=ac.createGain();source.buffer=decodedBuffer;source.playbackRate.value=rate||1;gain.gain.value=vol;source.connect(gain);gain.connect(ac.destination);
+  source.start(at,start,remain*(rate||1));
+ }
+ for(const c of S.audioClips){const a=S.audioAssets.get(c.assetId);if(!a)throw Error('Brakuje audio '+c.assetId);await clipAudio(a,c.at,c.start,c.duration,1,(c.volume??.75)*S.musicVol,true)}
+ for(const c of S.clips){const a=S.assets.get(c.assetId);if(a?.kind==='video')await clipAudio(a,c.at,c.start,dur(c),c.speed||1,S.vol,false)}
+ for(const item of S.sfx){if(item.at>=duration)continue;const osc=ac.createOscillator(),g=ac.createGain();const base={whoosh:920,pop:550,beep:880,impact:120}[item.type]||440,length=Math.min(duration-item.at,item.type==='whoosh'?.45:.25);if(length<=0)continue;osc.type=item.type==='impact'?'sawtooth':'sine';osc.frequency.setValueAtTime(base,item.at);osc.frequency.exponentialRampToValueAtTime(Math.max(40,base*.35),item.at+length);g.gain.setValueAtTime(.0001,item.at);g.gain.exponentialRampToValueAtTime(.17,item.at+.015);g.gain.exponentialRampToValueAtTime(.0001,item.at+length);osc.connect(g);g.connect(ac.destination);osc.start(item.at);osc.stop(item.at+length)}
+ $('audioStatus').textContent='🎚 Miks audio offline: muzyka + dźwięk filmów + efekty SFX'+(notes.length?' · uwaga: '+notes.join(', '):'');
+ return wavFromBuffer(await ac.startRendering());
+}
+async function exportFFmpeg(){
+ if(S.exporting)return;
+ if(!S.clips.length)return notify('Dodaj zdjęcie lub film do projektu.');
+ if(S.clips.some(c=>!S.assets.has(c.assetId)))return notify('Brak niektórych plików źródłowych. Dodaj je ponownie.');
+ const duration=total();
+ if(duration>180)return $('exportStatus').textContent='FFmpeg.wasm: projekt przekracza 3 minuty. Wybierz MediaRecorder lub użyj lokalnego FFmpeg na PC (większa pamięć).';
+ const [requestedW,requestedH]=targetSize(true);
+ if(Math.max(requestedW,requestedH)>1920)return $('exportStatus').textContent='FFmpeg.wasm w tym wydaniu obsługuje maks. 1080p dla ochrony pamięci. Ustaw 1080p lub wybierz MediaRecorder dla 4K–8K.';
+ if(!window.OfflineAudioContext&&!window.webkitOfflineAudioContext)return $('exportStatus').textContent='Brak OfflineAudioContext — ta przeglądarka nie potrafi miksować dźwięku offline. Użyj Chrome/Edge.';
+ S.exporting=true;exportCancel=false;pause();$('export').disabled=true;$('cancelExport').disabled=false;$('progress').classList.remove('hide');$('progress').value=0;
+ let ff=null;const files=[];
+ try{
+  ff=await ensureFFmpeg();if(exportCancel)throw Error('Anulowano');
+  const durationStr=duration.toFixed(3),fps=Number($('fps').value)||30,[W,H]=sizeForPreset($('quality').value);
+  $('exportStatus').textContent='FFmpeg: tworzenie ścieżki WAV z muzyką i dźwiękiem…';
+  const wav=await offlineMix(duration);
+  await ff.writeFile('mix.wav',wav);files.push('mix.wav');
+  const args=['-hide_banner','-loglevel','error','-f','lavfi','-i',`color=c=black:s=${W}x${H}:r=${fps}:d=${durationStr}`];
+  const inputIndex=new Map();let ix=1;
+  for(const asset of S.assets.values()){
+   if(!S.clips.some(c=>c.assetId===asset.id))continue;
+   const extension=asset.name.split('.').pop().replace(/[^a-z0-9]/gi,'').toLowerCase()||(asset.kind==='image'?'png':'mp4');
+   const fn=`media_${ix}.${extension}`;await ff.writeFile(fn,new Uint8Array(await (await fetch(asset.url)).arrayBuffer()));files.push(fn);
+   inputIndex.set(asset.id,ix++);
+   if(asset.kind==='image')args.push('-loop','1','-framerate',String(fps),'-i',fn);else args.push('-i',fn);
+  }
+  const wavIndex=ix;args.push('-i','mix.wav');
+  const graph=[`[0:v]format=yuv420p[b0]`];let previous='b0',k=0;
+  const clipInputs=new Map();
+  for(const [assetId,idx] of inputIndex){const related=S.clips.filter(c=>c.assetId===assetId);if(related.length>1){const tags=related.map((c,i)=>`src${idx}_${i}`);graph.push(`[${idx}:v]split=${tags.length}${tags.map(t=>'['+t+']').join('')}`);related.forEach((c,i)=>clipInputs.set(c.id,tags[i]))}else if(related.length)clipInputs.set(related[0].id,`${idx}:v`)}
+  for(const c of [...S.clips].sort((a,b)=>a.track-b.track||a.at-b.at)){
+   const asset=S.assets.get(c.assetId);if(!asset)continue;
+   const idx=inputIndex.get(c.assetId),tag='clip'+k,after='layer'+k++;
+   const start=Math.max(0,c.start),seconds=Math.min(duration-c.at,dur(c));if(seconds<=0)continue;
+   const speed=c.speed||1,rawLength=seconds*speed;
+   // SetPTS puts each clip at its absolute timeline position.
+   graph.push(`[${clipInputs.get(c.id)}]trim=start=${start.toFixed(4)}:duration=${rawLength.toFixed(4)},setpts=(PTS-STARTPTS)/${speed}+${c.at.toFixed(4)}/TB,fps=${fps},scale=${W}:${H}:force_original_aspect_ratio=increase,crop=${W}:${H},format=yuv420p[${tag}]`);
+   graph.push(`[${previous}][${tag}]overlay=x=0:y=0:shortest=0:eof_action=pass:repeatlast=0[${after}]`);
+   previous=after;
+  }
+  graph.push(`[${previous}]format=yuv420p[outv]`);
+  const rate=bitrateFor($('quality').value);
+  const bitrate=Math.max(800,Math.round(rate/1000))+'k';
+  const common=[...args,'-filter_complex',graph.join(';'),'-map','[outv]','-map',`${wavIndex}:a:0`,'-t',durationStr,'-r',String(fps),'-c:a','aac','-b:a','192k','-pix_fmt','yuv420p','-movflags','+faststart'];
+  const codecs=$('videoCodec').value==='h265'?['libx265','libx264']:['libx264'];
+  let success=false,lastError='';
+  for(const codec of codecs){
+   if(exportCancel)throw Error('Anulowano');
+   $('exportStatus').textContent='FFmpeg: kodowanie '+codec+' do MP4…';
+   const args2=[...common,'-c:v',codec,'-b:v',bitrate,'-preset','ultrafast','output.mp4'];
+   const code=await ff.exec(args2,180000);
+   if(code===0){success=true;break}
+   lastError='Kod FFmpeg: '+code;
+  }
+  if(!success)throw Error('FFmpeg nie ukończył kodowania. '+lastError+' (spróbuj 720p lub trybu MediaRecorder).');
+  const data=await ff.readFile('output.mp4');if(data.byteLength<2000)throw Error('Plik wynikowy jest pusty.');
+  const blob=new Blob([data],{type:'video/mp4'});
+  download(blob,'NOVA-CUT-5.1-'+$('quality').value+'-audio.mp4');
+  $('exportStatus').textContent='Gotowe: MP4 + ścieżka AAC, '+W+'×'+H+', '+(blob.size/1048576).toFixed(1)+' MB. Sprawdź odtwarzanie filmu.';
+  $('progress').value=1;return true;
+ }catch(e){$('exportStatus').textContent='FFmpeg: '+e.message;console.error(e);return false}
+ finally{
+  if(ff){for(const file of [...files,'output.mp4']){try{await ff.deleteFile(file)}catch{}}}
+  S.exporting=false;$('export').disabled=false;$('cancelExport').disabled=true;pause();dimensions(false);
+ }
+}
+$('export').onclick=smartExport;
+$('cancelExport').addEventListener('click',()=>{if(S.exporting&&$('exportEngine').value==='ffmpeg'){exportCancel=true;if(ffmpegInstance){ffmpegInstance.terminate();ffmpegInstance=null}$('exportStatus').textContent='Zatrzymano FFmpeg. Przy następnym eksporcie silnik będzie uruchomiony ponownie.'}});
+$('exportEngine').onchange=()=>{$('ffmpegHint').style.display='';preflightExport()};
+
+
+// ---------- NOVA CUT 5.1: preflight, automatic backend, optional desktop job ----------
+function simpleProject(){
+ return !S.texts.length&&!S.stickers.length&&S.motionEffect==='none'&&S.effectPreset==='none'&&
+ S.transitionType==='none'&&Object.entries(S.filters).every(([key,val])=>Number(val)===(key==='grayscale'?0:100));
+}
+function canBrowserFFmpeg(){
+ const [w,h]=targetSize(true),duration=total();const memory=navigator.deviceMemory||8;
+ return !!(window.OfflineAudioContext||window.webkitOfflineAudioContext)&&duration>0&&
+ duration<=Math.min(180,memory<=4?75:180)&&Math.max(w,h)<=1920;
+}
+function preflightExport(){
+ const [w,h]=targetSize(true),duration=total(),memory=navigator.deviceMemory||null,codec=$('videoCodec').value;
+ const mp4=!!(window.MediaRecorder&&MediaRecorder.isTypeSupported?.('video/mp4;codecs="avc1.42E01E,mp4a.40.2"'));
+ const webm=!!(window.MediaRecorder&&MediaRecorder.isTypeSupported?.('video/webm;codecs="vp8,opus"'));
+ const recorder=!!(window.MediaRecorder&&canvas.captureStream),canFF=canBrowserFFmpeg();
+ const engine=$('exportEngine').value;
+ const first=engine==='smart'?(canFF&&simpleProject()?'FFmpeg.wasm · MP4/AAC':'MediaRecorder · efekty i wysokie rozdzielczości'):engine;
+ const messages=[`Projekt ${duration.toFixed(1)} s · ${w}×${h} · ${$('fps').value} FPS · audio: ${hasProjectAudio()?'tak':'brak'}, silnik: ${first}.`];
+ if(!recorder&&!canFF)messages.push('⚠️ Ta przeglądarka nie ma zgodnego sposobu eksportu.');
+ if(memory&&memory<=4&&Math.max(w,h)>1920)messages.push('⚠️ Mało RAM: SMART EXPORT może pominąć 4K–8K, aby nie zawiesić strony.');
+ if(!simpleProject()&&canFF)messages.push('Napisy, naklejki i efekty Canvas wymagają MediaRecorder dla zachowania wyglądu.');
+ if(Math.max(w,h)>1920)messages.push('Dla niezawodnego MP4 w 2K–8K na komputerze zalecany renderer Windows + FFmpeg.');
+ if(hasProjectAudio()&&!mp4&&!webm&&recorder)messages.push('⚠️ Brak potwierdzonej obsługi kontenera z audio.');
+ if(codec==='h265')messages.push('H.265 może zostać zastąpiony przez H.264 / VP8, jeżeli urządzenie nie obsługuje H.265.');
+ $('preflightStatus').textContent=messages.join(' ');
+ return {recorder,canFF};
+}
+$('preflight').onclick=preflightExport;
+for(const id of ['quality','fps','videoCodec','bitrateMode'])$(id).addEventListener('change',preflightExport);
+async function inspectAudioContainer(blob,ext){
+ try{
+  const limit=3*1024*1024,chunk=blob.slice(0,Math.min(limit,blob.size));
+  const end=blob.size>limit?blob.slice(Math.max(0,blob.size-limit)):null;
+  const bytes=new Uint8Array(await chunk.arrayBuffer());
+  const trailer=end?new Uint8Array(await end.arrayBuffer()):null;
+  // MP4 handler type 'soun' is part of moov/trak/mdia/hdlr for an encoded audio track.
+  // WebM codec IDs A_OPUS / A_VORBIS indicate an audio track in the EBML header.
+  const has=(arr,token)=>{if(!arr)return false;const seq=[...token].map(ch=>ch.charCodeAt(0));outer:for(let i=0;i<=arr.length-seq.length;i++){for(let j=0;j<seq.length;j++)if(arr[i+j]!==seq[j])continue outer;return true}return false};
+  if(ext==='mp4')return has(bytes,'soun')||has(trailer,'soun')?true:(blob.size<=2*limit?false:null);
+  if(ext==='webm')return has(bytes,'A_OPUS')||has(bytes,'A_VORBIS')||has(bytes,'A_AAC')?true:null;
+  return null;
+ }catch{return null}
+}
+async function smartExport(){
+ if(S.exporting)return;
+ const mode=$('exportEngine').value;
+ if(mode==='recorder')return exportLegacy();
+ if(mode==='ffmpeg')return exportFFmpeg();
+ const plan=preflightExport(),preferFF=plan.canFF&&simpleProject();
+ if(preferFF){
+  const ok=await exportFFmpeg();
+  if(ok||exportCancel)return;
+  if(plan.recorder){$('exportStatus').textContent='FFmpeg nie zadziałał — próbuję MediaRecorder…';await exportLegacy()}
+ }else{
+  if(plan.recorder){
+   const ok=await exportLegacy();
+   if(ok||exportCancel)return;
+  }
+  if(plan.canFF){$('exportStatus').textContent='Próbuję alternatywnego silnika FFmpeg…';await exportFFmpeg()}
+  else if(!plan.recorder)$('exportStatus').textContent='Brak zgodnych silników eksportu w tej przeglądarce. Użyj renderer Windows.';
+ }
+}
+const WINDOWS_RENDERER_SOURCE="#!/usr/bin/env python3\n\"\"\"NOVA CUT desktop quality renderer, Python 3 + system FFmpeg (Windows/Linux/macOS).\n\nConsumes JSON exported by NOVA CUT 5.1. All referenced media must be in the same\nfolder as the JSON (or in a specified --media-dir). No network needed for rendering.\nThis renderer supports V1/V2 videos/images with trim and speed, multi-track music\nand video audio, static colors and SFX. Browser-only animated overlays are omitted.\n\"\"\"\nimport argparse\nimport json\nimport math\nimport re\nimport shutil\nimport subprocess\nimport sys\nimport tempfile\nfrom pathlib import Path\n\nPRESETS = {'standard': 1280, 'high': 1920, 'qhd': 2560, 'uhd': 3840, 'sixk': 5760, 'eightk': 7680}\nRATES = {'standard': 5, 'high': 10, 'qhd': 18, 'uhd': 35, 'sixk': 58, 'eightk': 100}\n\n\ndef fail(s):\n    raise RuntimeError(s)\n\n\ndef run_capture(args):\n    proc = subprocess.run(args, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8', errors='replace')\n    if proc.returncode:\n        fail('Błąd polecenia: ' + ' '.join(args[:3]) + '\\n' + proc.stderr[-1400:])\n    return proc.stdout\n\n\ndef probe(p):\n    output = run_capture(['ffprobe', '-v', 'error', '-show_entries', 'stream=codec_type,width,height', '-show_entries', 'format=duration', '-of', 'json', str(p)])\n    return json.loads(output)\n\n\ndef v(x, default=0):\n    try:\n        f = float(x)\n        return f if math.isfinite(f) else float(default)\n    except (TypeError, ValueError):\n        return float(default)\n\n\ndef sec(x):\n    return f'{max(0.0, float(x)):.5f}'\n\n\ndef safe_path(directory, name):\n    if not isinstance(name, str) or not name or Path(name).name != name or name in ('.', '..'):\n        fail('Nieprawidłowa nazwa pliku źródłowego')\n    result = directory / name\n    if not result.is_file():\n        fail('Brakuje pliku: ' + str(result) + ' — skopiuj go do folderu z projektem.')\n    return result\n\n\ndef tempo_chain(rate):\n    rate = max(.25, min(4, rate))\n    factors = []\n    while rate > 2:\n        factors.append(2.0)\n        rate /= 2\n    while rate < .5:\n        factors.append(.5)\n        rate /= .5\n    factors.append(rate)\n    return ','.join(f'atempo={x:.6f}' for x in factors)\n\n\ndef preset_size(project, files, quality):\n    ratio = project.get('ratio', 'source')\n    if ratio == '9:16':\n        w, h = 9, 16\n    elif ratio == '1:1':\n        w, h = 1, 1\n    elif ratio == '16:9':\n        w, h = 16, 9\n    else:\n        w, h = 16, 9\n        for asset in project.get('assets', []):\n            f = files.get(asset.get('id'))\n            if not f:\n                continue\n            for st in probe(f).get('streams', []):\n                if st.get('codec_type') == 'video' and st.get('width') and st.get('height'):\n                    w, h = st['width'], st['height']\n                    break\n            break\n    long = PRESETS[quality]\n    scale = long / max(w, h)\n    return max(2, round(w * scale / 2) * 2), max(2, round(h * scale / 2) * 2)\n\n\ndef main():\n    ap = argparse.ArgumentParser(description='NOVA CUT — niezawodniejszy eksport 720p–8K przez FFmpeg')\n    ap.add_argument('project', help='JSON pobrany z przycisku Eksport Windows w NOVA CUT')\n    ap.add_argument('--media-dir', default=None, help='Folder plików źródłowych; domyślnie folder projektu JSON')\n    ap.add_argument('--out', default=None, help='Docelowy plik MP4')\n    ap.add_argument('--test', action='store_true', help='Szybki test 360p, max 4 s (z oryginalnego projektu)')\n    args = ap.parse_args()\n    if not shutil.which('ffmpeg') or not shutil.which('ffprobe'):\n        fail('Brak FFmpeg/ffprobe w PATH. Zainstaluj FFmpeg na Windows i uruchom ponownie.')\n    jf = Path(args.project).resolve()\n    project = json.loads(jf.read_text(encoding='utf-8-sig'))\n    if project.get('app') != 'NOVA CUT':\n        fail('Nieprawidłowy projekt NOVA CUT.')\n    base = Path(args.media_dir).resolve() if args.media_dir else jf.parent\n    assets = project.get('assets', [])\n    audio_assets = project.get('audioAssets', [])\n    file_map = {}\n    names = {}\n    for a in assets + audio_assets:\n        if a.get('id') in file_map:\n            continue\n        name = a.get('name')\n        if name in names and names[name] != a.get('size'):\n            fail('Dwa różne pliki źródłowe mają taką samą nazwę: ' + str(name))\n        names[name] = a.get('size')\n        file_map[a['id']] = safe_path(base, name)\n    clips = project.get('clips') or []\n    if not clips:\n        fail('Nie ma klipów wideo/zdjęć w projekcie.')\n    clip_end = lambda c: v(c.get('at')) + max(.02, (v(c.get('end')) - v(c.get('start'))) / max(.25, v(c.get('speed'), 1)))\n    duration = max([clip_end(c) for c in clips] + [v(x.get('at')) + v(x.get('duration')) for x in project.get('audioClips', [])] + [v(x.get('end')) for x in project.get('texts', [])] + [v(x.get('end')) for x in project.get('stickers', [])] + [v(x.get('at')) + .45 for x in project.get('sfx', [])] + [0])\n    if duration <= 0:\n        fail('Projekt ma zerowy czas.')\n    if args.test:\n        duration = min(duration, 4)\n    quality = project.get('render', {}).get('quality', 'high')\n    quality = quality if quality in PRESETS else 'high'\n    width, height = preset_size(project, file_map, quality)\n    if args.test:\n        ratio = width / height\n        width = 360\n        height = max(2, round(width / ratio / 2) * 2)\n    fps = int(v(project.get('render', {}).get('fps', 30)))\n    fps = fps if fps in (24, 30, 60) else 30\n    bitrate = v(project.get('render', {}).get('bitrateMbps', RATES[quality]), RATES[quality])\n    bitrate = max(.5, min(300.0, bitrate))\n    if args.test:\n        bitrate = 1.5\n    codec_pref = project.get('render', {}).get('codec', 'h264')\n    output = Path(args.out).resolve() if args.out else jf.with_name('NOVA-CUT-'+quality+('-TEST' if args.test else '')+'.mp4')\n    cmd = ['ffmpeg', '-hide_banner', '-y', '-loglevel', 'warning', '-stats']\n    cmd += ['-f', 'lavfi', '-i', f'color=c=black:s={width}x{height}:r={fps}:d={sec(duration)}']\n    graph = ['[0:v]format=yuv420p[vbase]']\n    last = 'vbase'\n    audio_tags = []\n    input_no = 1\n    metadata_cache = {}\n    def get_has_audio(path):\n        if path not in metadata_cache:\n            metadata_cache[path] = any(s.get('codec_type') == 'audio' for s in probe(path).get('streams', []))\n        return metadata_cache[path]\n    # For separate clips, repeat file as an input. This avoids complex split/EOF bugs.\n    for c in sorted(clips, key=lambda x: (int(v(x.get('track'))), v(x.get('at')))):\n        path = file_map.get(c.get('assetId'))\n        if not path:\n            fail('Brak medium dla klipu ' + str(c.get('id')))\n        a = next((a for a in assets if a.get('id') == c.get('assetId')), {})\n        is_image = a.get('kind') == 'image'\n        if is_image:\n            cmd += ['-loop', '1', '-framerate', str(fps), '-i', str(path)]\n        else:\n            cmd += ['-i', str(path)]\n        idx = input_no\n        input_no += 1\n        at = max(0., v(c.get('at')))\n        speed = max(.25, min(4., v(c.get('speed'), 1)))\n        st = max(0., v(c.get('start')))\n        clip_duration = min(duration - at, max(.02, (v(c.get('end')) - st) / speed))\n        if clip_duration <= 0:\n            continue\n        raw_duration = clip_duration * speed\n        tag = f'v{idx}'\n        tag_next = f'vstep{idx}'\n        graph.append(f'[{idx}:v]trim=start={sec(st)}:duration={sec(raw_duration)},setpts=(PTS-STARTPTS)/{speed:.6f}+{at:.5f}/TB,fps={fps},scale={width}:{height}:force_original_aspect_ratio=increase,crop={width}:{height},setsar=1,format=yuv420p[{tag}]')\n        graph.append(f'[{last}][{tag}]overlay=x=0:y=0:eof_action=pass:repeatlast=0:shortest=0:enable=\\'between(t,{at:.5f},{at + clip_duration:.5f})\\'[{tag_next}]')\n        last = tag_next\n        if not is_image and get_has_audio(path) and v(project.get('vol', 1), 1) > 0:\n            t = f'a{idx}'\n            gain = max(0., min(2., v(project.get('vol', 1), 1)))\n            ms = round(at * 1000)\n            graph.append(f'[{idx}:a]atrim=start={sec(st)}:duration={sec(raw_duration)},asetpts=PTS-STARTPTS,{tempo_chain(speed)},volume={gain:.4f},adelay={ms}:all=1[{t}]')\n            audio_tags.append(t)\n    for c in project.get('audioClips', []):\n        path = file_map.get(c.get('assetId'))\n        if not path:\n            fail('Brak pliku audio dla klipu ' + str(c.get('id')))\n        cmd += ['-i', str(path)]\n        idx = input_no\n        input_no += 1\n        at = max(0., v(c.get('at')))\n        st = max(0., v(c.get('start')))\n        length = min(duration - at, v(c.get('duration')))\n        if length <= 0:\n            continue\n        gain = max(0., min(2., v(c.get('volume', .75), .75) * v(project.get('musicVol', .65), .65)))\n        ms = round(at * 1000)\n        t = f'a{idx}'\n        graph.append(f'[{idx}:a]atrim=start={sec(st)}:duration={sec(length)},asetpts=PTS-STARTPTS,volume={gain:.4f},adelay={ms}:all=1[{t}]')\n        audio_tags.append(t)\n    for j, item in enumerate(project.get('sfx', [])):\n        at = max(0., v(item.get('at')))\n        if at >= duration:\n            continue\n        kind = item.get('type', 'beep')\n        basefreq = {'whoosh': 920, 'pop': 550, 'beep': 880, 'impact': 120}.get(kind, 440)\n        length = min(.45 if kind == 'whoosh' else .25, duration - at)\n        cmd += ['-f', 'lavfi', '-i', f'sine=frequency={basefreq}:sample_rate=48000:duration={sec(length)}']\n        idx = input_no\n        input_no += 1\n        t = f'a{idx}'\n        graph.append(f'[{idx}:a]volume=0.13,adelay={round(at * 1000)}:all=1[{t}]')\n        audio_tags.append(t)\n    # A neutral/consistent output audio stream is present even with no music.\n    if audio_tags:\n        if len(audio_tags) > 1:\n            graph.append(''.join(f'[{x}]' for x in audio_tags) + f'amix=inputs={len(audio_tags)}:duration=longest:dropout_transition=0:normalize=0,atrim=duration={sec(duration)},apad,aresample=48000, aformat=channel_layouts=stereo[outa]'.replace(', aformat', ',aformat'))\n        else:\n            graph.append(f'[{audio_tags[0]}]atrim=duration={sec(duration)},apad,aresample=48000,aformat=channel_layouts=stereo[outa]')\n    else:\n        graph.append(f'anullsrc=channel_layout=stereo:sample_rate=48000,atrim=duration={sec(duration)}[outa]')\n    filt = project.get('filters', {})\n    brightness = (v(filt.get('brightness'),100)-100)/175.0\n    contrast = min(1.75,max(.25,v(filt.get('contrast'),100)/100))\n    sat = max(0.,min(2.,v(filt.get('saturation'),100)/100)) * (1-max(0,min(100,v(filt.get('grayscale'),0)))/100)\n    graph.append(f'[{last}]eq=brightness={brightness:.4f}:contrast={contrast:.4f}:saturation={sat:.4f},format=yuv420p[outv]')\n    if project.get('texts') or project.get('stickers') or project.get('motionEffect', 'none') != 'none':\n        print('UWAGA: renderer desktopowy nie obsługuje jeszcze animowanych napisów, naklejek i efektów ruchu. Użyj eksportu przeglądarkowego, aby je zachować.')\n    tmp = Path(tempfile.mkdtemp(prefix='novacut_'))\n    graph_file = tmp / 'filters.txt'\n    graph_file.write_text(';'.join(graph), encoding='utf-8')\n    cmd += ['-filter_complex_script', str(graph_file), '-map', '[outv]', '-map', '[outa]', '-t', sec(duration), '-r', str(fps), '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-movflags', '+faststart']\n    encoders = run_capture(['ffmpeg','-hide_banner','-encoders'])\n    if codec_pref == 'h265' and 'libx265' in encoders:\n        codec = 'libx265'\n    elif 'libx264' in encoders:\n        codec = 'libx264'\n    elif 'mpeg4' in encoders:\n        codec = 'mpeg4'\n    else:\n        fail('Brak obsługi kodera H.264/MPEG4 w zainstalowanym FFmpeg.')\n    cmd += ['-c:v', codec, '-b:v', str(round(bitrate * 1000000)), '-maxrate', str(round(bitrate * 1400000)), '-bufsize', str(round(bitrate * 2800000))]\n    if codec == 'libx265':\n        cmd += ['-preset', 'ultrafast', '-tag:v', 'hvc1']\n    elif codec == 'libx264':\n        cmd += ['-preset', 'veryfast', '-profile:v', 'high']\n    cmd += [str(output)]\n    print(f'NOVA CUT — render {width}×{height}, {fps} FPS, {duration:.2f} s, {codec}, {bitrate:g} Mbps')\n    print(f'Plik wynikowy: {output}')\n    try:\n        proc = subprocess.run(cmd)\n        if proc.returncode:\n            fail('FFmpeg zakończył się błędem. Spróbuj 1080p/30 FPS, zmień kodek na H.264 lub upewnij się, że masz wystarczająco dużo RAM i miejsca.')\n    finally:\n        try: graph_file.unlink(); tmp.rmdir()\n        except OSError: pass\n    result = probe(output)\n    st = result.get('streams', [])\n    if not any(s.get('codec_type') == 'video' for s in st) or not any(s.get('codec_type') == 'audio' for s in st):\n        fail('Błąd kontroli: plik wynikowy nie ma obrazu lub dźwięku.')\n    print('GOTOWE! Zweryfikowano w MP4 ścieżkę wideo i audio AAC.')\n\n\nif __name__ == '__main__':\n    try: main()\n    except Exception as e:\n        print('\\nBŁĄD:', str(e), file=sys.stderr)\n        sys.exit(1)\n";
+const WINDOWS_LAUNCHER_SOURCE="@echo off\nchcp 65001 >nul\nsetlocal\ncd /d \"%~dp0\"\necho NOVA CUT 5.1 — EXPORT WINDOWS (FFmpeg)\necho.\nwhere python >nul 2>nul\nif errorlevel 1 (\n  echo BRAK PYTHON 3. Zainstaluj z python.org i zaznacz Add Python to PATH.\n  pause\n  exit /b 1\n)\nwhere ffmpeg >nul 2>nul\nif errorlevel 1 (\n  echo BRAK FFmpeg. Zainstaluj FFmpeg i dodaj folder bin do PATH.\n  pause\n  exit /b 1\n)\nif \"%~1\"==\"\" (\n  echo Przeciagnij plik NOVA-CUT-5.1-WINDOWS.json na plik render_windows.bat\n  echo lub uruchom: render_windows.bat \"NOVA-CUT-5.1-WINDOWS.json\"\n  pause\n  exit /b 1\n)\npython \"%~dp0render_windows.py\" \"%~1\"\necho.\npause\n";
+function makeWindowsJob(){
+ if(!S.clips.length){notify('Najpierw dodaj film lub zdjęcie.');return null;}
+ const duplicates=new Map();
+ for(const a of [...S.assets.values(),...S.audioAssets.values()]){
+  if(duplicates.has(a.name)&&duplicates.get(a.name)!==a.size){notify('Dwa różne pliki źródłowe mają tę samą nazwę. Najpierw zmień ich nazwy.');return null;}
+  duplicates.set(a.name,a.size);
+ }
+ const quality=$('quality').value;
+ return {app:'NOVA CUT',version:5.1,ratio:S.ratio,
+ assets:[...S.assets.values()].map(a=>({id:a.id,name:a.name,size:a.size,kind:a.kind,duration:a.duration})),
+ audioAssets:[...S.audioAssets.values()].map(a=>({id:a.id,name:a.name,size:a.size,duration:a.duration})),
+ clips:S.clips,audioClips:S.audioClips,sfx:S.sfx,texts:S.texts,stickers:S.stickers,
+ vol:S.vol,musicVol:S.musicVol,filters:S.filters,motionEffect:S.motionEffect,
+ render:{quality,fps:Number($('fps').value)||30,codec:$('videoCodec').value,
+ bitrateMbps:bitrateFor(quality)/1000000}};
+}
+$('winJob').onclick=()=>{
+ const job=makeWindowsJob();if(!job)return;
+ download(new Blob([JSON.stringify(job,null,2)],{type:'application/json'}),'NOVA-CUT-5.1-WINDOWS.json');
+ notify('Pobrano JSON. Aby wyrenderować MP4 na Windows, skopiuj go wraz z mediami i skryptami renderowania do jednego folderu.');
+};
+async function writeDirectoryFile(directory,name,payload){
+ const h=await directory.getFileHandle(name,{create:true}),w=await h.createWritable();
+ try{await w.write(payload);await w.close()}catch(e){try{await w.abort()}catch{}throw e}
+}
+$('folderJob').onclick=async()=>{
+ if(!window.showDirectoryPicker){$('exportStatus').textContent='Wybór folderu jest dostępny głównie w Chrome/Edge na komputerze (HTTPS). Użyj „Pobierz projekt JSON” albo przenieś projekt na Windows.';return;}
+ const job=makeWindowsJob();if(!job)return;
+ let directory;
+ try{directory=await window.showDirectoryPicker({mode:'readwrite'})}catch(e){if(e.name!=='AbortError')$('exportStatus').textContent='Nie można wybrać folderu: '+e.message;return}
+ const media=[...S.assets.values(),...S.audioAssets.values()],all=media.length+3;
+ try{
+  $('exportStatus').textContent='Przygotowywanie folderu eksportu Windows…';
+  await writeDirectoryFile(directory,'NOVA-CUT-5.1-WINDOWS.json',new Blob([JSON.stringify(job,null,2)],{type:'application/json'}));
+  await writeDirectoryFile(directory,'render_windows.py',new Blob([WINDOWS_RENDERER_SOURCE],{type:'text/plain'}));
+  await writeDirectoryFile(directory,'render_windows.bat',new Blob([WINDOWS_LAUNCHER_SOURCE],{type:'text/plain'}));
+  let i=3;
+  for(const a of media){
+   if(!a.file)throw Error('Oryginalny plik '+a.name+' nie jest już dostępny. Zaimportuj go ponownie.');
+   await writeDirectoryFile(directory,a.name,a.file);i++;
+   $('exportStatus').textContent=`Kopiuję multimedia ${i}/${all} — ${a.name}`;
+  }
+  $('exportStatus').textContent='✅ Folder gotowy: projekt JSON, oryginalne media i skrypty Windows. Uruchom render_windows.bat z nazwą projektu jako argumentem (przeciągnij JSON na BAT).';
+  notify('Przygotowano folder eksportu Windows.');
+ }catch(e){$('exportStatus').textContent='Nie udało się przygotować całego folderu: '+e.message}
+};
+
+// NOVA CUT 5.2 desktop integration: native FFmpeg, direct access to imported files.
+if(window.NovaDesktop){
+ document.body.classList.add('is-desktop');
+ $('desktopExport').style.display='inline-flex';
+ $('nativeStatus').style.display='block';
+ $('folderJob').style.display='none';
+ $('winJob').style.display='none';
+ const nativeProgress=$('nativeStatus'), nativeBtn=$('desktopExport'), cancelNative=$('desktopCancel');
+ let nativeRendering=false;
+ function desktopMessage(t){nativeProgress.textContent=t;notify(t)}
+ nativeBtn.onclick=async()=>{
+  if(nativeRendering)return;
+  const job=makeWindowsJob();if(!job)return;
+  const files=[...S.assets.values(),...S.audioAssets.values()].map(a=>({id:a.id,path:a.desktopPath||''}));
+  if(files.some(f=>!f.path))return desktopMessage('Brakuje dostępu do plików. Zaimportuj filmy i muzykę ponownie przez przycisk Dodaj.');
+  nativeRendering=true;nativeBtn.disabled=true;cancelNative.style.display='inline-flex';
+  desktopMessage('Wybierz miejsce zapisu MP4. FFmpeg zachowa ścieżkę audio AAC.');
+  try{
+   const result=await window.NovaDesktop.render(job,files);
+   if(result?.cancelled)desktopMessage('Anulowano wybór pliku.');
+   else if(result?.error)desktopMessage('❌ '+result.error);
+   else if(result?.ok)desktopMessage('✅ Gotowy MP4 '+result.width+'×'+result.height+' z audio AAC: '+result.path);
+  }catch(e){desktopMessage('❌ '+e.message)}
+  finally{nativeRendering=false;nativeBtn.disabled=false;cancelNative.style.display='none';}
+ };
+ cancelNative.onclick=()=>window.NovaDesktop.cancelRender();
+ window.NovaDesktop.onProgress(data=>{
+  if(data.phase==='rendering')nativeProgress.textContent='FFmpeg · '+Math.round((data.progress||0)*100)+'%'+(data.message?' · '+data.message:'');
+  else if(data.message)nativeProgress.textContent=data.message;
+ });
+ window.NovaDesktop.onCommand(command=>{
+  if(command==='media')$('mediaInput').click();
+  if(command==='audio')$('audioInput').click();
+  if(command==='save')$('saveProject').click();
+  if(command==='export')nativeBtn.click();
+ });
+}
+
+preflightExport();
+
+renderAll();dimensions();updateCodecStatus();})();
+
+</script></body></html>

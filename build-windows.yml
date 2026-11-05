@@ -1,0 +1,32 @@
+name: NOVA CUT - Windows EXE
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Pobierz pliki
+        uses: actions/checkout@v4
+      - name: Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Zainstaluj zależności
+        run: npm install --no-audit --no-fund
+      - name: Zbuduj instalator i portable
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+        run: npm run build:win
+      - name: Zapisz pliki EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: NOVA-CUT-Windows-5.2
+          path: dist/*.exe
+          if-no-files-found: error
+          retention-days: 30

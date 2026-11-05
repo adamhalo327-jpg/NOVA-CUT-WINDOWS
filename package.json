@@ -1,0 +1,71 @@
+{
+  "name": "nova-cut-desktop",
+  "productName": "NOVA CUT",
+  "version": "5.2.0",
+  "description": "NOVA CUT professional video editor for Windows",
+  "main": "main.js",
+  "author": "NOVA CUT",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "build:win": "electron-builder --win --x64",
+    "build:win:portable": "electron-builder --win portable --x64"
+  },
+  "dependencies": {
+    "ffmpeg-static": "5.3.0",
+    "ffprobe-static": "^3.1.0"
+  },
+  "devDependencies": {
+    "electron": "^43.0.0",
+    "electron-builder": "^26.0.0"
+  },
+  "build": {
+    "appId": "com.novacut.editor",
+    "productName": "NOVA CUT",
+    "asar": true,
+    "asarUnpack": [
+      "node_modules/ffmpeg-static/**",
+      "node_modules/ffprobe-static/**"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "app/**/*",
+      "assets/**/*",
+      "main.js",
+      "preload.js",
+      "native-renderer.js",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/novacut.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "artifactName": "NOVA-CUT-5.2-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "NOVA-CUT-5.2-Portable-${version}.${ext}"
+    },
+    "publish": null
+  }
+}
