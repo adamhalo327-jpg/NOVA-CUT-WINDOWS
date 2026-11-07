@@ -1,8 +1,8 @@
 {
   "name": "nova-cut-desktop",
   "productName": "NOVA CUT",
-  "version": "5.2.0",
-  "description": "NOVA CUT professional video editor for Windows",
+  "version": "5.2.2",
+  "description": "NOVA CUT Windows edition with source-bundle and startup verification",
   "main": "main.js",
   "author": "NOVA CUT",
   "license": "UNLICENSED",
@@ -10,7 +10,9 @@
   "scripts": {
     "start": "electron .",
     "build:win": "electron-builder --win --x64",
-    "build:win:portable": "electron-builder --win portable --x64"
+    "build:win:portable": "electron-builder --win portable --x64",
+    "check": "node scripts/check-project.js",
+    "prebuild:win": "npm run check"
   },
   "dependencies": {
     "ffmpeg-static": "5.3.0",
@@ -61,10 +63,10 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "artifactName": "NOVA-CUT-5.2-Setup-${version}.${ext}"
+      "artifactName": "NOVA-CUT-5.2.2-Setup-${version}.${ext}"
     },
     "portable": {
-      "artifactName": "NOVA-CUT-5.2-Portable-${version}.${ext}"
+      "artifactName": "NOVA-CUT-5.2.2-Portable-${version}.${ext}"
     },
     "publish": null
   }
