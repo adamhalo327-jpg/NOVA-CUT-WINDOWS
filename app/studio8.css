@@ -1,0 +1,35 @@
+/* NOVA CUT 8.0 — ULTIMATE STUDIO. Extends existing fixed workspaces without altering renderer. */
+:root{--bg:#070b13;--panel:#111a27;--panel2:#182438;--border:#26374c;--fg:#f0f6ff;--sub:#9fb2c9;--mint:#40ead0;--blue:#84a9ff}
+body{background:radial-gradient(circle at 52% -25%,#153548,#070b13 58%);font-family:Inter,'Segoe UI',system-ui,sans-serif}
+header{background:linear-gradient(90deg,#0b1525,#0f1e2f);border-bottom:1px solid #245269}
+.brand{letter-spacing:1.8px}.brand b{filter:drop-shadow(0 0 9px #40ead055)}
+.panel,.viewer,.timeline{border:1px solid #2b415b;box-shadow:0 5px 22px #0006;border-radius:14px}
+#proTimeline{background:linear-gradient(135deg,#101c2b,#0d1421)}
+#proMediaPanel,#proInspector{background:linear-gradient(180deg,#101b2c,#101622)}
+#proViewer .stage{border:1px solid #2b3d54;background:radial-gradient(circle at 50% 35%,#19263c,#05090f 72%)}
+#proTimeline .tracklabel{background:#17273c;border-color:#2a3a50}
+#proTimeline .ruler{background:#111f32}
+#studio8Bar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:9px 11px;border:1px solid #236b6e;background:linear-gradient(100deg,#103137,#152842);border-radius:11px;margin:8px 0 12px}
+#studio8Bar button{background:#233e5b;border-color:#326d76;padding:6px 10px}
+#studio8Bar button:hover{background:#245f61}
+#studio8Bar .brand8{font-weight:850;color:#73ffe7;margin-right:6px}
+#studio8Bar .status8{color:#a9c6d7;font-size:11px;flex:1;min-width:130px}
+.nc8-section{border:1px solid #304960;background:#132236;border-radius:12px;margin:11px 0;padding:12px}
+.nc8-section h3{margin:0 0 9px;color:#57efda}
+.nc8-section .field{margin:8px 0;min-width:0}.nc8-section .field input{min-width:0;max-width:110px}
+.nc8-form{display:grid;grid-template-columns:1fr 1fr;gap:8px}.nc8-form label{display:flex;flex-direction:column;gap:5px;font-size:11px;color:#b1c8dc}
+.nc8-form input,.nc8-form select{width:100%!important;max-width:none!important}
+.nc8-button{border:1px solid #2f777c;background:#183a43;color:#cbfff6;padding:8px 11px;border-radius:9px;font-size:12px}
+.nc8-mini{font-size:11px;color:#9db8d1;line-height:1.5;margin:5px 0 0}
+.nc8-state{font-size:11px;line-height:1.4;white-space:pre-wrap;color:#70dfca;margin-top:6px}
+.clip.nc8-decorated{justify-content:flex-start;isolation:isolate;overflow:hidden!important}
+.clip.nc8-decorated .nc8-label{position:relative;z-index:2;background:#071321bb;text-shadow:0 1px 2px black;border-radius:4px;padding:2px 5px;overflow:hidden;text-overflow:ellipsis;max-width:100%;pointer-events:none;font-weight:700}
+.clip.nc8-decorated .nc8-thumbs{position:absolute;inset:0;display:flex;opacity:.65;overflow:hidden;pointer-events:none;z-index:0}
+.clip.nc8-decorated .nc8-thumbs img{height:100%;width:80px;object-fit:cover;flex:0 0 80px;border-right:1px solid #fff2}
+.clip.nc8-decorated .nc8-wave{position:absolute;inset:3px 0;width:100%;height:calc(100% - 6px);z-index:1;opacity:.9;pointer-events:none}
+.clip.nc8-decorated .nc8-wave path{fill:none;stroke:#5cffe0;stroke-width:1.3;vector-effect:non-scaling-stroke}
+.clip.nc8-decorated.audio .nc8-label{background:#073a3cbb}
+.nc8-kfdot{position:absolute;bottom:2px;width:7px;height:7px;transform:translateX(-50%) rotate(45deg);background:#ffc566;z-index:3;pointer-events:none}
+#nc8AutoSavePanel .nc8-state{min-height:15px}
+#studio8Bar .nc8-mark{color:#bafff3;font-size:12px}
+@media(max-width:850px){#studio8Bar{gap:4px}.nc8-section{padding:8px}}

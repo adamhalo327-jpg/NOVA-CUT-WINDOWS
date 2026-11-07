@@ -4,6 +4,7 @@ contextBridge.exposeInMainWorld('NovaDesktop', Object.freeze({
   filePath(file) { try { return webUtils.getPathForFile(file); } catch { return ''; } },
   render(job, files) { return ipcRenderer.invoke('nova:native-render', {job, files}); },
   cancelRender() { return ipcRenderer.invoke('nova:cancel-render'); },
+  transcribe(request) { return ipcRenderer.invoke('nova:transcribe', request); },
   onProgress(callback) {
     const handler = (_event, msg) => callback(msg);
     ipcRenderer.on('nova:render-progress', handler);

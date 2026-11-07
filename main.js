@@ -3,8 +3,9 @@ const { app, BrowserWindow, Menu, dialog, ipcMain, shell } = require('electron')
 const fs = require('fs');
 const path = require('path');
 const { renderProject, cancelRender } = require('./native-renderer');
+const {transcribeOffline} = require('./speech-renderer');
 
-// NOVA CUT 7.0 - start-up self-diagnostics.
+// NOVA CUT 8.0 - start-up self-diagnostics.
 // The old version showed an empty window if app/index.html was absent.
 let win = null;
 let showingError = false;
@@ -43,7 +44,7 @@ function createWindow() {
   showingError = false;
   win = new BrowserWindow({
     width: 1480, height: 910, minWidth: 960, minHeight: 650,
-    backgroundColor: '#080b12', title: 'NOVA CUT 7.0 - Windows',
+    backgroundColor: '#080b12', title: 'NOVA CUT 8.0 - TIMELINE ULTRA PRO',
     icon: path.join(__dirname,'assets','novacut.ico'),
     autoHideMenuBar: true, show: !smokeCheck,
     webPreferences: {
@@ -137,3 +138,6 @@ ipcMain.handle('nova:native-render',async(event,{job,files})=>{
   }catch(e){log('Render error: '+String(e.stack||e));return {error:String(e.message||e)};}
 });
 ipcMain.handle('nova:cancel-render',()=>{cancelRender();return true});
+
+// NOVA CUT 8.0: Whisper offline speech-to-captions.
+ipcMain.handle('nova:transcribe', async(_event,request)=>{try{return await transcribeOffline(request)}catch(e){log('Speech error: '+(e.stack||e));return {ok:false,error:String(e.message||e)}}});
