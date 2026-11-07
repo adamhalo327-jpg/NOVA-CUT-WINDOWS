@@ -1,21 +1,17 @@
-NOVA CUT 8.0 — ULTIMATE STUDIO (Windows 10/11 64-bit)
+# NOVA CUT 8.2 — ULTRA CINEMA (Windows)
 
-Nowości: fale dźwiękowe AUDIO, miniatury zdjęć/filmów, efekty VHS/Film Grain/Winieta, keyframes (skala, pozycja i przezroczystość), automatyczne napisy z lokalnym Whisper.cpp, autozapis ustawień montażu oraz odświeżony interfejs.
+Oparto na działającym 8.1. Zachowano montaż, keyframes, miniatury, waveformy, Whisper offline, autozapis oraz eksport MP4 z dźwiękiem.
 
-Eksport FFmpeg MP4 z 7.0 pozostaje bez zmian. Klatki kluczowe, nowe efekty i automatyczne napisy są renderowane w silniku Canvas (Eksportuj — przeglądarka), natywny FFmpeg nadal pomija zaawansowane animacje i napisy. To ograniczenie zostanie usunięte w kolejnej aktualizacji.
+## ULTRA CINEMA
+- Proporcje kinowe inspirowane wielkoformatową projekcją: 1.43:1 i 1.90:1. **Nie jest to certyfikowany IMAX**.
+- Gotowe przyciski 4K UHD 3840, 8K UHD 7680, 10K Ultra 9600, 24 FPS. Są to szerokości klatki, nie gwarantowane standardy DCI/IMAX.
+- Przykłady: 4K 1.90:1 = 3840×2022, 4K 1.43:1 = 3840×2686, 8K 1.90:1 = 7680×4042, 10K 1.43:1 = 9600×6714.
+- Kolory: neutralny, blockbuster, golden, monochrome; filtry na podglądzie i w natywnym FFmpeg (zbliżone efekty, nie identyczna krzywa barw).
+- Audio Cinema: AAC stereo 48 kHz, 320 kb/s (standard 192 kb/s). **Nie Dolby Atmos, nie przestrzenne 5.1**.
+- Dla wysokich trybów kinowych użyj 'Eksport MP4 na Windows (FFmpeg)' w zakładce Eksport; eksport z przeglądarki może się ograniczać.
+- FFmpeg 10K testuje RAM/dysk/encoder; wyższy kadr 1.43:1 wymaga proporcjonalnie większej ilości RAM. Render MP4 nie ma prawa być oznaczony jako 10K z niższą rozdzielczością.
+- Keyframes i automatyczne napisy z 8.0 pozostają obsługiwane przez podgląd/eksport przeglądarkowy; natywny renderer Windows nie wypala tych animacji.
+- Zachowano źródła i funkcje Windows 8.1, w tym ffmpeg-static, ffprobe-static, Whisper Base offline w gotowej kompilacji.
 
-Autonapisy: wybierz audio lub film z mową, kliknij Automatyczne napisy. Rozpoznawanie offline na CPU, model Whisper base jest pobierany przez workflow i pakowany do instalatora. Aplikacja nie wysyła nagrań do chmury.
-
-AUTOZAPIS: co 15 sekund i przy zmianach, do localStorage. Nie zapisuje bajtów plików źródłowych. Po przywróceniu trzeba zaimportować media ponownie; ich identyfikacja odbywa się po nazwie i rozmiarze.
-
-Wersję Windows build wykonuje GitHub Actions z gałęzi release/nova-cut-8.0-ultimate-studio. Źródła nie zawierają modelu ggml-base.bin, znajduje się on wyłącznie w docelowych instalatorach.
-
-Prośba: rozmiar 500–750 MB oznacza łączny ZIP Setup+Portable. GitHub Actions raportuje realną wielkość (bez sztucznego paddingu). Sprawdzaj logi i rezultat kompilacji.
-
-
-NOVA CUT 8.1 - 10K QUALITY
-- Opcja 10K (9600 x 5400) w zakładce Eksport. Wymaga aplikacji Windows i przycisku Eksport MP4 na Windows.
-- Przed renderem sprawdza dostepny kodek HEVC (libx265) lub AV1, co najmniej 8 GiB wolnego RAM oraz wolne miejsce na dysku. Zalecane 16 GiB wolnego RAM i wiecej.
-- Eksport 10K jest eksperymentalny. HEVC 10K moze wykraczac poza oficjalne profile i ograniczenia odtwarzaczy; FFmpeg lub koder moze odmowic eksportu. W razie problemu wybierz 8K lub 4K.
-- Przy braku mozliwosci renderu program pokazuje blad zamiast potajemnie obnizac jakosc.
-- Dotychczasowy eksport 720p-8K i narzedzia 8.0 zostaly zachowane.
+## Lokalna kontrola
+`npm run check` (Node 22). Kompilacja Windows: `npm install` i `npm run build:win`.

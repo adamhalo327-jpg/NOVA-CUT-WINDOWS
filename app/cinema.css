@@ -1,0 +1,21 @@
+/* NOVA CUT 8.2 — ULTRA CINEMA. More editorial, dark theatre tones. */
+:root{--mint:#e6be74;--pink:#cba7f4;--blue:#a8bbef;--border:#3b3841;--bg:#090a10;--panel:#151720;--panel2:#20232c}
+header{background:linear-gradient(100deg,#13131c,#201a25 72%,#131821);border-bottom:1px solid #5e4c3d}
+.brand{letter-spacing:.05em} .brand b{color:#e7bc74}
+#proViewer{background:radial-gradient(circle at 50% 40%,#222333 0,#0d1019 85%)}
+#proViewer .stage{background:#050507;border:1px solid #514532;box-shadow:0 16px 40px #0008;position:relative}
+#cinemaBadge{position:absolute;top:12px;left:12px;z-index:10;background:#0c0c13e6;color:#f2d399;border:1px solid #8a6c42;border-radius:7px;padding:5px 10px;letter-spacing:.10em;font-size:10px;font-weight:800;pointer-events:none}
+#cinemaBadge.hide{display:none}
+.cinema-panel{background:linear-gradient(145deg,#221b1d,#151923);padding:13px;margin:8px 0 14px;border:1px solid #776044;border-radius:13px;box-shadow:inset 0 1px #a98a4c25}
+.cinema-panel h3{color:#efd09a;margin:0 0 6px;font-size:14px;letter-spacing:.10em}
+.cinema-panel .cinema-sub{font-size:11px;color:#cabbb4;line-height:1.55;margin:0 0 12px}
+.cinema-panel .cinema-presets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:8px 0 12px}
+.cinema-panel button{padding:8px 2px;font-weight:700;border-color:#846b46;background:#312a2c;color:#f2debc}
+.cinema-panel button:hover{background:#4a3940}
+.cinema-panel label{display:block;font-size:12px;color:#d7ced1;margin:8px 0}
+.cinema-panel select{width:100%;margin-top:5px;padding:8px;background:#161924;color:#fbf1da;border:1px solid #665a52;border-radius:8px}
+.cinema-panel .cinema-info{border-top:1px solid #6f5b4866;margin-top:10px;padding-top:10px;color:#e6c99c;font-size:12px;font-variant-numeric:tabular-nums}
+#ratioBar button[data-ratio="1.43:1"],#ratioBar button[data-ratio="1.90:1"]{border-color:#98764a;color:#f5d5a0}
+#ratioBar button.primary[data-ratio="1.43:1"],#ratioBar button.primary[data-ratio="1.90:1"]{background:#e5c184;color:#151218}
+.cinema-panel .cinema-note{font-size:11px;color:#b8aab0;line-height:1.4;margin:9px 0 0}
+@media(max-width:1100px){.cinema-panel .cinema-presets{grid-template-columns:repeat(3,minmax(0,1fr))}}

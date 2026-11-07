@@ -4,6 +4,7 @@ const os = require('os');
 const path = require('path');
 const {spawn, spawnSync} = require('child_process');
 const {assess10K,diskFreeBytes}=require('./render-guard');
+const {cinemaDimensions,cinemaLookFilter,cinemaAudioSettings}=require('./cinema-engine');
 let currentProcess = null;
 const SIZES = {standard:1280,high:1920,qhd:2560,uhd:3840,sixk:5760,eightk:7680,tenk:9600};
 const BITS = {standard:5,high:10,qhd:18,uhd:35,sixk:58,eightk:100,tenk:120};
@@ -39,6 +40,8 @@ async function renderProject({job,files,out,onProgress=()=>{}}){
   let w=16,h=9;
   if(ratio==='9:16'){w=9;h=16;}
   else if(ratio==='1:1'){w=1;h=1;}
+  else if(ratio==='1.43:1'){w=143;h=100;}
+  else if(ratio==='1.90:1'){w=190;h=100;}
   else if(ratio==='source' && job.assets?.length){
     const p=media.get(job.assets[0].id);
     const st=probe(ffprobe,p).streams.find(s=>s.width&&s.height);
@@ -46,7 +49,8 @@ async function renderProject({job,files,out,onProgress=()=>{}}){
   }
   const quality=Object.hasOwn(SIZES,job.render?.quality)?job.render.quality:'high';
   const scale=SIZES[quality]/Math.max(w,h);
-  const width=quality==='tenk'?9600:Math.max(2,Math.round(w*scale/2)*2),height=quality==='tenk'?5400:Math.max(2,Math.round(h*scale/2)*2);
+  const cinema=cinemaDimensions(quality,ratio);
+  const width=cinema?cinema.width:quality==='tenk'?9600:Math.max(2,Math.round(w*scale/2)*2),height=cinema?cinema.height:quality==='tenk'?5400:Math.max(2,Math.round(h*scale/2)*2);
   const fps=[24,30,60].includes(Number(job.render?.fps))?Number(job.render.fps):30;
   const bitrate=clamp(number(job.render?.bitrateMbps,BITS[quality]),.5,300);
   const clipEnd=c=>number(c.at)+Math.max(.02,(number(c.end)-number(c.start))/clamp(number(c.speed,1),.25,4));
@@ -55,9 +59,9 @@ async function renderProject({job,files,out,onProgress=()=>{}}){
   let tenkPlan=null;
   if(quality==='tenk'){
     const encList=run(ffmpeg,['-hide_banner','-encoders']);
-    tenkPlan=assess10K({freeDiskBytes:diskFreeBytes(out),duration,bitrateMbps:bitrate,fps,encoders:encList,requestedCodec:job.render?.codec});
+    tenkPlan=assess10K({freeDiskBytes:diskFreeBytes(out),duration,bitrateMbps:bitrate,fps,encoders:encList,requestedCodec:job.render?.codec,width,height});
     if(!tenkPlan.ok)throw Error('Eksport 10K nie może zostać uruchomiony: '+tenkPlan.errors.join(' '));
-    onProgress({phase:'checking',progress:0,message:'10K · 9600×5400. '+tenkPlan.warnings.join(' ')});
+    onProgress({phase:'checking',progress:0,message:'10K · '+width+'×'+height+'. '+tenkPlan.warnings.join(' ')});
   }
   const filters=[];const inputs=['-f','lavfi','-i',`color=c=black:s=${width}x${height}:r=${fps}:d=${sec(duration)}`];
   filters.push('[0:v]format=yuv420p[vbase]');let last='vbase',idx=1;const audio=[];
@@ -75,7 +79,7 @@ async function renderProject({job,files,out,onProgress=()=>{}}){
     const display=Math.min(duration-at,Math.max(.02,(number(c.end)-start)/speed));
     if(display<=0){idx++;continue;}
     const raw=display*speed,tag='v'+idx,next='vstep'+idx;
-    const fit10k=quality==='tenk'?`scale=${width}:${height}:force_original_aspect_ratio=decrease,pad=${width}:${height}:(ow-iw)/2:(oh-ih)/2`:`scale=${width}:${height}:force_original_aspect_ratio=increase,crop=${width}:${height}`;
+    const fit10k=(quality==='tenk'||cinema)?`scale=${width}:${height}:force_original_aspect_ratio=decrease,pad=${width}:${height}:(ow-iw)/2:(oh-ih)/2`:`scale=${width}:${height}:force_original_aspect_ratio=increase,crop=${width}:${height}`;
     filters.push(`[${idx}:v]trim=start=${sec(start)}:duration=${sec(raw)},setpts=(PTS-STARTPTS)/${speed.toFixed(6)}+${at.toFixed(5)}/TB,fps=${fps},${fit10k},setsar=1,format=yuv420p[${tag}]`);
     filters.push(`[${last}][${tag}]overlay=x=0:y=0:eof_action=pass:repeatlast=0:shortest=0:enable='between(t,${at.toFixed(5)},${(at+display).toFixed(5)})'[${next}]`);
     last=next;
@@ -108,7 +112,9 @@ async function renderProject({job,files,out,onProgress=()=>{}}){
   else if(audio.length===1)filters.push(`[${audio[0]}]atrim=duration=${sec(duration)},apad,aresample=48000,aformat=channel_layouts=stereo[outa]`);
   else filters.push(`anullsrc=channel_layout=stereo:sample_rate=48000,atrim=duration=${sec(duration)}[outa]`);
   const f=job.filters||{};
-  filters.push(`[${last}]eq=brightness=${((number(f.brightness,100)-100)/175).toFixed(4)}:contrast=${clamp(number(f.contrast,100)/100,.25,1.75).toFixed(4)}:saturation=${(clamp(number(f.saturation,100)/100,0,2)*(1-clamp(number(f.grayscale,0),0,100)/100)).toFixed(4)},format=yuv420p[outv]`);
+  const cinemaLook=cinemaLookFilter(job.cinema?.look||'natural');
+  const audioOutput=cinemaAudioSettings(job.cinema?.sound||'standard');
+  filters.push(`[${last}]eq=brightness=${((number(f.brightness,100)-100)/175).toFixed(4)}:contrast=${clamp(number(f.contrast,100)/100,.25,1.75).toFixed(4)}:saturation=${(clamp(number(f.saturation,100)/100,0,2)*(1-clamp(number(f.grayscale,0),0,100)/100)).toFixed(4)}${cinemaLook?','+cinemaLook:''},format=yuv420p[outv]`);
   const enc=run(ffmpeg,['-hide_banner','-encoders']);
   const codecWanted=job.render?.codec;
   const codec=quality==='tenk'?tenkPlan.encoder:(codecWanted==='h265'&&enc.includes('libx265')?'libx265':enc.includes('libx264')?'libx264':enc.includes('mpeg4')?'mpeg4':null);
@@ -117,7 +123,7 @@ async function renderProject({job,files,out,onProgress=()=>{}}){
   const script=path.join(tmp,'filters.txt');fs.writeFileSync(script,filters.join(';'),'utf8');
   const args=['-hide_banner','-y','-nostdin','-loglevel','error','-progress','pipe:1',...inputs,'-filter_complex_script',script,
     '-map','[outv]','-map','[outa]','-t',sec(duration),'-r',String(fps),'-pix_fmt','yuv420p',
-    '-c:a','aac','-b:a','192k','-ar','48000','-movflags','+faststart',
+    '-c:a','aac','-b:a',audioOutput.bitrate,'-ar',String(audioOutput.sampleRate),'-ac',String(audioOutput.channels),'-movflags','+faststart',
     '-c:v',codec,'-b:v',String(Math.round(bitrate*1000000)),'-maxrate',String(Math.round(bitrate*1400000)),
     '-bufsize',String(Math.round(bitrate*2800000))];
   if(codec==='libx264')args.push('-preset','veryfast','-profile:v','high');
@@ -141,7 +147,7 @@ async function renderProject({job,files,out,onProgress=()=>{}}){
       child.on('close',(code,signal)=>{cancelled=signal!=null;currentProcess=null;if(code===0)resolve();else reject(Error(cancelled?'Eksport anulowany.':(quality==='tenk'?'Render 10K nie powiódł się. Możliwy brak pamięci lub nieobsługiwany profil kodeka. Wybierz 8K/4K albo spróbuj na wydajniejszym komputerze. ':'Błąd FFmpeg: ')+stderr.slice(-1800)))})
     });
     const streams=probe(ffprobe,out).streams;
-    if(quality==='tenk'&&!streams.some(st=>st.codec_type==='video'&&st.width===9600&&st.height===5400))throw Error('Plik wyjściowy nie ma dokładnej rozdzielczości 9600×5400 — eksport 10K nie został zatwierdzony.');
+    if((quality==='tenk'||cinema)&&!streams.some(st=>st.codec_type==='video'&&st.width===width&&st.height===height))throw Error('Film wynikowy nie ma dokładnego formatu '+width+'×'+height+' — eksport nie został zatwierdzony.');
     if(!streams.some(s=>s.codec_type==='video')||!streams.some(s=>s.codec_type==='audio'))throw Error('Brak obrazu lub ścieżki audio w pliku wynikowym.');
     onProgress({phase:'done',progress:1,message:'Gotowe · MP4 z dźwiękiem AAC'});
     return {path:out,codec,width,height,audio:true};

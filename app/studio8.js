@@ -133,9 +133,7 @@ function decorate(){for(const tile of $('tracks').querySelectorAll('.clip')){
  const label=document.createElement('span');label.className='nc8-label';
  for(const node of [...tile.childNodes])if(node.nodeType===Node.TEXT_NODE){label.textContent+=node.textContent;node.remove()}
  if(!label.textContent)label.textContent=tile.textContent.trim();tile.prepend(label);tile.classList.add('nc8-decorated');
- const key=tile.dataset.assetid;
- const clipIndex=Number(tile.dataset.clipindex);
- let model=null;
+  let model=null;
  if(match==='audio')model=S.audioClips.find(x=>x.id===tile.dataset.clipid);
  else model=S.clips.find(x=>x.id===tile.dataset.clipid);
  if(!model){const box=tile.parentNode;const idx=[...box.children].filter(x=>x.classList.contains('clip')).indexOf(tile);
@@ -158,7 +156,7 @@ function decorate(){for(const tile of $('tracks').querySelectorAll('.clip')){
 const observer=new MutationObserver(()=>{if(thumbnailLoop)return;thumbnailLoop=requestAnimationFrame(()=>{thumbnailLoop=null;decorate()})});
 observer.observe($('tracks'),{childList:true,subtree:true});decorate();
 // Save-project snapshots: require relinking media after reload, never stores raw media blobs.
-function serialize(){return {app:'NOVA CUT',version:8.0,ratio:S.ratio,fade:S.fade,effectPreset:S.effectPreset,motionEffect:S.motionEffect,effectStrength:S.effectStrength,transitionType:S.transitionType,filters:S.filters,vol:S.vol,musicVol:S.musicVol,
+function serialize(){return {app:'NOVA CUT',version:8.2,ratio:S.ratio,cinemaLook:S.cinemaLook,cinemaSound:S.cinemaSound,fade:S.fade,effectPreset:S.effectPreset,motionEffect:S.motionEffect,effectStrength:S.effectStrength,transitionType:S.transitionType,filters:S.filters,vol:S.vol,musicVol:S.musicVol,
  assets:[...S.assets.values()].map(a=>({id:a.id,name:a.name,size:a.size,kind:a.kind,duration:a.duration})),
  audioAssets:[...S.audioAssets.values()].map(a=>({id:a.id,name:a.name,size:a.size,duration:a.duration})),
  clips:S.clips,audioClips:S.audioClips,texts:S.texts,stickers:S.stickers,sfx:S.sfx,studio8:{effect:cfg.effect,transition:cfg.transition}}}
@@ -169,7 +167,7 @@ function restore(){const snapshot=JSON.parse(localStorage.getItem(saveKey)||'nul
  const p=snapshot.project;
  api.pause();S.assets.clear();S.audioAssets.clear();S.pending=p.assets||[];S.pendingAudio=p.audioAssets||[];
  S.clips=structuredClone(p.clips||[]);S.audioClips=structuredClone(p.audioClips||[]);S.texts=structuredClone(p.texts||[]);S.stickers=structuredClone(p.stickers||[]);S.sfx=structuredClone(p.sfx||[]);
- S.ratio=p.ratio||'source';S.filters=p.filters||{brightness:100,contrast:100,saturation:100,grayscale:0};S.effectPreset=p.effectPreset||'none';S.motionEffect=p.motionEffect||'none';S.transitionType=p.transitionType||'none';S.effectStrength=p.effectStrength||60;
+ S.ratio=p.ratio||'source';S.cinemaLook=p.cinemaLook||'natural';S.cinemaSound=p.cinemaSound||'standard';S.filters=p.filters||{brightness:100,contrast:100,saturation:100,grayscale:0};S.effectPreset=p.effectPreset||'none';S.motionEffect=p.motionEffect||'none';S.transitionType=p.transitionType||'none';S.effectStrength=p.effectStrength||60;
  S.vol=p.vol??1;S.musicVol=p.musicVol??.65;cfg.effect=p.studio8?.effect||'none';cfg.transition=p.studio8?.transition||'none';$('nc8Effect').value=cfg.effect;$('nc8Transition').value=cfg.transition;
  S.position=0;S.selClip=S.selAudio=S.selText=S.selSticker=null;renderAll();api.ratio(S.ratio);notify('Przywrócono montaż. Dodaj ponownie oryginalne pliki, aby odzyskać podgląd i eksport.');$('nc8SaveStatus').textContent='Przywrócono '+new Date(snapshot.at).toLocaleString('pl-PL')}
 $('nc8Restore').onclick=()=>{try{restore()}catch(e){notify('Nie można przywrócić: '+e.message)}};
