@@ -11,3 +11,11 @@ AUTOZAPIS: co 15 sekund i przy zmianach, do localStorage. Nie zapisuje bajtów p
 Wersję Windows build wykonuje GitHub Actions z gałęzi release/nova-cut-8.0-ultimate-studio. Źródła nie zawierają modelu ggml-base.bin, znajduje się on wyłącznie w docelowych instalatorach.
 
 Prośba: rozmiar 500–750 MB oznacza łączny ZIP Setup+Portable. GitHub Actions raportuje realną wielkość (bez sztucznego paddingu). Sprawdzaj logi i rezultat kompilacji.
+
+
+NOVA CUT 8.1 - 10K QUALITY
+- Opcja 10K (9600 x 5400) w zakładce Eksport. Wymaga aplikacji Windows i przycisku Eksport MP4 na Windows.
+- Przed renderem sprawdza dostepny kodek HEVC (libx265) lub AV1, co najmniej 8 GiB wolnego RAM oraz wolne miejsce na dysku. Zalecane 16 GiB wolnego RAM i wiecej.
+- Eksport 10K jest eksperymentalny. HEVC 10K moze wykraczac poza oficjalne profile i ograniczenia odtwarzaczy; FFmpeg lub koder moze odmowic eksportu. W razie problemu wybierz 8K lub 4K.
+- Przy braku mozliwosci renderu program pokazuje blad zamiast potajemnie obnizac jakosc.
+- Dotychczasowy eksport 720p-8K i narzedzia 8.0 zostaly zachowane.

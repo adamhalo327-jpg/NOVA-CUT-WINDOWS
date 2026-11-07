@@ -1,0 +1,17 @@
+"use strict";
+const assert=require('node:assert/strict');
+const {assess10K,GiB}=require('../render-guard');
+const base={freeRamBytes:24*GiB,totalRamBytes:32*GiB,freeDiskBytes:90*GiB,duration:10,bitrateMbps:120,fps:30,encoders:'libx265 libaom-av1',requestedCodec:'auto'};
+let a=assess10K(base);assert(a.ok&&a.width===9600&&a.height===5400&&a.encoder==='libx265');
+a=assess10K({...base,freeRamBytes:4*GiB});assert(!a.ok&&a.errors.some(e=>e.includes('pamięci')));
+a=assess10K({...base,freeDiskBytes:100000000});assert(!a.ok&&a.errors.some(e=>e.includes('dysku')));
+a=assess10K({...base,encoders:''});assert(!a.ok&&a.errors.some(e=>e.includes('kodera')));
+a=assess10K({...base,requestedCodec:'h264'});assert(!a.ok);
+a=assess10K({...base,encoders:'libaom-av1'});assert(a.ok&&a.encoder==='libaom-av1');
+a=assess10K({...base,freeDiskBytes:null});assert(a.ok&&a.warnings.some(w=>w.includes('dysku')));
+const fs=require('fs'),path=require('path');
+const html=fs.readFileSync(path.join(__dirname,'../app/index.html'),'utf8');
+const renderer=fs.readFileSync(path.join(__dirname,'../native-renderer.js'),'utf8');
+assert(html.includes('value="tenk"')&&html.includes('9600,5400'));
+assert(renderer.includes("quality==='tenk'")&&renderer.includes("diskFreeBytes(out)"));
+console.log('10K: profile, codec, RAM, dysk i ścieżki eksportu OK');

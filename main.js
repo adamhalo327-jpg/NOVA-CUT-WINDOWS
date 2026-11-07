@@ -44,7 +44,7 @@ function createWindow() {
   showingError = false;
   win = new BrowserWindow({
     width: 1480, height: 910, minWidth: 960, minHeight: 650,
-    backgroundColor: '#080b12', title: 'NOVA CUT 8.0 - TIMELINE ULTRA PRO',
+    backgroundColor: '#080b12', title: 'NOVA CUT 8.1 - 10K EXPORT',
     icon: path.join(__dirname,'assets','novacut.ico'),
     autoHideMenuBar: true, show: !smokeCheck,
     webPreferences: {
