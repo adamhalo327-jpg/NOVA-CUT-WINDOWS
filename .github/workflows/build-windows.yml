@@ -1,18 +1,19 @@
-
-name: NOVA CUT - Windows EXE
+name: NOVA CUT 5.2.2 - Windows EXE
 
 on:
   workflow_dispatch:
   push:
-    branches: [main, master]
+    branches: [main]
+
+permissions:
+  contents: read
 
 jobs:
   build-windows:
     runs-on: windows-latest
-    permissions:
-      contents: read
+    timeout-minutes: 45
     steps:
-      - name: Pobierz pliki
+      - name: Pobierz repozytorium
         uses: actions/checkout@v4
 
       - name: Node.js 22
@@ -20,18 +21,47 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Zainstaluj zależności
+      - name: Sprawdz komplet plikow aplikacji
+        shell: pwsh
+        run: |
+          $required = @(
+            'app/index.html',
+            'assets/novacut.ico',
+            'main.js',
+            'preload.js',
+            'native-renderer.js',
+            'package.json',
+            'scripts/check-project.js'
+          )
+          foreach ($file in $required) {
+            if (!(Test-Path -LiteralPath $file -PathType Leaf)) {
+              throw "BRAKUJE PLIKU: $file"
+            }
+            Write-Host "OK: $file"
+          }
+          node scripts/check-project.js
+
+      - name: Zainstaluj zaleznosci
         run: npm install --no-audit --no-fund
 
-      - name: Zbuduj instalator i portable
+      - name: Zbuduj instalator i Portable
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
         run: npm run build:win
 
-      - name: Zapisz pliki EXE
+      - name: Sprawdz pliki EXE
+        shell: pwsh
+        run: |
+          $exes = @(Get-ChildItem -Path dist -Filter '*.exe' -File)
+          $exes | Select-Object Name, Length | Format-Table
+          if ($exes.Count -lt 2) {
+            throw 'Brak instalatora lub wersji Portable w folderze dist.'
+          }
+
+      - name: Zapisz instalator i Portable
         uses: actions/upload-artifact@v4
         with:
-          name: NOVA-CUT-Windows-5.2
+          name: NOVA-CUT-Windows-5.2.2-FIX
           path: dist/*.exe
           if-no-files-found: error
           retention-days: 30
