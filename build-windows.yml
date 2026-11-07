@@ -1,0 +1,58 @@
+name: NOVA CUT - Windows EXE
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+    paths:
+      - 'NOVA_CUT_5.2.2_SOURCE.zip'
+      - '.github/workflows/build-windows.yml'
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Pobierz repozytorium
+        uses: actions/checkout@v4
+      - name: Rozpakuj kompletny projekt 5.2.2
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $zip = 'NOVA_CUT_5.2.2_SOURCE.zip'
+          if (!(Test-Path $zip)) { throw "Brak $zip w glownym katalogu repozytorium" }
+          Expand-Archive -LiteralPath $zip -DestinationPath '_build' -Force
+          $required = @('package.json','main.js','preload.js','native-renderer.js','app/index.html','assets/novacut.ico','scripts/check-project.js')
+          foreach ($f in $required) {
+            if (!(Test-Path (Join-Path '_build' $f))) {throw "Brakuje pliku wewnatrz ZIP: $f"}
+          }
+      - name: Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Sprawdz edytor przed budowaniem
+        working-directory: _build
+        run: node scripts/check-project.js
+      - name: Zainstaluj Electron i FFmpeg
+        working-directory: _build
+        run: npm install --no-audit --no-fund
+      - name: Zbuduj instalator i portable
+        working-directory: _build
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+        run: npm run build:win
+      - name: Zweryfikuj pliki EXE i archiwum aplikacji
+        shell: pwsh
+        run: |
+          if (!(Test-Path '_build/dist/win-unpacked/resources/app.asar')) {throw 'Brak app.asar'}
+          $exe = @(Get-ChildItem '_build/dist' -File -Filter '*.exe')
+          if ($exe.Count -lt 2) { throw 'Brakuje Setup.exe lub Portable.exe' }
+          $exe | Select-Object Name,Length | Format-Table
+      - name: Udostepnij instalator i Portable
+        uses: actions/upload-artifact@v4
+        with:
+          name: NOVA-CUT-Windows-5.2.2
+          path: _build/dist/*.exe
+          if-no-files-found: error
+          retention-days: 30

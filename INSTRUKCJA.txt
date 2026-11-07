@@ -1,0 +1,16 @@
+NOVA CUT 5.2.2 - naprawa kompilacji Windows
+
+1. Rozpakuj caly plik ZIP.
+2. Otworz GitHub Desktop: Repository > Show in Explorer.
+3. Uruchom SKONFIGURUJ_GITHUB.cmd z rozpakowanego pakietu.
+4. Wskaz folder NOVA-CUT-WINDOWS, ktory wlasnie otworzyl GitHub Desktop.
+5. Narzedzie skopiuje tylko 2 pliki: ZIP z calym kodem do katalogu glownego i workflow do .github/workflows/.
+6. W GitHub Desktop: Changes > Summary: NOVA CUT 5.2.2 > Commit to main > Push origin.
+7. Sprawdz Actions. Workflow ma nazwe NOVA CUT - Windows EXE. Po sukcesie pobierz artefakt NOVA-CUT-Windows-5.2.2.
+8. Najpierw uruchom NOWY Portable.exe, zamiast starych wersji.
+
+Nie ma potrzeby recznie przenosic katalogow app, assets i scripts!
+
+Jesli okno nadal jest puste, uruchom nowe Portable.exe z parametrem --disable-gpu lub otworz w aplikacji F12 i skopiuj czerwony blad z konsoli.
+
+Do testu samego interfejsu mozna otworzyc app/index.html z ZIP w przegladarce (bez funkcji eksportu natywnego Windows).
