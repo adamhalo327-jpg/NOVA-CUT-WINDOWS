@@ -1,13 +1,13 @@
-name: NOVA CUT 5.2.2 - Windows EXE
+name: NOVA CUT 6.1 - PROFESSIONAL UI Windows EXE
 
 on:
   workflow_dispatch:
   push:
+    branches: [main, 'release/nova-cut-6.1-professional-ui']
+  pull_request:
     branches: [main]
-
 permissions:
   contents: read
-
 jobs:
   build-windows:
     runs-on: windows-latest
@@ -15,53 +15,34 @@ jobs:
     steps:
       - name: Pobierz repozytorium
         uses: actions/checkout@v4
-
       - name: Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-
-      - name: Sprawdz komplet plikow aplikacji
+      - name: Sprawdz projekt oraz pliki ULTRA EDITOR
         shell: pwsh
         run: |
-          $required = @(
-            'app/index.html',
-            'assets/novacut.ico',
-            'main.js',
-            'preload.js',
-            'native-renderer.js',
-            'package.json',
-            'scripts/check-project.js'
-          )
-          foreach ($file in $required) {
-            if (!(Test-Path -LiteralPath $file -PathType Leaf)) {
-              throw "BRAKUJE PLIKU: $file"
-            }
-            Write-Host "OK: $file"
-          }
+          node --check main.js
+          node --check preload.js
+          node --check native-renderer.js
+          node --check app/ultra.js
           node scripts/check-project.js
-
       - name: Zainstaluj zaleznosci
         run: npm install --no-audit --no-fund
-
       - name: Zbuduj instalator i Portable
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
         run: npm run build:win
-
-      - name: Sprawdz pliki EXE
+      - name: Sprawdz instalator i Portable
         shell: pwsh
         run: |
           $exes = @(Get-ChildItem -Path dist -Filter '*.exe' -File)
           $exes | Select-Object Name, Length | Format-Table
-          if ($exes.Count -lt 2) {
-            throw 'Brak instalatora lub wersji Portable w folderze dist.'
-          }
-
-      - name: Zapisz instalator i Portable
+          if ($exes.Count -lt 2) { throw 'Brak instalatora lub Portable.' }
+      - name: Udostepnij EXE
         uses: actions/upload-artifact@v4
         with:
-          name: NOVA-CUT-Windows-5.2.2-FIX
+          name: NOVA-CUT-Windows-6.1-PROFESSIONAL-UI
           path: dist/*.exe
           if-no-files-found: error
           retention-days: 30

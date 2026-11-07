@@ -83,7 +83,9 @@ async function renderProject({job,files,out,onProgress=()=>{}}){
     inputs.push('-i',p);
     const at=Math.max(0,number(a.at)),start=Math.max(0,number(a.start)),len=Math.min(duration-at,number(a.duration));
     if(len>0){const t='a'+idx,gain=clamp(number(a.volume,.75)*number(job.musicVol,.65),0,2);
-      filters.push(`[${idx}:a]atrim=start=${sec(start)}:duration=${sec(len)},asetpts=PTS-STARTPTS,volume=${gain.toFixed(4)},adelay=${Math.round(at*1000)}:all=1[${t}]`);audio.push(t);}
+      const fi=clamp(number(a.fadeIn,0),0,len/2),fo=clamp(number(a.fadeOut,0),0,len/2);
+      const fades=(fi>0?`,afade=t=in:st=0:d=${sec(fi)}`:'')+(fo>0?`,afade=t=out:st=${sec(len-fo)}:d=${sec(fo)}`:'');
+      filters.push(`[${idx}:a]atrim=start=${sec(start)}:duration=${sec(len)},asetpts=PTS-STARTPTS,volume=${gain.toFixed(4)}${fades},adelay=${Math.round(at*1000)}:all=1[${t}]`);audio.push(t);}
     idx++;
   }
   for(const a of job.sfx||[]){
