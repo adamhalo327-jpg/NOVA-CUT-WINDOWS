@@ -1,9 +1,9 @@
-name: NOVA CUT 6.0 - ULTRA EDITOR Windows EXE
+name: NOVA CUT 6.1 - PROFESSIONAL UI Windows EXE
 
 on:
   workflow_dispatch:
   push:
-    branches: [main, 'release/nova-cut-6.0-ultra-editor']
+    branches: [main, 'release/nova-cut-6.1-professional-ui']
   pull_request:
     branches: [main]
 permissions:
@@ -42,7 +42,7 @@ jobs:
       - name: Udostepnij EXE
         uses: actions/upload-artifact@v4
         with:
-          name: NOVA-CUT-Windows-6.0-ULTRA-EDITOR
+          name: NOVA-CUT-Windows-6.1-PROFESSIONAL-UI
           path: dist/*.exe
           if-no-files-found: error
           retention-days: 30

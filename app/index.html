@@ -1,16 +1,81 @@
-<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>NOVA CUT 6.0 — ULTRA EDITOR</title><style>
+<!DOCTYPE html>
+<html lang="pl"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/><title>NOVA CUT 6.1 — PROFESSIONAL UI</title><style>
 :root{color-scheme:dark;--bg:#080b12;--panel:#121824;--panel2:#1a2230;--border:#303b4f;--fg:#edf4ff;--sub:#9daec2;--mint:#46e6c8;--pink:#cb91ff;--blue:#76aaff;--warn:#ffcb94}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:14px system-ui,-apple-system,Segoe UI,sans-serif}button,input,select{font:inherit}button{border:1px solid #35465d;border-radius:10px;background:#243247;color:var(--fg);padding:9px 12px;cursor:pointer}button:hover{background:#33445c}button:disabled{opacity:.4;cursor:not-allowed}.primary{border-color:var(--mint);background:var(--mint);color:#071e1b;font-weight:800}.primary:hover{background:#95ffe7}.danger{border-color:#79465b;background:#4b2534}.small{font-size:12px;padding:6px 9px}.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.spread{justify-content:space-between}.muted{color:var(--sub);font-size:12px;line-height:1.55}header{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;gap:10px;border-bottom:1px solid var(--border);background:#101520}.brand{font-size:22px;font-weight:950;letter-spacing:1.1px}.brand b{color:var(--mint)}.chip{border-radius:20px;color:var(--sub);border:1px solid var(--border);font-size:11px;padding:5px 8px}.app{max-width:1800px;margin:auto;padding:13px;display:grid;grid-template-columns:minmax(240px,290px) minmax(0,1fr) minmax(250px,290px);gap:12px}.panel,.viewer,.timeline{border:1px solid var(--border);background:var(--panel);border-radius:16px;padding:14px;min-width:0}h2{font-size:15px;margin:0 0 12px}h3{font-size:12px;color:var(--sub);text-transform:uppercase;letter-spacing:.6px;margin:20px 0 9px}.upload{display:block;border:1px dashed #4c8b8a;background:#14252b;border-radius:11px;text-align:center;padding:15px;color:var(--mint);font-weight:750;cursor:pointer}.upload input{display:none}.upload small{color:var(--sub);font-weight:400;display:block;margin-top:5px}.assets{display:flex;flex-direction:column;gap:7px;max-height:190px;overflow:auto}.asset{background:var(--panel2);border:1px solid var(--border);border-radius:9px;padding:9px;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px}.asset span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}.stage{background:radial-gradient(ellipse at center,#242e40,#06080e 75%);height:min(53vh,480px);min-height:250px;display:flex;align-items:center;justify-content:center;border-radius:13px;overflow:hidden;position:relative}.stage canvas{display:block;max-width:100%;max-height:100%;object-fit:contain;touch-action:none;box-shadow:0 0 32px #000a}.placeholder{position:absolute;text-align:center;padding:12px;color:var(--sub);pointer-events:none}.placeholder strong{display:block;font-size:20px;color:var(--fg);margin-bottom:9px}.control{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;margin:12px 0}.time{font-variant-numeric:tabular-nums;color:var(--sub)}.msg{min-height:20px;font-size:12px;color:var(--sub);margin-top:8px}.field{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0;font-size:12px;color:var(--sub)}.field input[type=range]{width:53%}input[type=range]{accent-color:var(--mint)}input[type=text],input[type=number],select,textarea{width:100%;min-width:0;background:#0c121c;border:1px solid var(--border);border-radius:8px;color:var(--fg);padding:8px}input[type=number]{max-width:110px}input[type=color]{width:45px;height:34px;background:transparent;border:0}textarea{resize:vertical}.textitem{padding:8px;border-radius:9px;background:#202e41;border:1px solid var(--border);margin:5px 0;display:flex;align-items:center;gap:7px}.textitem.active{border-color:var(--mint)}.textitem button:first-child{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}.timeline{grid-column:1/-1}.tools{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:13px}.tracks{overflow-x:auto;border:1px solid var(--border);border-radius:11px;background:#0d1420}.ruler{height:28px;position:relative;background:#141d2a;border-bottom:1px solid var(--border);font-size:10px;color:var(--sub)}.tick{position:absolute;top:6px;border-left:1px solid #506078;padding-left:4px}.trackrow{display:flex;min-height:61px;border-bottom:1px solid #26344a}.trackrow:last-child{border-bottom:0}.tracklabel{width:94px;min-width:94px;display:flex;align-items:center;padding:9px;font-weight:700;font-size:12px;border-right:1px solid var(--border);background:#162030;position:sticky;left:0;z-index:4}.trackcontent{position:relative;min-height:61px;flex:1}.clip{position:absolute;top:8px;height:44px;border:1px solid #80b7ff;border-radius:8px;background:linear-gradient(130deg,#284b77,#1f3759);display:flex;align-items:center;justify-content:center;text-align:center;padding:5px 7px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;user-select:none}.clip.selected{outline:2px solid var(--mint);outline-offset:1px}.clip.audio{background:linear-gradient(130deg,#483068,#30234c);border-color:#c59cff}.clip.caption{background:linear-gradient(130deg,#6a4d25,#49391d);border-color:#ffc870}.playhead{position:absolute;top:28px;bottom:0;width:2px;background:#ff7777;pointer-events:none;z-index:3}.playhead:before{content:'▼';position:absolute;top:-19px;left:-6px;font-size:13px;color:#ff7777}.editor{display:grid;grid-template-columns:1fr 1fr;gap:10px}.editor label{font-size:12px;color:var(--sub)}.editor input{margin-top:5px}.bottomnote{margin:13px 0 0}.exportprogress{width:100%;accent-color:var(--mint)}footer{text-align:center;font-size:12px;color:var(--sub);padding:8px 15px 25px}.hide{display:none!important}@media(max-width:1090px){.app{grid-template-columns:260px minmax(0,1fr)}.settings{grid-column:1/-1}}@media(max-width:720px){header{padding:9px 11px}.brand{font-size:19px}.app{display:flex;flex-direction:column;padding:8px;gap:8px}.stage{height:350px;min-height:230px}.panel,.viewer,.timeline{padding:12px}.chip{display:none}.tracklabel{width:74px;min-width:74px;font-size:10px}.editor{grid-template-columns:1fr 1fr}button{padding:8px 10px}}
 .stickerPalette{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.stickerPalette button{font-size:22px;padding:7px}.stickercard{display:flex;align-items:center;gap:6px;background:#1d2a3d;border:1px solid var(--border);border-radius:9px;padding:7px;margin-top:6px}.stickercard button:first-child{flex:1;text-align:left}.stickercard.active{border-color:var(--mint)}.studioNote{border:1px solid #43516b;border-radius:10px;padding:9px;margin-top:12px;background:#172135;color:#b6c9db;font-size:12px;line-height:1.55}.studioNote b{color:var(--mint)}
 
 .clip.imageclip{border-color:#61e5b1;background:linear-gradient(130deg,#17664d,#244b58);padding-right:18px}.resize-handle{position:absolute;right:0;top:0;bottom:0;width:17px;border-left:2px solid #afffdc;background:#ffffff22;cursor:ew-resize;touch-action:none;z-index:2;display:flex;align-items:center;justify-content:center;color:white;font-weight:900}.resize-handle:after{content:'⋮';font-size:20px}.clip.imageclip{overflow:visible}.clip.imageclip .resize-handle{border-radius:0 7px 7px 0}.trackcontent{touch-action:pan-x}.clip{touch-action:none;user-select:none;cursor:grab}.clip.dragging{opacity:.8;z-index:20;outline:2px dashed #fff;cursor:grabbing}.clip.overlay{background:linear-gradient(135deg,#663b9e,#375f9c)}.clip.audio{background:linear-gradient(135deg,#156c66,#174f58)}.clip.sfx{background:linear-gradient(135deg,#9a5b25,#7b3e5e)}.trackrow{min-height:46px}.trackcontent{min-height:42px}.tracklabel{font-size:11px}.viewer{align-self:start}select,input[type=number]{max-width:100%}.settings .field select{width:100%}#audioLibrary .asset{gap:6px}#audioLibrary .asset span{overflow:hidden;text-overflow:ellipsis}#notice{min-height:34px}@media(max-width:900px){.timeline{overflow:hidden}.tracks{overflow:auto;max-width:100%}}
+</style><style>/* NOVA CUT 6.1 — viewport-based professional editing workspace.
+   The rendering and export engines remain identical to v6.0. */
+:root{--pro-timeline-size:44%;--pro-left-width:clamp(208px,18vw,292px);--pro-right-width:clamp(250px,21vw,330px)}
+html,body{height:100%;max-height:100%;overflow:hidden}
+body{display:flex;flex-direction:column;min-height:0;min-width:800px}
+header{flex:0 0 auto;min-height:59px;max-width:none;position:relative;z-index:4;padding:9px 16px;box-shadow:0 3px 17px #0004}
+header .pro-header-actions{gap:6px;justify-content:flex-end}
+header .pro-header-button{background:#1a2636;border-color:#364a63;white-space:nowrap}
+header .pro-header-button[aria-pressed=true]{color:var(--mint);border-color:#399d91}
+.app{flex:1;max-width:none;width:100%;height:auto;min-height:0;min-width:0;margin:0;padding:10px;overflow:hidden;display:grid;gap:9px;grid-template-columns:var(--pro-left-width) minmax(245px,1fr) var(--pro-right-width);grid-template-rows:minmax(170px,1fr) 8px minmax(180px,var(--pro-timeline-size))}
+.app>section{min-height:0;min-width:0;max-height:100%;margin:0}
+.app>.panel,.app>.viewer,.app>.timeline{padding:0;border-radius:12px;box-shadow:0 3px 15px #0003}
+#proMediaPanel{grid-column:1;grid-row:1;overflow-y:auto;overscroll-behavior:contain;padding:14px 12px;scrollbar-gutter:stable}
+#proViewer{grid-column:2;grid-row:1;display:flex;flex-direction:column;justify-content:stretch;overflow:hidden;padding:12px;align-self:stretch}
+#proViewer .stage{flex:1 1 auto;min-height:0;max-height:none;height:auto;display:flex;align-items:center;justify-content:center}
+#proViewer .stage canvas{max-width:100%;max-height:100%;object-fit:contain}
+#proViewer .control{flex:0 0 auto;margin:8px 0 4px}
+#proViewer #notice{flex:0 0 auto;font-size:11px;line-height:1.2;min-height:14px;max-height:2.5em;overflow:hidden}
+#proInspector{grid-column:3;grid-row:1;overflow:hidden;display:flex;flex-direction:column;padding:0}
+.pro-inspector-tabs{display:flex;flex:0 0 auto;gap:4px;border-bottom:1px solid #2d3a50;padding:9px 9px 8px;background:#172031}
+.pro-tab{min-width:0;flex:1;padding:8px 5px;font-size:12px;color:var(--sub);font-weight:700}
+.pro-tab.selected{border-color:#299884;background:#15493f;color:#dcfff7}
+.pro-inspector-pane{min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;flex:1 1 auto;padding:12px}
+.pro-inspector-pane.hide{display:none!important}
+.pro-pane-intro{font-size:12px;color:var(--sub);border:1px solid #385b63;background:#133035;padding:9px;border-radius:9px;margin-bottom:12px}
+#proExportPane label{display:flex;flex-direction:column;align-items:stretch;gap:5px;font-size:12px;min-width:100%;color:var(--sub)}
+#proExportPane .row{align-items:stretch;gap:9px}
+#proExportPane .row>button{flex:1 1 auto;white-space:normal}
+#proExportPane .row select{width:100%;max-width:none}
+#proExportPane .row>label{max-width:none}
+#proExportPane .bottomnote{margin:0 0 10px;border-bottom:1px solid var(--border);padding-bottom:10px}
+#proExportPane .msg{overflow-wrap:anywhere}
+#proExportPane #desktopExport{min-height:40px}
+#proTimelineSplitter{grid-column:1/-1;grid-row:2;height:8px;display:flex;align-items:center;justify-content:center;cursor:ns-resize;user-select:none;color:#8eb7c7;touch-action:none;border-radius:9px;background:#1b2839;border:1px solid #34465a}
+#proTimelineSplitter:hover,#proTimelineSplitter:focus{background:#2b4b5f;color:#69f1d2;outline:1px solid #5ea69f}
+#proTimelineSplitter span{font-weight:900;letter-spacing:5px;line-height:3px;transform:rotate(90deg)}
+#proTimeline{grid-column:1/-1;grid-row:3;display:flex;flex-direction:column;overflow:hidden;min-height:0;padding:9px 11px 8px;gap:4px}
+#proTimeline>div.row.spread{flex:0 0 auto;min-height:28px;gap:7px}
+#proTimeline>div.row.spread h2{margin:0;font-size:13px}
+#proTimeline .tools{flex:0 0 auto;gap:5px;margin:0;max-height:60px;overflow:auto}
+#proTimeline .tools .muted{font-size:11px}
+#proTimeline .tracks{flex:1 1 auto;min-height:55px;overflow:auto;scrollbar-gutter:stable;background:#0b1421}
+#proTimeline #timelineInner{min-height:100%}
+#proTimeline .trackrow{min-height:41px}
+#proTimeline .trackcontent{min-height:41px}
+#proTimeline .clip{top:5px;height:30px}
+#proTimeline .tracklabel{width:101px;min-width:101px;font-size:11px;z-index:5}
+#proTimeline>div.row:last-child{flex:0 0 auto;min-height:27px}
+#proTimeline #zoom{width:105px}
+#proTimeline #proOpenExport{border-color:#358f83}
+footer{display:none}
+.app.pro-media-hidden{grid-template-columns:0 minmax(245px,1fr) var(--pro-right-width)}
+.app.pro-media-hidden #proMediaPanel{display:none}
+.app.pro-inspector-hidden{grid-template-columns:var(--pro-left-width) minmax(245px,1fr) 0}
+.app.pro-inspector-hidden #proInspector{display:none}
+.app.pro-media-hidden.pro-inspector-hidden{grid-template-columns:0 minmax(245px,1fr) 0}
+#proMediaPanel::-webkit-scrollbar,#proInspector .pro-inspector-pane::-webkit-scrollbar,#proTimeline .tracks::-webkit-scrollbar{width:9px;height:9px}
+#proMediaPanel::-webkit-scrollbar-thumb,#proInspector .pro-inspector-pane::-webkit-scrollbar-thumb,#proTimeline .tracks::-webkit-scrollbar-thumb{background:#455d71;border:2px solid #172030;border-radius:9px}
+@media(max-width:1100px){:root{--pro-left-width:205px;--pro-right-width:260px}header .pro-header-button{font-size:11px;padding:6px}#proTimeline .tools .muted{display:none}}
+@media(max-width:860px){body{min-width:0}.app{grid-template-columns:180px minmax(120px,1fr) 220px;grid-template-rows:minmax(160px,1fr) 8px minmax(180px,var(--pro-timeline-size))}.app.pro-media-hidden{grid-template-columns:0 minmax(120px,1fr) 220px}.app.pro-inspector-hidden{grid-template-columns:180px minmax(120px,1fr) 0}.app.pro-media-hidden.pro-inspector-hidden{grid-template-columns:0 minmax(120px,1fr) 0}header{flex-wrap:wrap}header .brand{font-size:17px}header .chip{display:none}}
+@media(max-height:600px){.app{grid-template-rows:minmax(100px,1fr) 8px minmax(145px,var(--pro-timeline-size))}#proTimeline .tools{max-height:38px}.app>.panel,.app>.viewer{padding-top:8px}}
+
+#proTimeline .ultra-toolbar{margin:0 0 2px;padding:7px 9px;gap:6px}
+#proTimeline .ultra-toolbar .ultra-hint{display:none}
 </style></head><body>
-<header><div class="row"><div class="brand">NOVA <b>CUT</b></div><span class="chip">6.0 · ULTRA EDITOR</span></div><div class="row"><button id="saveProject" class="small">💾 Projekt JSON</button><button id="loadProjectBtn" class="small">📂 Otwórz projekt</button><input id="loadProject" type="file" accept="application/json,.json" hidden><button id="export" class="primary">⬇ Eksportuj (przeglądarka)</button></div></header>
+<header><div class="row"><div class="brand">NOVA <b>CUT</b></div><span class="chip">6.1 · PROFESSIONAL UI</span></div><div class="row pro-header-actions"><button class="small pro-header-button" id="proToggleMedia" type="button">☰ Media</button><button class="small pro-header-button" id="proToggleInspector" type="button">⚙ Panel</button><button class="small pro-header-button" id="proExportShortcut" type="button">🎬 Eksport</button><button class="small pro-header-button" id="proResetLayout" type="button">↺ Układ</button><button class="small" id="saveProject">💾 Projekt JSON</button><button class="small" id="loadProjectBtn">📂 Otwórz projekt</button><input accept="application/json,.json" hidden="" id="loadProject" type="file"/><button class="primary" id="export">⬇ Eksportuj (przeglądarka)</button></div></header>
 <main class="app">
-<section class="panel"><h2>🎞 Multimedia</h2><label class="upload">＋ Dodaj filmy / zdjęcia<input id="mediaInput" type="file" accept="video/*,image/*" multiple><small>Możesz zaznaczyć kilka plików</small></label><div id="assetList" class="assets" style="margin-top:10px"></div><h3>🎵 Muzyka / efekty audio</h3><label class="upload">＋ Dodaj plik audio<input id="audioInput" type="file" accept="audio/*" multiple><small>MP3, WAV, M4A · Możesz dodać kilka plików</small></label><div class="row" style="margin-top:8px"><span id="audioName" class="muted">Brak audio</span><button id="removeAudio" class="small">Usuń wybrane audio</button></div><div id="audioLibrary" class="assets" style="margin-top:8px"></div><h3>Format filmu</h3><div class="row" id="ratioBar"><button class="small primary" data-ratio="source">Oryginał</button><button class="small" data-ratio="9:16">9:16</button><button class="small" data-ratio="16:9">16:9</button><button class="small" data-ratio="1:1">1:1</button></div><h3>📱 Szybkie formaty</h3><div class="row"><button class="small template" data-format="9:16">TikTok / Shorts</button><button class="small template" data-format="16:9">YouTube</button><button class="small template" data-format="1:1">Instagram</button></div><h3>🎨 Naklejki i elementy</h3><div class="stickerPalette" id="stickerPalette"><button data-sticker="🔥">🔥</button><button data-sticker="❤️">❤️</button><button data-sticker="✨">✨</button><button data-sticker="⭐">⭐</button><button data-sticker="🎬">🎬</button><button data-sticker="👍">👍</button><button data-sticker="💥">💥</button><button data-sticker="🚀">🚀</button></div><div id="stickerList"></div><h3>🎧 Efekty dźwiękowe</h3><div class="row"><button class="small sfx" data-sfx="whoosh">🌬 Whoosh</button><button class="small sfx" data-sfx="pop">🫧 Pop</button><button class="small sfx" data-sfx="beep">🔔 Beep</button><button class="small sfx" data-sfx="impact">💥 Impact</button></div><p class="muted">Efekt zostanie dodany w miejscu kursora na ścieżce SFX.</p><h3>📝 Napisy</h3><button id="addText" class="small">＋ Dodaj napis na osi czasu</button><div id="textList"></div><p class="muted">Napisy możesz przesuwać palcem bezpośrednio w podglądzie.</p></section>
-<section class="viewer"><div class="stage"><canvas id="canvas" width="720" height="405"></canvas><div id="placeholder" class="placeholder"><strong>Twoje studio montażowe</strong>Dodaj pierwszy klip wideo lub zdjęcie.</div></div><div class="control"><button id="stepBack" class="small">−5 s</button><button id="play" class="primary">▶ Odtwórz</button><button id="stepNext" class="small">+5 s</button><span class="time"><span id="now">00:00</span> / <span id="total">00:00</span></span></div><div id="notice" class="msg" role="status" aria-live="polite">Pliki są przetwarzane lokalnie na urządzeniu.</div></section>
-<section class="panel settings"><h2>⚙ Narzędzia</h2><h3>✂ Wybrany klip</h3><div id="clipDetails" class="muted">Wybierz klip na osi czasu.</div><div class="editor"><label>Ścieżka<select id="clipTrack"><option value="0">V1 · Główna</option><option value="1">V2 · Nakładka</option></select></label><label>Prędkość<select id="clipSpeed"><option value="0.25">0,25×</option><option value="0.5">0,5×</option><option value="0.75">0,75×</option><option value="1">1×</option><option value="1.25">1,25×</option><option value="1.5">1,5×</option><option value="2">2×</option><option value="3">3×</option><option value="4">4×</option></select></label><label>Pozycja na osi (s)<input id="clipAt" type="number" min="0" step="0.1"></label><label>Od (sek.)<input id="trimStart" type="number" min="0" step="0.1"></label><label>Do (sek.)<input id="trimEnd" type="number" min="0" step="0.1"></label></div><div class="row" style="margin-top:10px"><button id="split" class="small">✂ Podziel w miejscu kursora</button><button id="clipLeft" class="small">← W lewo</button><button id="clipRight" class="small">W prawo →</button><button id="deleteClip" class="small danger">Usuń klip</button></div><div id="photoStretchPanel" class="hide" style="margin-top:12px;padding:10px;border:1px solid #317b65;border-radius:10px;background:#122e29"><strong>🖼 Długość zdjęcia</strong><div class="editor" style="margin-top:8px"><label>Czas trwania (sek.)<input id="imageDuration" type="number" min="0.1" max="86400" step="0.1" value="5"></label><label>Dopasowanie<select id="imageFitMode"><option value="selected">Do końca wybranego audio</option><option value="all">Do końca wszystkich ścieżek audio</option></select></label></div><div class="row" style="margin-top:10px"><button id="fitImageAudio" class="small primary">🎵 Dopasuj zdjęcie do audio</button><button id="fitImageProject" class="small">⏱ Do końca projektu</button></div><div class="muted" style="margin-top:7px">Możesz także przeciągnąć prawą krawędź zielonego klipu zdjęcia na osi czasu. Długość obrazu nie jest ograniczona do 5 s.</div></div><div class="row" style="margin-top:9px"><button id="duplicateClip" class="small">⧉ Duplikuj klip</button><button id="addOverlay" class="small">⤴ Na V2</button></div><h3>✨ Efekty</h3><div class="field"><label>Jasność <span id="brightLabel">100%</span></label><input id="brightness" type="range" min="25" max="175" value="100"></div><div class="field"><label>Kontrast <span id="contrastLabel">100%</span></label><input id="contrast" type="range" min="25" max="175" value="100"></div><div class="field"><label>Nasycenie <span id="saturationLabel">100%</span></label><input id="saturation" type="range" min="0" max="200" value="100"></div><div class="field"><label>Szarość <span id="grayLabel">0%</span></label><input id="grayscale" type="range" min="0" max="100" value="0"></div><h3>🌈 EFFECTS STUDIO</h3><div class="studioNote"><b>Funkcje 3.0 + PRO:</b> Efekty i filtry działają na cały projekt. Naklejki i napisy mają własne czasy na osi.</div><label class="field">Preset kolorów<select id="effectPreset"><option value="none">Bez efektu</option><option value="cinema">🎬 Kinowy</option><option value="vintage">📼 Retro</option><option value="cold">❄️ Zimny</option><option value="warm">☀️ Ciepły</option><option value="dream">🌈 Sen</option><option value="noir">⬛ Noir</option></select></label><label class="field">Efekt dynamiczny<select id="motionEffect"><option value="none">Brak</option><option value="pulse">Pulsowanie</option><option value="shake">Drgania</option><option value="zoom">Powolne przybliżenie</option><option value="flash">Błysk</option></select></label><div class="field"><label>Moc efektu <span id="effectStrengthLabel">60%</span></label><input id="effectStrength" type="range" min="0" max="100" value="60"></div><h3>🔀 Przejścia klipów</h3><label class="field">Rodzaj<select id="transitionType"><option value="none">Cięcie</option><option value="black">Wygaszenie do czerni</option><option value="white">Błysk do bieli</option></select></label><h3>🔊 Dźwięk</h3><div class="field">Głośność wybranego klipu audio<input id="selectedAudioVolume" type="range" min="0" max="100" value="75"></div><div class="row"><button id="deleteAudioClip" class="small danger">Usuń klip audio</button></div><div class="field">Audio klipów<input id="clipVolume" type="range" min="0" max="100" value="100"></div><div class="field">Muzyka<input id="musicVolume" type="range" min="0" max="100" value="65"></div><h3>🖋 Wybrany napis</h3><div class="row"><input id="textValue" type="text" placeholder="Tekst napisu"></div><div class="field">Rozmiar<input id="fontSize" type="range" min="18" max="110" value="52"></div><div class="field">Kolor<input id="textColor" type="color" value="#ffffff"></div><div class="editor"><label>Start (s)<input id="textStart" type="number" min="0" step="0.1"></label><label>Koniec (s)<input id="textEnd" type="number" min="0" step="0.1"></label></div><label class="field">Animacja napisu<select id="textAnimation"><option value="none">Brak</option><option value="fade">Pojawianie</option><option value="pop">Wyskakiwanie</option><option value="slide">Wjazd od dołu</option><option value="type">Pisanie</option></select></label><label class="field">Styl napisu<select id="textStyle"><option value="outline">Klasyczny kontur</option><option value="shadow">Miękki cień</option><option value="neon">Neon</option><option value="box">Tło pod tekstem</option></select></label><button id="deleteText" class="small danger" style="margin-top:8px">Usuń napis</button></section>
-<section class="timeline"><div class="row spread"><h2>⏱ PRO TIMELINE · przeciągaj klipy palcem lub myszą</h2><div class="row"><span class="muted">Skala</span><input id="zoom" type="range" min="24" max="100" value="48" aria-label="Powiększenie osi czasu"></div></div><div class="tools"><button id="seekStart" class="small">⏮ Początek</button><button id="fadeBtn" class="small">◐ Przejście: wyłączone</button><button id="clearProject" class="small danger">Wyczyść projekt</button><span class="muted">Przeciągaj klipy pomiędzy V1/V2 i w czasie. Dwuklik na osi ustawia kursor.</span></div><div id="tracks" class="tracks"><div id="timelineInner" style="position:relative;min-width:600px"><div id="ruler" class="ruler"></div><div class="trackrow"><div class="tracklabel">🎥 V2 · Nakładka</div><div id="overlayTrack" class="trackcontent" data-track="1"></div></div><div class="trackrow"><div class="tracklabel">🎥 V1 · Główna</div><div id="videoTrack" class="trackcontent" data-track="0"></div></div><div class="trackrow"><div class="tracklabel">🎵 AUDIO</div><div id="audioTrack" class="trackcontent" data-track="audio"></div></div><div class="trackrow"><div class="tracklabel">💥 SFX</div><div id="sfxTrack" class="trackcontent"></div></div><div class="trackrow"><div class="tracklabel">📝 Napisy</div><div id="captionTrack" class="trackcontent"></div></div><div class="trackrow"><div class="tracklabel">⭐ Naklejki</div><div id="stickerTrack" class="trackcontent"></div></div><div id="head" class="playhead"></div></div></div><div class="row" style="margin-top:13px"><span class="muted">Przesuwanie:</span><input id="seek" type="range" min="0" max="1000" value="0" style="flex:1;min-width:130px"><span class="muted" id="durationLabel">0.0 s</span></div><p class="muted bottomnote">Warstwa V2 nakłada się na V1. Możesz przesuwać klipy i dodawać ciszę lub nakładki. Tryb automatyczny dobiera silnik eksportu. Dla 4K–8K na Windows naciśnij „Zapisz cały folder eksportu Windows” w Chrome/Edge, następnie uruchom dołączony renderer FFmpeg. Napisy animowane i naklejki w rendererze Windows nie są jeszcze uwzględniane.</p><div class="row" style="margin:10px 0"><label>Silnik <select id="exportEngine"><option value="smart" selected>Automatyczny · najlepsza zgodność</option><option value="ffmpeg">FFmpeg.wasm · MP4 z AAC (do 1080p)</option><option value="recorder">MediaRecorder · efekty, 4K–8K</option></select></label><label>Eksport <select id="quality"><option value="standard">Standard · 720p</option><option value="high" selected>Full HD · 1080p</option><option value="qhd">2K / QHD · 1440p</option><option value="uhd">4K UHD · 2160p</option><option value="sixk">6K · 3240p</option><option value="eightk">8K UHD · 4320p</option></select></label><label>FPS <select id="fps"><option value="24">24</option><option value="30" selected>30</option><option value="60">60</option></select></label><label>Kodek <select id="videoCodec"><option value="auto">Automatyczny</option><option value="h264">H.264 / AVC</option><option value="h265">H.265 / HEVC</option><option value="vp9">VP9</option><option value="vp8">VP8</option></select></label><label>Bitrate <select id="bitrateMode"><option value="auto">Automatyczny</option><option value="manual">Własny</option></select></label><label id="bitrateCustomWrap" class="hide">Mbps <input id="videoBitrate" type="number" min="0.5" max="300" step="0.5" value="25"></label><button type="button" id="preflight" class="small">✓ Sprawdź eksport</button><button type="button" id="desktopExport" class="primary" style="display:none">🎬 Eksport MP4 na Windows (FFmpeg)</button><button type="button" id="desktopCancel" class="danger" style="display:none">Anuluj MP4</button><button type="button" id="folderJob" class="small primary">📁 Zapisz cały folder eksportu Windows</button><button type="button" id="winJob" class="small">💻 Pobierz projekt JSON (Windows)</button><button type="button" id="probeEncoder" class="small">⚙ Kodeki</button><button id="cancelExport" class="small danger" disabled>Anuluj eksport</button><span class="muted" id="exportDimensions" aria-live="polite"></span></div><progress id="progress" class="exportprogress hide" max="1" value="0"></progress><div class="msg" id="codecStatus" aria-live="polite">Kodek i sprzętowe przyspieszanie zależą od przeglądarki.</div><div class="msg" id="audioStatus" aria-live="polite">🔊 Audio: sprawdzenie przed eksportem.</div><div class="msg" id="preflightStatus" role="status" aria-live="polite">Ustaw silnik Automatyczny, aby program dopasował eksport do projektu.</div><div class="msg" id="ffmpegHint">Tryb AUTOMATYCZNY wybiera FFmpeg.wasm (MP4 + AAC) dla krótkich, prostych projektów do 1080p, a MediaRecorder dla większych projektów i efektów Canvas. W razie błędu próbuje drugiego silnika, jeżeli jest dostępny. Dla wyższej niezawodności 4K–8K na PC użyj „Zapisz cały folder eksportu Windows” — Chrome/Edge skopiuje oryginalne pliki wraz z rendererem. Skrypty wymagają Python 3 i FFmpeg. FFmpeg.wasm pobiera ~32 MB przy pierwszym uruchomieniu. Żaden silnik nie może zagwarantować 8K na dowolnym urządzeniu.</div><div class="msg" id="nativeStatus" style="display:none" aria-live="polite">Windows · eksport lokalny FFmpeg z MP4/AAC. Uwaga: animowane napisy, naklejki i efekty ruchu wciąż wymagają eksportu przeglądarkowego.</div><div class="msg" id="exportStatus"></div><p class="muted">4K/6K/8K w przeglądarce mogą być automatycznie obniżane. Dla dokładnego wyjścia 4K/6K/8K na Windows zalecany jest renderer FFmpeg. Przeglądarki mobilne i starsze karty graficzne mogą nie obsługiwać tak dużego eksportu. Rozdzielczość wyjściowa nie zwiększa szczegółowości materiałów źródłowych. Przy nagrywaniu przez MediaRecorder silnik przeglądarki sam decyduje, czy użyje sprzętowego enkodera. Przycisk „Sprawdź kodowanie” bada dostępność interfejsów i preferencji, ale nie gwarantuje sprzętowego eksportu. H.265 bywa niedostępny, a ustawiony bitrate jest tylko wartością żądaną.</p></section></main>
-<footer>NOVA CUT 6.0 · ULTRA EDITOR · Edytor lokalny · Zapis JSON nie zawiera plików wideo — po ponownym otwarciu projektu dodaj te same materiały.</footer>
+<section class="panel" id="proMediaPanel"><h2>🎞 Multimedia</h2><label class="upload">＋ Dodaj filmy / zdjęcia<input accept="video/*,image/*" id="mediaInput" multiple="" type="file"/><small>Możesz zaznaczyć kilka plików</small></label><div class="assets" id="assetList" style="margin-top:10px"></div><h3>🎵 Muzyka / efekty audio</h3><label class="upload">＋ Dodaj plik audio<input accept="audio/*" id="audioInput" multiple="" type="file"/><small>MP3, WAV, M4A · Możesz dodać kilka plików</small></label><div class="row" style="margin-top:8px"><span class="muted" id="audioName">Brak audio</span><button class="small" id="removeAudio">Usuń wybrane audio</button></div><div class="assets" id="audioLibrary" style="margin-top:8px"></div><h3>Format filmu</h3><div class="row" id="ratioBar"><button class="small primary" data-ratio="source">Oryginał</button><button class="small" data-ratio="9:16">9:16</button><button class="small" data-ratio="16:9">16:9</button><button class="small" data-ratio="1:1">1:1</button></div><h3>📱 Szybkie formaty</h3><div class="row"><button class="small template" data-format="9:16">TikTok / Shorts</button><button class="small template" data-format="16:9">YouTube</button><button class="small template" data-format="1:1">Instagram</button></div><h3>🎨 Naklejki i elementy</h3><div class="stickerPalette" id="stickerPalette"><button data-sticker="🔥">🔥</button><button data-sticker="❤️">❤️</button><button data-sticker="✨">✨</button><button data-sticker="⭐">⭐</button><button data-sticker="🎬">🎬</button><button data-sticker="👍">👍</button><button data-sticker="💥">💥</button><button data-sticker="🚀">🚀</button></div><div id="stickerList"></div><h3>🎧 Efekty dźwiękowe</h3><div class="row"><button class="small sfx" data-sfx="whoosh">🌬 Whoosh</button><button class="small sfx" data-sfx="pop">🫧 Pop</button><button class="small sfx" data-sfx="beep">🔔 Beep</button><button class="small sfx" data-sfx="impact">💥 Impact</button></div><p class="muted">Efekt zostanie dodany w miejscu kursora na ścieżce SFX.</p><h3>📝 Napisy</h3><button class="small" id="addText">＋ Dodaj napis na osi czasu</button><div id="textList"></div><p class="muted">Napisy możesz przesuwać palcem bezpośrednio w podglądzie.</p></section>
+<section class="viewer" id="proViewer"><div class="stage"><canvas height="405" id="canvas" width="720"></canvas><div class="placeholder" id="placeholder"><strong>Twoje studio montażowe</strong>Dodaj pierwszy klip wideo lub zdjęcie.</div></div><div class="control"><button class="small" id="stepBack">−5 s</button><button class="primary" id="play">▶ Odtwórz</button><button class="small" id="stepNext">+5 s</button><span class="time"><span id="now">00:00</span> / <span id="total">00:00</span></span></div><div aria-live="polite" class="msg" id="notice" role="status">Pliki są przetwarzane lokalnie na urządzeniu.</div></section>
+<section class="panel settings" id="proInspector"><div class="pro-inspector-tabs" id="proInspectorTabs"><button class="pro-tab selected" data-tab="tools" id="proTabTools" type="button">🛠 Narzędzia</button><button class="pro-tab" data-tab="export" id="proTabExport" type="button">🎬 Eksport</button></div><div class="pro-inspector-pane" id="proToolsPane"><h2>⚙ Narzędzia</h2><h3>✂ Wybrany klip</h3><div class="muted" id="clipDetails">Wybierz klip na osi czasu.</div><div class="editor"><label>Ścieżka<select id="clipTrack"><option value="0">V1 · Główna</option><option value="1">V2 · Nakładka</option></select></label><label>Prędkość<select id="clipSpeed"><option value="0.25">0,25×</option><option value="0.5">0,5×</option><option value="0.75">0,75×</option><option value="1">1×</option><option value="1.25">1,25×</option><option value="1.5">1,5×</option><option value="2">2×</option><option value="3">3×</option><option value="4">4×</option></select></label><label>Pozycja na osi (s)<input id="clipAt" min="0" step="0.1" type="number"/></label><label>Od (sek.)<input id="trimStart" min="0" step="0.1" type="number"/></label><label>Do (sek.)<input id="trimEnd" min="0" step="0.1" type="number"/></label></div><div class="row" style="margin-top:10px"><button class="small" id="split">✂ Podziel w miejscu kursora</button><button class="small" id="clipLeft">← W lewo</button><button class="small" id="clipRight">W prawo →</button><button class="small danger" id="deleteClip">Usuń klip</button></div><div class="hide" id="photoStretchPanel" style="margin-top:12px;padding:10px;border:1px solid #317b65;border-radius:10px;background:#122e29"><strong>🖼 Długość zdjęcia</strong><div class="editor" style="margin-top:8px"><label>Czas trwania (sek.)<input id="imageDuration" max="86400" min="0.1" step="0.1" type="number" value="5"/></label><label>Dopasowanie<select id="imageFitMode"><option value="selected">Do końca wybranego audio</option><option value="all">Do końca wszystkich ścieżek audio</option></select></label></div><div class="row" style="margin-top:10px"><button class="small primary" id="fitImageAudio">🎵 Dopasuj zdjęcie do audio</button><button class="small" id="fitImageProject">⏱ Do końca projektu</button></div><div class="muted" style="margin-top:7px">Możesz także przeciągnąć prawą krawędź zielonego klipu zdjęcia na osi czasu. Długość obrazu nie jest ograniczona do 5 s.</div></div><div class="row" style="margin-top:9px"><button class="small" id="duplicateClip">⧉ Duplikuj klip</button><button class="small" id="addOverlay">⤴ Na V2</button></div><h3>✨ Efekty</h3><div class="field"><label>Jasność <span id="brightLabel">100%</span></label><input id="brightness" max="175" min="25" type="range" value="100"/></div><div class="field"><label>Kontrast <span id="contrastLabel">100%</span></label><input id="contrast" max="175" min="25" type="range" value="100"/></div><div class="field"><label>Nasycenie <span id="saturationLabel">100%</span></label><input id="saturation" max="200" min="0" type="range" value="100"/></div><div class="field"><label>Szarość <span id="grayLabel">0%</span></label><input id="grayscale" max="100" min="0" type="range" value="0"/></div><h3>🌈 EFFECTS STUDIO</h3><div class="studioNote"><b>Funkcje 3.0 + PRO:</b> Efekty i filtry działają na cały projekt. Naklejki i napisy mają własne czasy na osi.</div><label class="field">Preset kolorów<select id="effectPreset"><option value="none">Bez efektu</option><option value="cinema">🎬 Kinowy</option><option value="vintage">📼 Retro</option><option value="cold">❄️ Zimny</option><option value="warm">☀️ Ciepły</option><option value="dream">🌈 Sen</option><option value="noir">⬛ Noir</option></select></label><label class="field">Efekt dynamiczny<select id="motionEffect"><option value="none">Brak</option><option value="pulse">Pulsowanie</option><option value="shake">Drgania</option><option value="zoom">Powolne przybliżenie</option><option value="flash">Błysk</option></select></label><div class="field"><label>Moc efektu <span id="effectStrengthLabel">60%</span></label><input id="effectStrength" max="100" min="0" type="range" value="60"/></div><h3>🔀 Przejścia klipów</h3><label class="field">Rodzaj<select id="transitionType"><option value="none">Cięcie</option><option value="black">Wygaszenie do czerni</option><option value="white">Błysk do bieli</option></select></label><h3>🔊 Dźwięk</h3><div class="field">Głośność wybranego klipu audio<input id="selectedAudioVolume" max="100" min="0" type="range" value="75"/></div><div class="row"><button class="small danger" id="deleteAudioClip">Usuń klip audio</button></div><div class="field">Audio klipów<input id="clipVolume" max="100" min="0" type="range" value="100"/></div><div class="field">Muzyka<input id="musicVolume" max="100" min="0" type="range" value="65"/></div><h3>🖋 Wybrany napis</h3><div class="row"><input id="textValue" placeholder="Tekst napisu" type="text"/></div><div class="field">Rozmiar<input id="fontSize" max="110" min="18" type="range" value="52"/></div><div class="field">Kolor<input id="textColor" type="color" value="#ffffff"/></div><div class="editor"><label>Start (s)<input id="textStart" min="0" step="0.1" type="number"/></label><label>Koniec (s)<input id="textEnd" min="0" step="0.1" type="number"/></label></div><label class="field">Animacja napisu<select id="textAnimation"><option value="none">Brak</option><option value="fade">Pojawianie</option><option value="pop">Wyskakiwanie</option><option value="slide">Wjazd od dołu</option><option value="type">Pisanie</option></select></label><label class="field">Styl napisu<select id="textStyle"><option value="outline">Klasyczny kontur</option><option value="shadow">Miękki cień</option><option value="neon">Neon</option><option value="box">Tło pod tekstem</option></select></label><button class="small danger" id="deleteText" style="margin-top:8px">Usuń napis</button></div><div class="pro-inspector-pane hide" id="proExportPane"><div class="pro-pane-intro">Renderowanie: Windows FFmpeg, FFmpeg.wasm lub zgodny eksport przeglądarkowy.</div><p class="muted bottomnote">Warstwa V2 nakłada się na V1. Możesz przesuwać klipy i dodawać ciszę lub nakładki. Tryb automatyczny dobiera silnik eksportu. Dla 4K–8K na Windows naciśnij „Zapisz cały folder eksportu Windows” w Chrome/Edge, następnie uruchom dołączony renderer FFmpeg. Napisy animowane i naklejki w rendererze Windows nie są jeszcze uwzględniane.</p><div class="row" style="margin:10px 0"><label>Silnik <select id="exportEngine"><option selected="" value="smart">Automatyczny · najlepsza zgodność</option><option value="ffmpeg">FFmpeg.wasm · MP4 z AAC (do 1080p)</option><option value="recorder">MediaRecorder · efekty, 4K–8K</option></select></label><label>Eksport <select id="quality"><option value="standard">Standard · 720p</option><option selected="" value="high">Full HD · 1080p</option><option value="qhd">2K / QHD · 1440p</option><option value="uhd">4K UHD · 2160p</option><option value="sixk">6K · 3240p</option><option value="eightk">8K UHD · 4320p</option></select></label><label>FPS <select id="fps"><option value="24">24</option><option selected="" value="30">30</option><option value="60">60</option></select></label><label>Kodek <select id="videoCodec"><option value="auto">Automatyczny</option><option value="h264">H.264 / AVC</option><option value="h265">H.265 / HEVC</option><option value="vp9">VP9</option><option value="vp8">VP8</option></select></label><label>Bitrate <select id="bitrateMode"><option value="auto">Automatyczny</option><option value="manual">Własny</option></select></label><label class="hide" id="bitrateCustomWrap">Mbps <input id="videoBitrate" max="300" min="0.5" step="0.5" type="number" value="25"/></label><button class="small" id="preflight" type="button">✓ Sprawdź eksport</button><button class="primary" id="desktopExport" style="display:none" type="button">🎬 Eksport MP4 na Windows (FFmpeg)</button><button class="danger" id="desktopCancel" style="display:none" type="button">Anuluj MP4</button><button class="small primary" id="folderJob" type="button">📁 Zapisz cały folder eksportu Windows</button><button class="small" id="winJob" type="button">💻 Pobierz projekt JSON (Windows)</button><button class="small" id="probeEncoder" type="button">⚙ Kodeki</button><button class="small danger" disabled="" id="cancelExport">Anuluj eksport</button><span aria-live="polite" class="muted" id="exportDimensions"></span></div><progress class="exportprogress hide" id="progress" max="1" value="0"></progress><div aria-live="polite" class="msg" id="codecStatus">Kodek i sprzętowe przyspieszanie zależą od przeglądarki.</div><div aria-live="polite" class="msg" id="audioStatus">🔊 Audio: sprawdzenie przed eksportem.</div><div aria-live="polite" class="msg" id="preflightStatus" role="status">Ustaw silnik Automatyczny, aby program dopasował eksport do projektu.</div><div class="msg" id="ffmpegHint">Tryb AUTOMATYCZNY wybiera FFmpeg.wasm (MP4 + AAC) dla krótkich, prostych projektów do 1080p, a MediaRecorder dla większych projektów i efektów Canvas. W razie błędu próbuje drugiego silnika, jeżeli jest dostępny. Dla wyższej niezawodności 4K–8K na PC użyj „Zapisz cały folder eksportu Windows” — Chrome/Edge skopiuje oryginalne pliki wraz z rendererem. Skrypty wymagają Python 3 i FFmpeg. FFmpeg.wasm pobiera ~32 MB przy pierwszym uruchomieniu. Żaden silnik nie może zagwarantować 8K na dowolnym urządzeniu.</div><div aria-live="polite" class="msg" id="nativeStatus" style="display:none">Windows · eksport lokalny FFmpeg z MP4/AAC. Uwaga: animowane napisy, naklejki i efekty ruchu wciąż wymagają eksportu przeglądarkowego.</div><div class="msg" id="exportStatus"></div><p class="muted">4K/6K/8K w przeglądarce mogą być automatycznie obniżane. Dla dokładnego wyjścia 4K/6K/8K na Windows zalecany jest renderer FFmpeg. Przeglądarki mobilne i starsze karty graficzne mogą nie obsługiwać tak dużego eksportu. Rozdzielczość wyjściowa nie zwiększa szczegółowości materiałów źródłowych. Przy nagrywaniu przez MediaRecorder silnik przeglądarki sam decyduje, czy użyje sprzętowego enkodera. Przycisk „Sprawdź kodowanie” bada dostępność interfejsów i preferencji, ale nie gwarantuje sprzętowego eksportu. H.265 bywa niedostępny, a ustawiony bitrate jest tylko wartością żądaną.</p></div></section>
+<div aria-label="Zmiana wysokości osi czasu; użyj strzałek w górę lub w dół" aria-orientation="horizontal" id="proTimelineSplitter" role="separator" tabindex="0" title="Przeciągnij, aby zmienić wysokość osi czasu"><span>⋮⋮⋮</span></div><section class="timeline" id="proTimeline"><div class="row spread"><h2>⏱ PRO TIMELINE · przeciągaj klipy palcem lub myszą</h2><div class="row"><span class="muted">Skala</span><input aria-label="Powiększenie osi czasu" id="zoom" max="100" min="24" type="range" value="48"/></div></div><div class="tools"><button class="small" id="proOpenExport" type="button">⚙ Ustawienia eksportu</button><button class="small" id="seekStart">⏮ Początek</button><button class="small" id="fadeBtn">◐ Przejście: wyłączone</button><button class="small danger" id="clearProject">Wyczyść projekt</button><span class="muted">Przeciągaj klipy pomiędzy V1/V2 i w czasie. Dwuklik na osi ustawia kursor.</span></div><div class="tracks" id="tracks"><div id="timelineInner" style="position:relative;min-width:600px"><div class="ruler" id="ruler"></div><div class="trackrow"><div class="tracklabel">🎥 V2 · Nakładka</div><div class="trackcontent" data-track="1" id="overlayTrack"></div></div><div class="trackrow"><div class="tracklabel">🎥 V1 · Główna</div><div class="trackcontent" data-track="0" id="videoTrack"></div></div><div class="trackrow"><div class="tracklabel">🎵 AUDIO</div><div class="trackcontent" data-track="audio" id="audioTrack"></div></div><div class="trackrow"><div class="tracklabel">💥 SFX</div><div class="trackcontent" id="sfxTrack"></div></div><div class="trackrow"><div class="tracklabel">📝 Napisy</div><div class="trackcontent" id="captionTrack"></div></div><div class="trackrow"><div class="tracklabel">⭐ Naklejki</div><div class="trackcontent" id="stickerTrack"></div></div><div class="playhead" id="head"></div></div></div><div class="row" style="margin-top:13px"><span class="muted">Przesuwanie:</span><input id="seek" max="1000" min="0" style="flex:1;min-width:130px" type="range" value="0"/><span class="muted" id="durationLabel">0.0 s</span></div></section></main>
+<footer>NOVA CUT 6.1 · PROFESSIONAL UI · Lokalny montaż i eksport MP4 · Projekty JSON nie zawierają mediów.</footer>
 <script>
 window.__NOVA_BOOTSTRAPPED=false; window.__NOVA_LAST_ERROR='';
 window.addEventListener('error',event=>{
@@ -521,4 +586,313 @@ preflightExport();
 window.NovaUltra={S,renderAll,seekTo,pause,notify,$,ratio,dimensions,updateCounters};
 renderAll();dimensions();updateCodecStatus();window.__NOVA_BOOTSTRAPPED=true;})();
 
-</script><script src="./ultra.js"></script></body></html>
+</script><script>/* NOVA CUT 6.0 — ULTRA EDITOR, additive desktop tools; original editor remains intact. */
+(() => {
+  'use strict';
+  const api = window.NovaUltra;
+  if (!api) { console.error('ULTRA EDITOR: missing editor API'); return; }
+  const {S, renderAll, seekTo, pause, notify} = api;
+  const $ = id => document.getElementById(id);
+  const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+  const inject = document.createElement('style');
+  inject.textContent = `
+    .ultra-toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 12px;padding:11px;
+      border:1px solid #345c68;border-radius:12px;background:linear-gradient(105deg,#14272c,#19233b)}
+    .ultra-toolbar b{color:#79f5d7;margin-right:4px}
+    .ultra-toolbar button{white-space:nowrap}
+    .ultra-toolbar .ultra-on{border-color:#46e6c8;color:#80ffe5;background:#20463f}
+    .ultra-toolbar .ultra-hint{font-size:11px;color:#a6b7ce}
+    .ultra-audio{margin:11px 0 14px;padding:12px;border:1px solid #43577a;border-radius:11px;background:#172235}
+    .ultra-audio h3{margin:0 0 9px;color:#75e6d2}
+    .ultra-audio label{display:grid;gap:5px;font-size:12px;color:#bac8dc}
+    .ultra-audio-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .ultra-info{font-size:12px;color:#a6b7ce;margin:8px 0 0}
+    #ultraSummary{font-size:12px;color:#a8e9db}
+    @media(max-width:760px){.ultra-toolbar{gap:6px}.ultra-audio-grid{grid-template-columns:1fr 1fr}}
+  `;
+  document.head.append(inject);
+
+  const toolbar = document.createElement('div');
+  toolbar.className = 'ultra-toolbar';
+  toolbar.id = 'ultraToolbar';
+  toolbar.innerHTML = `
+    <b>⚡ ULTRA 6.1</b>
+    <button class="small" id="ultraUndo" type="button" disabled title="Ctrl+Z">↶ Cofnij</button>
+    <button class="small" id="ultraRedo" type="button" disabled title="Ctrl+Y">↷ Ponów</button>
+    <button class="small ultra-on" id="ultraSnap" type="button" aria-pressed="true">🧲 Przyciąganie: WŁ.</button>
+    <button class="small primary" id="ultraSlideshow" type="button">🖼 Zdjęcia do muzyki</button>
+    <span class="ultra-hint">Cofanie zmian · magnetyczne pozycjonowanie · pokaz slajdów</span>
+    <span id="ultraSummary" aria-live="polite"></span>
+  `;
+  const timelineTools = document.querySelector('.timeline .tools');
+  if (timelineTools) timelineTools.before(toolbar);
+
+  const fades = document.createElement('div');
+  fades.className = 'ultra-audio';
+  fades.innerHTML = `
+    <h3>🎚 ULTRA AUDIO — PŁYNNE PRZEJŚCIA</h3>
+    <div class="ultra-audio-grid">
+      <label>Fade-in / wejście (s)<input id="ultraFadeIn" type="number" min="0" max="999" step="0.1" value="0"></label>
+      <label>Fade-out / wyjście (s)<input id="ultraFadeOut" type="number" min="0" max="999" step="0.1" value="0"></label>
+    </div>
+    <p class="ultra-info" id="ultraAudioInfo">Zaznacz klip na ścieżce AUDIO. Płynne wejście i wyjście działa w podglądzie i eksporcie Windows.</p>
+  `;
+  const volField = $('selectedAudioVolume')?.closest('.field');
+  if (volField) volField.after(fades);
+
+  const stateKeys = ['clips','audioClips','texts','stickers','sfx','filters','ratio','vol','musicVol','effectPreset','motionEffect','effectStrength','transitionType','fade'];
+  const snapState = () => JSON.stringify(Object.fromEntries(stateKeys.map(k => [k, S[k]])));
+  const undoStack = [], redoStack = [];
+  let pending = null;
+  const historyButtons = () => {
+    $('ultraUndo').disabled = !undoStack.length;
+    $('ultraRedo').disabled = !redoStack.length;
+  };
+  function beginEdit() { if (!pending) pending = snapState(); }
+  function finishEdit() {
+    if (!pending) return;
+    const previous = pending;
+    pending = null;
+    if (previous !== snapState()) {
+      undoStack.push(previous);
+      if (undoStack.length > 80) undoStack.shift();
+      redoStack.length = 0;
+    }
+    historyButtons();
+    updateSummary();
+  }
+  const deferredFinish = () => setTimeout(finishEdit, 0);
+  function restore(data) {
+    pause();
+    const p = JSON.parse(data);
+    for (const k of stateKeys) S[k] = p[k];
+    for (const k of ['selClip','selAudio','selText','selSticker']) S[k] = null;
+    for (const k of Object.keys(S.filters)) {
+      const el=$(k);if(el) el.value=S.filters[k];
+      const labelId = {brightness:'brightLabel',contrast:'contrastLabel',saturation:'saturationLabel',grayscale:'grayLabel'}[k];
+      if ($(labelId)) $(labelId).textContent=S.filters[k]+'%';
+    }
+    for (const [name,value] of Object.entries({effectPreset:S.effectPreset,motionEffect:S.motionEffect,effectStrength:S.effectStrength,transitionType:S.transitionType,clipVolume:S.vol*100,musicVolume:S.musicVol*100})) {
+      if ($(name)) $(name).value=value;
+    }
+    if ($('effectStrengthLabel')) $('effectStrengthLabel').textContent = S.effectStrength+'%';
+    document.querySelectorAll('#ratioBar button').forEach(el=>el.classList.toggle('primary',el.dataset.ratio===S.ratio));
+    S.position=clamp(S.position,0,Math.max(0,...S.clips.map(c=>c.at+(c.end-c.start)/(c.speed||1))));
+    renderAll();api.dimensions();seekTo(S.position);updateAudioControls();updateSummary();
+  }
+  function undo() {
+    finishEdit();
+    if (!undoStack.length) return;
+    redoStack.push(snapState());restore(undoStack.pop());historyButtons();notify('↶ Cofnięto ostatnią zmianę.');
+  }
+  function redo() {
+    finishEdit();
+    if (!redoStack.length) return;
+    undoStack.push(snapState());restore(redoStack.pop());historyButtons();notify('↷ Przywrócono zmianę.');
+  }
+  $('ultraUndo').onclick = undo;
+  $('ultraRedo').onclick = redo;
+  document.addEventListener('keydown', e=>{
+    if (!(e.ctrlKey||e.metaKey) || e.altKey || S.exporting) return;
+    const tag = document.activeElement?.tagName;
+    if (['INPUT','TEXTAREA','SELECT'].includes(tag) && !document.activeElement?.matches('input[type="range"]')) return;
+    if (e.key.toLowerCase()==='z') { e.preventDefault();e.shiftKey?redo():undo(); }
+    if (e.key.toLowerCase()==='y') { e.preventDefault();redo(); }
+  });
+
+  const editButtons = new Set(['split','deleteClip','duplicateClip','clipLeft','clipRight','addOverlay','fitImageAudio','fitImageProject','removeAudio','deleteAudioClip','addText','deleteText','clearProject','fadeBtn']);
+  const editInputs = new Set(['trimStart','trimEnd','clipAt','clipSpeed','clipTrack','imageDuration','selectedAudioVolume','clipVolume','musicVolume','textValue','fontSize','textColor','textStart','textEnd','textAnimation','textStyle','brightness','contrast','saturation','grayscale','effectPreset','motionEffect','effectStrength','transitionType']);
+  document.addEventListener('pointerdown', e => {
+    const target = e.target;
+    if (target.closest('.clip,.resize-handle,#canvas') || (target.id && editInputs.has(target.id))) beginEdit();
+  }, true);
+  document.addEventListener('click', e=>{
+    const btn=e.target.closest('button');
+    if (btn && (editButtons.has(btn.id) || btn.classList.contains('sfx') || btn.matches('#stickerPalette button,#assetList button,#audioLibrary button,#textList .danger,#stickerList button'))) beginEdit();
+    deferredFinish();
+    setTimeout(updateAudioControls, 1);
+  }, true);
+  // Capture a snapshot before existing onclick listeners mutate the project.
+  document.addEventListener('click', deferredFinish);
+  document.addEventListener('focusin', e=>{if (editInputs.has(e.target.id))beginEdit()},true);
+  document.addEventListener('focusout', e=>{if (editInputs.has(e.target.id))deferredFinish()},true);
+  document.addEventListener('pointerup',deferredFinish,true);
+  document.addEventListener('pointercancel',deferredFinish,true);
+  for (const id of ['mediaInput','audioInput']) {
+    const inp=$(id),prev=inp?.onchange;
+    if (inp && typeof prev === 'function') inp.onchange = async e=>{
+      beginEdit();await prev.call(inp,e);finishEdit();updateSummary();
+    };
+  }
+
+  let snapping = true;
+  function snap(t,ignoredId) {
+    if (!snapping) return t;
+    const positions = [0];
+    for (const c of S.clips) if (c.id!==ignoredId) positions.push(c.at,c.at+(c.end-c.start)/(c.speed||1));
+    for (const c of S.audioClips) if (c.id!==ignoredId) positions.push(c.at,c.at+c.duration);
+    let near = null,dist=.16;
+    for (const p of positions) {
+      const diff=Math.abs(p-t);
+      if (diff<dist) {dist=diff;near=p;}
+    }
+    return Math.max(0,near===null?Math.round(t*4)/4:near);
+  }
+  api.snap=snap;
+  $('ultraSnap').onclick=()=>{
+    snapping=!snapping;
+    $('ultraSnap').classList.toggle('ultra-on',snapping);
+    $('ultraSnap').setAttribute('aria-pressed',String(snapping));
+    $('ultraSnap').textContent='🧲 Przyciąganie: '+(snapping?'WŁ.':'WYŁ.');
+    notify(snapping?'Przyciąganie do krawędzi klipów i siatki 0,25 s jest włączone.':'Przyciąganie wyłączone.');
+  };
+
+  function slideshow() {
+    const photos=S.clips.filter(c=>c.track===0&&S.assets.get(c.assetId)?.kind==='image').sort((a,b)=>a.at-b.at);
+    const videos=S.clips.filter(c=>c.track===0&&S.assets.get(c.assetId)?.kind==='video');
+    if (!photos.length) {notify('Dodaj najpierw zdjęcia na ścieżkę V1.');return;}
+    if (videos.length) {notify('Na V1 są również filmy. Przenieś je na V2 lub usuń przed automatycznym pokazem zdjęć.');return;}
+    if (!S.audioClips.length) {notify('Dodaj muzykę lub nagranie audio na oś czasu.');return;}
+    const start = Math.min(...S.audioClips.map(c=>c.at));
+    const finish = Math.max(...S.audioClips.map(c=>c.at+c.duration));
+    const per=(finish-start)/photos.length;
+    if (per<.1) {notify('Muzyka jest zbyt krótka względem liczby zdjęć.');return;}
+    beginEdit();
+    photos.forEach((c,i)=>{
+      c.at=+(start+i*per).toFixed(4);
+      c.start=0;
+      c.speed=1;
+      c.end=+(i===photos.length-1?finish-c.at:per).toFixed(4);
+    });
+    pause();renderAll();seekTo(start);finishEdit();
+    notify(`Dopasowano ${photos.length} zdjęć do ${Math.round(finish-start)} s audio. Każde zdjęcie trwa około ${per.toFixed(2)} s.`);
+  }
+  $('ultraSlideshow').onclick=slideshow;
+
+  function selectedAudio() {return S.audioClips.find(c=>c.id===S.selAudio)||null;}
+  function updateAudioControls() {
+    const c=selectedAudio();
+    for(const id of ['ultraFadeIn','ultraFadeOut']) $(id).disabled=!c;
+    if(c){
+      $('ultraFadeIn').value=String(c.fadeIn||0);
+      $('ultraFadeOut').value=String(c.fadeOut||0);
+      $('ultraAudioInfo').textContent=`Wybrano klip audio (${c.duration.toFixed(2)} s). Fade-in i fade-out mogą mieć maks. połowę długości klipu.`;
+    }else {
+      $('ultraAudioInfo').textContent='Wybierz klip na ścieżce AUDIO, aby ustawić fade-in i fade-out.';
+    }
+  }
+  for (const [id,key] of [['ultraFadeIn','fadeIn'],['ultraFadeOut','fadeOut']]) {
+    $(id).onchange=e=>{
+      const c=selectedAudio();if(!c)return;
+      const val=Number(e.target.value);
+      if(!Number.isFinite(val)||val<0){notify('Fade musi być nieujemną liczbą sekund.');updateAudioControls();return;}
+      beginEdit();c[key]=+clamp(val,0,c.duration/2).toFixed(2);
+      updateAudioControls();finishEdit();notify('Zaktualizowano '+(key==='fadeIn'?'wejście':'wyjście')+' dźwięku.');
+    };
+  }
+  function audioGainAt(c,t) {
+    const at=t-c.at,d=Math.max(.001,c.duration);
+    if(at<0||at>d)return 0;
+    const fi=clamp(Number(c.fadeIn)||0,0,d/2),fo=clamp(Number(c.fadeOut)||0,0,d/2);
+    return clamp(Math.min(fi>0?at/fi:1,fo>0?(d-at)/fo:1),0,1);
+  }
+  api.audioGainAt=audioGainAt;
+
+  function updateSummary() {
+    if (!$('ultraSummary')) return;
+    const count=S.clips.length,images=S.clips.filter(c=>S.assets.get(c.assetId)?.kind==='image').length;
+    $('ultraSummary').textContent=`Klipy: ${count} · Zdjęcia: ${images} · Audio: ${S.audioClips.length}`;
+  }
+  updateSummary();updateAudioControls();historyButtons();
+  window.__NOVA_ULTRA_READY = true;
+})();
+</script><script>/* NOVA CUT 6.1 — changes presentation only. Do not override renderer or export handlers. */
+(()=>{
+ 'use strict';
+ const $=id=>document.getElementById(id);
+ const app=$('proTimeline')?.closest('.app');
+ if(!app)return;
+ const tools=$('proToolsPane'),exportPane=$('proExportPane');
+ const bTools=$('proTabTools'),bExport=$('proTabExport');
+ const setTab=name=>{
+   const which=name==='export'?'export':'tools';
+   tools.classList.toggle('hide',which!=='tools');
+   exportPane.classList.toggle('hide',which!=='export');
+   bTools.classList.toggle('selected',which==='tools');
+   bExport.classList.toggle('selected',which==='export');
+   bTools.setAttribute('aria-selected',String(which==='tools'));
+   bExport.setAttribute('aria-selected',String(which==='export'));
+   bTools.setAttribute('aria-controls','proToolsPane');
+   bExport.setAttribute('aria-controls','proExportPane');
+   app.classList.remove('pro-inspector-hidden');
+   $('proToggleInspector')?.setAttribute('aria-pressed','false');
+   try {sessionStorage.setItem('nova61-tab',which)} catch {}
+ };
+ bTools.addEventListener('click',()=>setTab('tools'));
+ bExport.addEventListener('click',()=>setTab('export'));
+ $('proOpenExport').addEventListener('click',()=>setTab('export'));
+ $('proExportShortcut').addEventListener('click',()=>setTab('export'));
+ $('export')?.addEventListener('click',()=>setTab('export'),{capture:true});
+ $('desktopExport')?.addEventListener('click',()=>setTab('export'),{capture:true});
+ const toggle=(className,buttonId)=>{
+   const hidden=app.classList.toggle(className);
+   $(buttonId)?.setAttribute('aria-pressed',String(hidden));
+   return hidden;
+ };
+ $('proToggleMedia').addEventListener('click',()=>toggle('pro-media-hidden','proToggleMedia'));
+ $('proToggleInspector').addEventListener('click',()=>toggle('pro-inspector-hidden','proToggleInspector'));
+ const handle=$('proTimelineSplitter');
+ const maxSize=()=>Math.max(175,app.clientHeight-180);
+ const applySize=pixels=>{
+   const next=Math.max(175,Math.min(maxSize(),pixels));
+   app.style.setProperty('--pro-timeline-size',`${Math.round(next)}px`);
+   handle.setAttribute('aria-valuenow',`${Math.round(next)}`);
+   return next;
+ };
+ let dragging=null;
+ handle.addEventListener('pointerdown',ev=>{
+   if(ev.button!==0)return;
+   ev.preventDefault();
+   dragging={y:ev.clientY,height:$('proTimeline').getBoundingClientRect().height};
+   handle.setPointerCapture(ev.pointerId);
+ });
+ handle.addEventListener('pointermove',ev=>{
+   if(!dragging)return;
+   applySize(dragging.height+(dragging.y-ev.clientY));
+ });
+ const finish=()=>{if(!dragging)return;dragging=null;
+   try {localStorage.setItem('nova61-timeline-size',Math.round($('proTimeline').getBoundingClientRect().height))}catch{}
+ };
+ handle.addEventListener('pointerup',finish);
+ handle.addEventListener('pointercancel',finish);
+ handle.addEventListener('keydown',ev=>{
+   if(!['ArrowUp','ArrowDown','Home'].includes(ev.key))return;
+   ev.preventDefault();
+   if(ev.key==='Home'){app.style.removeProperty('--pro-timeline-size');return;}
+   const height=$('proTimeline').getBoundingClientRect().height;
+   applySize(height+(ev.key==='ArrowUp'?24:-24));finish();
+ });
+ $('proResetLayout').addEventListener('click',()=>{
+   app.classList.remove('pro-media-hidden','pro-inspector-hidden');
+   app.style.removeProperty('--pro-timeline-size');
+   $('proToggleMedia').setAttribute('aria-pressed','false');
+   $('proToggleInspector').setAttribute('aria-pressed','false');
+   setTab('tools');
+   try {localStorage.removeItem('nova61-timeline-size')}catch{}
+ });
+ document.addEventListener('keydown',ev=>{
+   if(ev.ctrlKey&&ev.shiftKey&&ev.code==='KeyE'){
+     ev.preventDefault();setTab('export');
+   }else if(ev.key==='F6'&&!ev.ctrlKey){
+     ev.preventDefault();$('tracks')?.focus();
+   }
+ });
+ $('tracks')?.setAttribute('tabindex','0');
+ try {
+   const saved=Number(localStorage.getItem('nova61-timeline-size'));
+   if(Number.isFinite(saved)&&saved>=175)applySize(saved);
+   setTab(sessionStorage.getItem('nova61-tab')==='export'?'export':'tools');
+ }catch {setTab('tools')}
+ window.NovaProfessionalUI=Object.freeze({version:'6.1',setTab,reset:()=>$('proResetLayout').click()});
+})();
+</script></body></html>
