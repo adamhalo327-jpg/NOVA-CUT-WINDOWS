@@ -1,0 +1,35 @@
+/* TIMELINE ULTRA PRO 7.0 — only timeline/presentation styling. */
+:root { --tl7-accent:#45e6c7; }
+#tl7Toolbar {display:flex;align-items:center;gap:6px;flex:0 0 auto;flex-wrap:wrap;margin:2px 0 5px;padding:6px 8px;border:1px solid #3e586c;border-radius:9px;background:#182637;}
+#tl7Toolbar button{font-size:11px;padding:5px 8px;min-height:28px;}
+#tl7Toolbar .tl7-brand{color:#71f3d9;font-weight:800;letter-spacing:.2px;margin-right:4px;}
+#tl7Toolbar .tl7-status{color:#adbfce;font-size:11px;flex:1;min-width:150px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#tl7Toolbar .tl7-zoom{color:#a5cfdd;font-variant-numeric:tabular-nums;font-size:11px;}
+#tl7Toolbar button.tl7-selected{background:#174c43;color:#a4ffe8;border-color:#2f9d88;}
+#proTimeline .trackrow.tl7-row{height:var(--tl7-row-h,52px);min-height:0;position:relative;transition:background .1s;}
+#proTimeline .trackrow.tl7-row .trackcontent{height:100%;min-height:0;overflow:visible;}
+#proTimeline .trackrow.tl7-row .clip{top:4px;height:calc(100% - 8px);max-height:64px;}
+#proTimeline .trackrow.tl7-row .tracklabel{width:101px;min-width:101px;display:flex;flex-direction:column;align-items:stretch;justify-content:center;gap:1px;padding:3px 4px;font-size:10px;line-height:1.05;overflow:hidden;}
+#proTimeline .tl7-title{display:block;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#proTimeline .tl7-trackbuttons{display:flex;align-items:center;justify-content:center;gap:2px;}
+#proTimeline .tl7-trackbuttons button{font:11px/1 system-ui;min-width:20px;height:19px;padding:1px 2px;border:1px solid #476178;border-radius:4px;background:#233749;cursor:pointer;}
+#proTimeline .tl7-trackbuttons button[aria-pressed=true]{color:#d0ffeb;border-color:#43dbc4;background:#27564e;}
+#proTimeline .trackrow.tl7-collapsed{height:25px;}
+#proTimeline .trackrow.tl7-collapsed .tl7-trackbuttons button:not([data-action=collapse]){display:none;}
+#proTimeline .trackrow.tl7-collapsed .trackcontent .clip{display:none!important;}
+#proTimeline .trackrow.tl7-collapsed .tracklabel{flex-direction:row;align-items:center;gap:2px;justify-content:space-between;}
+#proTimeline .trackrow.tl7-collapsed .tl7-trackbuttons{flex:0 0 auto;}
+#proTimeline .trackrow.tl7-locked{background:#241f2b;}
+#proTimeline .trackrow.tl7-locked .clip{cursor:not-allowed;opacity:.65;}
+#proTimeline .trackrow.tl7-hidden-track .clip{visibility:hidden!important;pointer-events:none!important;}
+#proTimeline .trackrow.tl7-hidden-track{background:#0c151f;}
+#proTimeline .tl7-track-resize{height:5px;position:absolute;bottom:-2px;left:0;right:0;z-index:9;cursor:ns-resize;touch-action:none;background:transparent;}
+#proTimeline .tl7-track-resize:hover{background:#52ebc066;}
+#proTimeline .trackrow.tl7-collapsed .tl7-track-resize{display:none;}
+#proTimeline #tl7Markers{position:absolute;top:0;left:0;right:0;height:28px;pointer-events:none;z-index:7;overflow:hidden;}
+#proTimeline #tl7Markers button{position:absolute;top:0;transform:translateX(-50%);pointer-events:auto;background:transparent;border:0;padding:0 2px;font-size:13px;line-height:15px;color:#ffcf7c;cursor:pointer;}
+#proTimeline .tl7-locked .tracklabel{border-right-color:#c88898;}
+#proTimeline .tl7-info{font-size:10px;color:#89b9c6;}
+#proTimeline .ultra-toolbar{padding:5px 8px;}
+#proTimeline .tools{padding:0 1px;}
+@media(max-width:1000px){#tl7Toolbar .tl7-status{display:none}#tl7Toolbar button{padding:5px}}

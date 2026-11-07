@@ -1,48 +1,50 @@
-name: NOVA CUT 6.1 - PROFESSIONAL UI Windows EXE
+name: NOVA CUT 7.0 - TIMELINE ULTRA PRO Windows EXE
 
 on:
   workflow_dispatch:
   push:
-    branches: [main, 'release/nova-cut-6.1-professional-ui']
-  pull_request:
-    branches: [main]
+    branches: ['release/nova-cut-7.0-timeline-ultra-pro']
 permissions:
   contents: read
 jobs:
   build-windows:
     runs-on: windows-latest
-    timeout-minutes: 45
+    timeout-minutes: 55
     steps:
-      - name: Pobierz repozytorium
+      - name: Pobierz projekt 7.0
         uses: actions/checkout@v4
       - name: Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Sprawdz projekt oraz pliki ULTRA EDITOR
-        shell: pwsh
+      - name: Sprawdz pliki i zgodnosc projektu
         run: |
           node --check main.js
           node --check preload.js
           node --check native-renderer.js
-          node --check app/ultra.js
-          node scripts/check-project.js
+          node --check app/timeline7.js
+          npm run check
       - name: Zainstaluj zaleznosci
         run: npm install --no-audit --no-fund
-      - name: Zbuduj instalator i Portable
+      - name: Zbuduj instalator i portable Windows
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
         run: npm run build:win
-      - name: Sprawdz instalator i Portable
+      - name: Zweryfikuj EXE i zakres wagi aktualizacji
         shell: pwsh
         run: |
-          $exes = @(Get-ChildItem -Path dist -Filter '*.exe' -File)
-          $exes | Select-Object Name, Length | Format-Table
-          if ($exes.Count -lt 2) { throw 'Brak instalatora lub Portable.' }
-      - name: Udostepnij EXE
+          $exes=@(Get-ChildItem -Path dist -Filter '*.exe' -File)
+          if ($exes.Count -lt 2) {throw 'Brakuje instalatora lub Portable EXE.'}
+          $exes | Select-Object Name,Length | Format-Table
+          $update='dist/NOVA-CUT-7.0-WINDOWS-UPDATE.zip'
+          Compress-Archive -Path 'dist/*.exe' -DestinationPath $update -Force -CompressionLevel Optimal
+          $sizeMB=[math]::Round((Get-Item $update).Length/1MB,1)
+          Write-Host "Rozmiar paczki Windows (Setup + Portable): $sizeMB MB"
+          if ($sizeMB -lt 250 -or $sizeMB -gt 500) {Write-Warning 'Paczka poza zakresem 250-500 MB; zweryfikuj przed wydaniem.'}
+      - name: Udostepnij aktualizacje Windows 7.0
         uses: actions/upload-artifact@v4
         with:
-          name: NOVA-CUT-Windows-6.1-PROFESSIONAL-UI
-          path: dist/*.exe
+          name: NOVA-CUT-Windows-7.0-TIMELINE-ULTRA-PRO
+          path: dist/NOVA-CUT-7.0-WINDOWS-UPDATE.zip
           if-no-files-found: error
           retention-days: 30

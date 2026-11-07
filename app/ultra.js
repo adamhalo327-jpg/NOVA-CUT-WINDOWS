@@ -28,7 +28,7 @@
   toolbar.className = 'ultra-toolbar';
   toolbar.id = 'ultraToolbar';
   toolbar.innerHTML = `
-    <b>⚡ ULTRA 6.0</b>
+    <b>⚡ ULTRA 7.0</b>
     <button class="small" id="ultraUndo" type="button" disabled title="Ctrl+Z">↶ Cofnij</button>
     <button class="small" id="ultraRedo" type="button" disabled title="Ctrl+Y">↷ Ponów</button>
     <button class="small ultra-on" id="ultraSnap" type="button" aria-pressed="true">🧲 Przyciąganie: WŁ.</button>
