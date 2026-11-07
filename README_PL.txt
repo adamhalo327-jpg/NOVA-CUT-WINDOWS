@@ -1,13 +1,7 @@
-NOVA CUT 5.2.2 — WINDOWS EDITION
+NOVA CUT 6.0 — ULTRA EDITOR · Windows 10/11 (x64)
 
-Ten ZIP jest pełnym źródłem do kompilacji. Nie wrzucaj jego środka ręcznie na GitHub.
-Archiwum pakietu naprawczego zawiera SKONFIGURUJ_GITHUB.cmd, który skopiuje ten ZIP oraz workflow do lokalnego repozytorium.
+Nowe: Cofnij/Ponów do 80 zmian (Ctrl+Z/Y), przyciąganie osi czasu do 0,25 s i do granic klipów, pokaz wielu zdjęć dopasowany do audio, płynne fade-in/fade-out wybranego klipu muzycznego w podglądzie i MP4 FFmpeg.
 
-Co poprawiono:
-- GitHub Actions zawsze wyodrębnia kompletne źródła z ZIP i sprawdza app/index.html.
-- Elektron sprawdza obecność panelu oraz gotowość JavaScript; w razie błędu wyświetla stronę diagnostyczną.
-- Log: %APPDATA%\nova-cut\novacut-startup.log (lokalizacja może zależeć od nazwy aplikacji Electron).
-- W przypadku czarnego okna można uruchomić przenośną wersję z parametrem --disable-gpu.
-- ZACHOWANO poprzednie funkcje edytora i lokalny renderer MP4 (FFmpeg).
+Wszystkie dotychczasowe funkcje NOVA CUT 5.2.2 pozostają dostępne: V1/V2, import, napisy, naklejki, SFX, efekty, projekty JSON, eksport do 8K zależnie od sprzętu, instalator i Portable.
 
-Uwaga: nowej wersji EXE nie dało się przetestować na Twoim komputerze. Jeśli będzie problem, otwórz Narzędzia programisty F12 albo przekaż zawartość logu.
+Uwaga: natywny renderer Windows nie obsługuje jeszcze wszystkich animowanych napisów, naklejek ani efektów ruchu. Użyj do nich eksportu przeglądarkowego. 4K/6K/8K wymagają wydajnego sprzętu. Projekty JSON nie zawierają mediów.

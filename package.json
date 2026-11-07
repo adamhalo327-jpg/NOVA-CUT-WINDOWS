@@ -1,8 +1,8 @@
 {
   "name": "nova-cut-desktop",
   "productName": "NOVA CUT",
-  "version": "5.2.2",
-  "description": "NOVA CUT Windows edition with source-bundle and startup verification",
+  "version": "6.0.0",
+  "description": "NOVA CUT 6.0 ULTRA EDITOR Windows edition with audio fades, undo/redo, timeline snapping and photo slideshow",
   "main": "main.js",
   "author": "NOVA CUT",
   "license": "UNLICENSED",
@@ -63,10 +63,10 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "artifactName": "NOVA-CUT-5.2.2-Setup-${version}.${ext}"
+      "artifactName": "NOVA-CUT-6.0-Setup-${version}.${ext}"
     },
     "portable": {
-      "artifactName": "NOVA-CUT-5.2.2-Portable-${version}.${ext}"
+      "artifactName": "NOVA-CUT-6.0-Portable-${version}.${ext}"
     },
     "publish": null
   }
