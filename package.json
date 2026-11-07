@@ -1,8 +1,8 @@
 {
   "name": "nova-cut-desktop",
   "productName": "NOVA CUT",
-  "version": "7.0.0",
-  "description": "NOVA CUT 7.0 TIMELINE ULTRA PRO — professional timeline while keeping FFmpeg export",
+  "version": "8.0.0",
+  "description": "NOVA CUT 8.0 ULTIMATE STUDIO - waveforms, thumbnails, visual effects, keyframes, Whisper offline captions, autosave and professional UI",
   "main": "main.js",
   "author": "NOVA CUT",
   "license": "UNLICENSED",
@@ -11,7 +11,7 @@
     "start": "electron .",
     "build:win": "electron-builder --win --x64",
     "build:win:portable": "electron-builder --win portable --x64",
-    "check": "node scripts/check-project.js && node scripts/check-ui.js && node scripts/check-timeline7.js && node --check app/ultra.js && node --check app/pro-ui.js && node --check app/timeline7.js",
+    "check": "node scripts/check-project.js && node scripts/check-ui.js && node scripts/check-timeline7.js && node --check app/ultra.js && node --check app/pro-ui.js && node --check app/timeline7.js && node --check app/studio8.js && node --check speech-renderer.js && node scripts/check-studio8.js",
     "prebuild:win": "npm run check"
   },
   "dependencies": {
@@ -39,7 +39,8 @@
       "main.js",
       "preload.js",
       "native-renderer.js",
-      "package.json"
+      "package.json",
+      "speech-renderer.js"
     ],
     "win": {
       "target": [
@@ -63,11 +64,20 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "artifactName": "NOVA-CUT-7.0-Setup-${version}.${ext}"
+      "artifactName": "NOVA-CUT-8.0-Setup-${version}.${ext}"
     },
     "portable": {
-      "artifactName": "NOVA-CUT-7.0-Portable-${version}.${ext}"
+      "artifactName": "NOVA-CUT-8.0-Portable-${version}.${ext}"
     },
-    "publish": null
+    "publish": null,
+    "extraResources": [
+      {
+        "from": "whisper",
+        "to": "whisper",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ]
   }
 }

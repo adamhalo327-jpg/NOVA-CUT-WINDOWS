@@ -1,50 +1,62 @@
-name: NOVA CUT 7.0 - TIMELINE ULTRA PRO Windows EXE
-
+name: NOVA CUT 8.0 - ULTIMATE STUDIO Windows EXE
 on:
   workflow_dispatch:
   push:
-    branches: ['release/nova-cut-7.0-timeline-ultra-pro']
+    branches: ['release/nova-cut-8.0-ultimate-studio']
 permissions:
   contents: read
 jobs:
   build-windows:
     runs-on: windows-latest
-    timeout-minutes: 55
+    timeout-minutes: 75
     steps:
-      - name: Pobierz projekt 7.0
+      - name: Pobierz projekt 8.0
         uses: actions/checkout@v4
       - name: Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Sprawdz pliki i zgodnosc projektu
+      - name: Kontrola plikow i skryptow
         run: |
           node --check main.js
           node --check preload.js
           node --check native-renderer.js
-          node --check app/timeline7.js
           npm run check
+      - name: Przygotuj silnik napisow Whisper offline
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path whisper | Out-Null
+          $source='https://github.com/ggml-org/whisper.cpp/releases/download/b5454/whisper-bin-x64.zip'
+          Invoke-WebRequest -Uri $source -OutFile whisper-bin.zip
+          Expand-Archive -Path whisper-bin.zip -DestinationPath whisper-package -Force
+          $exe=Get-ChildItem -Path whisper-package -Recurse -Filter whisper-cli.exe | Select-Object -First 1
+          if (!$exe) {throw 'Whisper CLI missing from downloaded Windows release.'}
+          Copy-Item $exe.FullName whisper/whisper-cli.exe
+          Get-ChildItem -Path $exe.Directory.FullName -Filter '*.dll' | ForEach-Object { Copy-Item $_.FullName whisper/ }
+          $url='https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin'
+          Invoke-WebRequest -Uri $url -OutFile whisper/ggml-base.bin
+          if ((Get-Item whisper/ggml-base.bin).Length -lt 100MB) {throw 'Downloaded Whisper model is incomplete.'}
+          Write-Host "Model Whisper base: $([math]::Round((Get-Item whisper/ggml-base.bin).Length/1MB)) MB"
       - name: Zainstaluj zaleznosci
         run: npm install --no-audit --no-fund
-      - name: Zbuduj instalator i portable Windows
+      - name: Zbuduj Setup i Portable Windows
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
         run: npm run build:win
-      - name: Zweryfikuj EXE i zakres wagi aktualizacji
+      - name: Sprawdz rozmiar i zawartosc pakietu
         shell: pwsh
         run: |
-          $exes=@(Get-ChildItem -Path dist -Filter '*.exe' -File)
-          if ($exes.Count -lt 2) {throw 'Brakuje instalatora lub Portable EXE.'}
-          $exes | Select-Object Name,Length | Format-Table
-          $update='dist/NOVA-CUT-7.0-WINDOWS-UPDATE.zip'
-          Compress-Archive -Path 'dist/*.exe' -DestinationPath $update -Force -CompressionLevel Optimal
-          $sizeMB=[math]::Round((Get-Item $update).Length/1MB,1)
-          Write-Host "Rozmiar paczki Windows (Setup + Portable): $sizeMB MB"
-          if ($sizeMB -lt 250 -or $sizeMB -gt 500) {Write-Warning 'Paczka poza zakresem 250-500 MB; zweryfikuj przed wydaniem.'}
-      - name: Udostepnij aktualizacje Windows 7.0
+          $exes=@(Get-ChildItem dist -Filter '*.exe' -File)
+          if($exes.Count -lt 2){throw 'Expected two Windows executables.'}
+          $exes | Select-Object Name, Length | Format-Table
+          Compress-Archive -Path 'dist/*.exe' -DestinationPath 'dist/NOVA-CUT-8.0-WINDOWS-UPDATE.zip' -CompressionLevel Optimal -Force
+          $sizeMB=[math]::Round((Get-Item 'dist/NOVA-CUT-8.0-WINDOWS-UPDATE.zip').Length/1MB,2)
+          Write-Host "Pakiet NOVA CUT 8.0: $sizeMB MB (wymaganie 500-750 MB)"
+          if($sizeMB -lt 500 -or $sizeMB -gt 750){Write-Warning 'Actual package is outside requested size 500-750 MB; please verify before release.'}
+      - name: Udostepnij instalator i Portable
         uses: actions/upload-artifact@v4
         with:
-          name: NOVA-CUT-Windows-7.0-TIMELINE-ULTRA-PRO
-          path: dist/NOVA-CUT-7.0-WINDOWS-UPDATE.zip
+          name: NOVA-CUT-Windows-8.0-ULTIMATE-STUDIO
+          path: dist/NOVA-CUT-8.0-WINDOWS-UPDATE.zip
           if-no-files-found: error
           retention-days: 30
