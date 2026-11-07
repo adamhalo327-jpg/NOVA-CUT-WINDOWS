@@ -1,8 +1,8 @@
-name: NOVA CUT 8.1 - 10K QUALITY Windows EXE
+name: NOVA CUT 8.2 - ULTRA CINEMA Windows EXE
 on:
   workflow_dispatch:
   push:
-    branches: ['release/nova-cut-8.1-10k-quality']
+    branches: ['release/nova-cut-8.2-ultra-cinema']
 permissions:
   contents: read
 jobs:
@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 75
     steps:
-      - name: Pobierz projekt 8.1
+      - name: Pobierz projekt 8.2
         uses: actions/checkout@v4
       - name: Node.js 22
         uses: actions/setup-node@v4
@@ -49,14 +49,14 @@ jobs:
           $exes=@(Get-ChildItem dist -Filter '*.exe' -File)
           if($exes.Count -lt 2){throw 'Expected two Windows executables.'}
           $exes | Select-Object Name, Length | Format-Table
-          Compress-Archive -Path 'dist/*.exe' -DestinationPath 'dist/NOVA-CUT-8.1-WINDOWS-UPDATE.zip' -CompressionLevel Optimal -Force
-          $sizeMB=[math]::Round((Get-Item 'dist/NOVA-CUT-8.1-WINDOWS-UPDATE.zip').Length/1MB,2)
-          Write-Host "Pakiet NOVA CUT 8.1: $sizeMB MB (wymaganie 500-750 MB)"
+          Compress-Archive -Path 'dist/*.exe' -DestinationPath 'dist/NOVA-CUT-8.2-ULTRA-CINEMA-WINDOWS.zip' -CompressionLevel Optimal -Force
+          $sizeMB=[math]::Round((Get-Item 'dist/NOVA-CUT-8.2-ULTRA-CINEMA-WINDOWS.zip').Length/1MB,2)
+          Write-Host "Pakiet NOVA CUT 8.2: $sizeMB MB (wymaganie 500-750 MB)"
           if($sizeMB -lt 500 -or $sizeMB -gt 750){Write-Warning 'Actual package is outside requested size 500-750 MB; please verify before release.'}
       - name: Udostepnij instalator i Portable
         uses: actions/upload-artifact@v4
         with:
-          name: NOVA-CUT-Windows-8.1-10K-QUALITY
-          path: dist/NOVA-CUT-8.1-WINDOWS-UPDATE.zip
+          name: NOVA-CUT-Windows-8.2-ULTRA-CINEMA
+          path: dist/NOVA-CUT-8.2-ULTRA-CINEMA-WINDOWS.zip
           if-no-files-found: error
           retention-days: 30

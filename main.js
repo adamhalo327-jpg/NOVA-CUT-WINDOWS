@@ -5,7 +5,7 @@ const path = require('path');
 const { renderProject, cancelRender } = require('./native-renderer');
 const {transcribeOffline} = require('./speech-renderer');
 
-// NOVA CUT 8.0 - start-up self-diagnostics.
+// NOVA CUT 8.2 - start-up self-diagnostics.
 // The old version showed an empty window if app/index.html was absent.
 let win = null;
 let showingError = false;
@@ -44,7 +44,7 @@ function createWindow() {
   showingError = false;
   win = new BrowserWindow({
     width: 1480, height: 910, minWidth: 960, minHeight: 650,
-    backgroundColor: '#080b12', title: 'NOVA CUT 8.1 - 10K EXPORT',
+    backgroundColor: '#080b12', title: 'NOVA CUT 8.2 - ULTRA CINEMA',
     icon: path.join(__dirname,'assets','novacut.ico'),
     autoHideMenuBar: true, show: !smokeCheck,
     webPreferences: {
