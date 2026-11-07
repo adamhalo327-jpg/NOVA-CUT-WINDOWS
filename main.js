@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const { renderProject, cancelRender } = require('./native-renderer');
 
-// NOVA CUT 6.1 - start-up self-diagnostics.
+// NOVA CUT 7.0 - start-up self-diagnostics.
 // The old version showed an empty window if app/index.html was absent.
 let win = null;
 let showingError = false;
@@ -43,7 +43,7 @@ function createWindow() {
   showingError = false;
   win = new BrowserWindow({
     width: 1480, height: 910, minWidth: 960, minHeight: 650,
-    backgroundColor: '#080b12', title: 'NOVA CUT 6.1 - Windows',
+    backgroundColor: '#080b12', title: 'NOVA CUT 7.0 - Windows',
     icon: path.join(__dirname,'assets','novacut.ico'),
     autoHideMenuBar: true, show: !smokeCheck,
     webPreferences: {
@@ -69,6 +69,7 @@ function createWindow() {
       canvas: !!document.getElementById('canvas'),
       timeline: !!document.getElementById('timelineInner'),
       loaded: window.__NOVA_BOOTSTRAPPED === true,
+      timeline7: window.__NOVA_TIMELINE7_READY === true,
       ultra: window.__NOVA_ULTRA_READY === true,
       ultraTools: !!document.getElementById('ultraToolbar'),
       jsError: window.__NOVA_LAST_ERROR || ''
