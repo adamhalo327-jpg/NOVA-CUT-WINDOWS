@@ -60,7 +60,7 @@ jobs:
           Download-WithRetry $tinyUrl whisper/ggml-tiny.bin
           if ((Get-Item whisper/ggml-tiny.bin).Length -lt 50MB) {throw 'Model Whisper Tiny is missing or incomplete.'}
           Write-Host "Model Whisper tiny: $([math]::Round((Get-Item whisper/ggml-tiny.bin).Length/1MB)) MB"
-      - name: Zainstaluj zaleznosci (FFmpeg: GitHub / mirror awaryjny)
+      - name: "Zainstaluj zaleznosci (FFmpeg: GitHub / mirror awaryjny)"
         shell: pwsh
         run: |
           # ffmpeg-static supports FFMPEG_BINARIES_URL (documented by its maintainers).
