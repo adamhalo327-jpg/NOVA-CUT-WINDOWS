@@ -2,7 +2,7 @@ name: NOVA CUT 13.2 - PLAYER QUALITY PRO Windows EXE
 on:
   workflow_dispatch:
   push:
-    branches: ['release/nova-cut-13.2-media-compatibility-fix']
+    branches: ['release/nova-cut-13.2-player-fix']
 permissions:
   contents: read
 jobs:
