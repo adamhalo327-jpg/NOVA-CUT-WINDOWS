@@ -7,6 +7,7 @@ const {transcribeOffline} = require('./speech-renderer');
 const {probeMedia} = require('./media-inspector');
 const {prepareMp4Preview,cancelActivePreview,cleanupPreviewFiles} = require('./mp4-preview');
 const {analyzeMedia}=require('./mega-engine');
+const {detectCrop,suggestSpeakers,translateCaptions}=require('./ai-power-engine');
 let lastExportPath = null;
 
 // NOVA CUT 8.4 - start-up self-diagnostics.
@@ -48,7 +49,7 @@ function createWindow() {
   showingError = false;
   win = new BrowserWindow({
     width: 1480, height: 910, minWidth: 960, minHeight: 650,
-    backgroundColor: '#09080c', title: 'NOVA CUT 11.0 - CINEMA MASTER',
+    backgroundColor: '#09080c', title: 'NOVA CUT 12.0 - AI POWER STUDIO',
     icon: path.join(__dirname,'assets','novacut.ico'),
     autoHideMenuBar: true, show: !smokeCheck,
     webPreferences: {
@@ -206,3 +207,8 @@ app.on('before-quit',()=>{cancelActivePreview();cleanupPreviewFiles()});
 
 // Offline scene/silence detection for NOVA CUT 9.0.
 ipcMain.handle('nova:analyze-media',async(_event,request)=>{try{return {ok:true,result:await analyzeMedia(request)}}catch(e){log('MEGA analysis: '+String(e));return {ok:false,error:String(e.message||e)}}});
+
+// AI POWER 12.0: explicit, opt-in privacy-preserving AI tools.
+ipcMain.handle('nova:detect-crop',async(_e,r)=>{try{return detectCrop(r)}catch(e){return {ok:false,error:String(e.message||e)}}});
+ipcMain.handle('nova:speaker-labels',async(_e,r)=>{try{return suggestSpeakers(r)}catch(e){return {ok:false,error:String(e.message||e)}}});
+ipcMain.handle('nova:translate-captions',async(_e,r)=>{try{return await translateCaptions(r)}catch(e){return {ok:false,error:String(e.message||e)}}});
