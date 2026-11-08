@@ -81,11 +81,17 @@ async function renderProject({job,files,out,onProgress=()=>{}}){
     const at=Math.max(0,number(c.at)),speed=clamp(number(c.speed,1),.25,4),start=Math.max(0,number(c.start));
     const display=Math.min(duration-at,Math.max(.02,(number(c.end)-start)/speed));
     if(display<=0){idx++;continue;}
+    const crop=c.crop||null;
+    let cropFilter='';
+    if(crop){const cw=Number(crop.width),ch=Number(crop.height),cx=Number(crop.x),cy=Number(crop.y);
+      if([cw,ch,cx,cy].every(Number.isInteger)&&cw>31&&ch>31&&cx>=0&&cy>=0&&cw<=16384&&ch<=16384){cropFilter=`crop=${cw}:${ch}:${cx}:${cy},`;}
+      else throw Error('Nieprawidłowy kadr automatyczny.');
+    }
     const raw=display*speed,tag='v'+idx,next='vstep'+idx;
     const stabilize=String(job.cinema11?.stabilize||'off');
     const stabilizeFilter=stabilize==='light'?',deshake=rx=16:ry=16:edge=mirror':stabilize==='strong'?',deshake=rx=16:ry=16:edge=mirror':'';
     const fit10k=(quality==='tenk'||cinema)?`scale=${width}:${height}:force_original_aspect_ratio=decrease,pad=${width}:${height}:(ow-iw)/2:(oh-ih)/2`:`scale=${width}:${height}:force_original_aspect_ratio=increase,crop=${width}:${height}`;
-    filters.push(`[${idx}:v]trim=start=${sec(start)}:duration=${sec(raw)},setpts=(PTS-STARTPTS)/${speed.toFixed(6)}+${at.toFixed(5)}/TB,fps=${fps}${stabilizeFilter},${fit10k},setsar=1,format=yuv420p[${tag}]`);
+    filters.push(`[${idx}:v]trim=start=${sec(start)}:duration=${sec(raw)},setpts=(PTS-STARTPTS)/${speed.toFixed(6)}+${at.toFixed(5)}/TB,${cropFilter}fps=${fps}${stabilizeFilter},${fit10k},setsar=1,format=yuv420p[${tag}]`);
     filters.push(`[${last}][${tag}]overlay=x=0:y=0:eof_action=pass:repeatlast=0:shortest=0:enable='between(t,${at.toFixed(5)},${(at+display).toFixed(5)})'[${next}]`);
     last=next;
     if(!isImg&&number(job.vol,1)>0&&hasAudio(p)){

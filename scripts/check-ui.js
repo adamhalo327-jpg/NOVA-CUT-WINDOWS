@@ -10,6 +10,6 @@ for(const file of ['pro-ui.css','pro-ui.js','ultra.js'])assert(html.includes(`./
 assert(css.includes('grid-template-rows'),'Viewport grid missing');
 assert(css.includes('overflow:auto'),'Scroll support missing');
 assert(js.includes('setTab'),'Inspector tabs missing');
-assert(html.includes('NOVA CUT 11.0'),'Wrong version');
+assert(html.includes('NOVA CUT 12.0'),'Wrong version');
 assert(fs.existsSync(path.join(root,'native-renderer.js')),'Missing Windows renderer');
 console.log('✓ 9.0 UI structure, tabs, timeline, and export controls are present');

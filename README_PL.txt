@@ -1,7 +1,8 @@
-NOVA CUT 11.0 CINEMA MASTER
-Zachowuje wszystkie funkcje 10.1. Kolorowanie .cube i presety LUT, stabilizacja deshake, efekty kinowe, model Whisper Small Q5 offline.
-Ostrzeżenie: podgląd kolorystyki w przeglądarce jest przybliżony; końcowy wygląd LUT należy sprawdzić w próbce MP4.
-Windows: npm run check; npm install; npm run build:win.
-Model Whisper Small jest pobierany i weryfikowany w GitHub Actions.
+NOVA CUT 12.0 — AI POWER STUDIO
+Zawiera wszystkie funkcje 11.0.
 
-Pakiet GitHub zawiera dodatkowy plik ggml-small-q5_1.bin (ok. 190 MB). Jest to rzeczywisty model rozpoznawania mowy, nie sztuczne wypełnienie. Po instalacji kliknij Cinema Master → Importuj zaawansowany model Whisper Small, wskaż plik z pobranej paczki. Duży model NIE jest wbudowany w EXE, aby nie dublować go w instalatorze i Portable.
+Nowości: wycinanie ciszy (lokalne FFmpeg, tylko wybrany klip), wykrywanie czarnych pasów (cropdetect), wstępne rozróżnianie głosów na podstawie cech akustycznych (eksperymentalne), animowane napisy w podglądzie, tłumaczenie tekstu napisów przez własny serwer LibreTranslate (tylko po zgodzie użytkownika).
+
+Ograniczenia: wykrywanie mówców nie identyfikuje osób; tłumaczenie wymaga własnego serwera HTTPS i wysyła wyłącznie tekst; napisy animowane w natywnym MP4 nadal są osobną ścieżką bez animacji.
+
+Paczka zawiera oddzielny model Whisper Small Q5 (bin), import przez CINEMA MASTER.

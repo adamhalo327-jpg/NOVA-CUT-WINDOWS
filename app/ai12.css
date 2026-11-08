@@ -1,0 +1,6 @@
+#nc12Panel{margin:10px 0;padding:13px;background:linear-gradient(130deg,#181019,#13131a);border:1px solid #8d3346;border-radius:11px}
+#nc12Panel h3{font-size:15px;color:#f59f9f;margin:0 0 10px}#nc12Panel .nc12-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}#nc12Panel label{display:grid;gap:4px;font-size:12px;color:#e1b7bc}
+#nc12Panel input,#nc12Panel select{min-width:0;background:#0e1017;border:1px solid #5b343f;border-radius:7px;padding:8px;color:#fff;width:100%}
+#nc12Panel button{padding:9px;border:1px solid #cc4655;background:#762533;color:white;border-radius:7px;font-weight:700;margin:5px 0;cursor:pointer}
+#nc12Panel button:disabled{opacity:.5}#nc12Panel .nc12-helper{font-size:11px;color:#cfaab0;line-height:1.5}#nc12Status{color:#f5c99e;font-size:12px;white-space:pre-wrap;margin-top:8px}
+#nc12Panel details{border-top:1px solid #673342;padding:8px 0;margin-top:10px}#nc12Panel summary{cursor:pointer;color:#fa9da4;font-weight:700}
