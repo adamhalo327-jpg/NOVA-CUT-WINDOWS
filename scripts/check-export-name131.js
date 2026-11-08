@@ -1,0 +1,10 @@
+'use strict';const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');const {safeTitle,suggestedExportName}=require('../export-filename');
+assert.equal(suggestedExportName('Mój Film.mp4'),'Mój Film.mp4');
+assert.equal(suggestedExportName(''), 'NOVA-CUT-13.1-1080p.mp4');
+assert.equal(safeTitle('CON'),'film-CON');
+assert.equal(safeTitle('Odcinek: pierwszy?/\\test.mp4'),'Odcinek- pierwszy---test');
+assert.equal(safeTitle('  nazwa.   '),'nazwa');
+assert.equal(safeTitle('../../run.exe'),'..-..-run.exe');
+const html=fs.readFileSync(path.join(__dirname,'../app/index.html'),'utf8');const main=fs.readFileSync(path.join(__dirname,'../main.js'),'utf8');const queue=fs.readFileSync(path.join(__dirname,'../app/render13.js'),'utf8');const preload=fs.readFileSync(path.join(__dirname,'../preload.js'),'utf8');
+for(const fragment of ['nc131MovieName','nc131NamePreview','export-name131.js','NovaMovieName131?.get','NovaMovieName131?.downloadName'])assert(html.includes(fragment),fragment);
+assert(main.includes('suggestedExportName(fileName,'));assert(main.includes('suggestedExportName(request.fileName,'));assert(queue.includes('snapshot.fileName='));assert(preload.includes('fileName'));console.log('✓ 13.1: custom export names, safe filenames for Windows, browser and render queue');
