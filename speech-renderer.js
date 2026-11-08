@@ -16,7 +16,7 @@ async function transcribeOffline({filePath,lang='auto',modelSize='base',startSec
  try{const wav=path.join(tmp,'speech.wav'),prefix=path.join(tmp,'captions');
   await run(ffmpegExe(),['-hide_banner','-loglevel','error','-y','-ss',String(+startSeconds),'-i',filePath,...(+durationSeconds>0?['-t',String(+durationSeconds)]:[]),'-vn','-ac','1','-ar','16000','-c:a','pcm_s16le',wav],tmp);
   const args=['-m',model,'-f',wav,'-oj','-of',prefix,'-t','4'];
-  if(['pl','en','de','es'].includes(lang))args.push('-l',lang);
+  args.push('-l',['pl','en','de','es'].includes(lang)?lang:'auto');
   await run(exe,args,tmp);
   const filename=prefix+'.json';if(!fs.existsSync(filename))throw Error('Whisper nie utworzył pliku napisów JSON.');
   const raw=JSON.parse(fs.readFileSync(filename,'utf8'));
