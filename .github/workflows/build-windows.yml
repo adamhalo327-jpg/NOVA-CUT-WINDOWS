@@ -27,7 +27,14 @@ jobs:
         run: |
           if (!(Test-Path assets/novacut.ico)) {throw "Icon assets/novacut.ico missing"}
           if ((Get-Item assets/novacut.ico).Length -lt 1024) {throw "Icon invalid"}
+      - name: Przywroc zapisane zasoby Whisper
+        id: whisper-cache
+        uses: actions/cache@v4
+        with:
+          path: whisper
+          key: nova-cut-whisper-b5454-base-tiny-win-x64-v1
       - name: Przygotuj silnik napisow Whisper offline
+        if: steps.whisper-cache.outputs.cache-hit != 'true'
         shell: pwsh
         run: |
           function Download-WithRetry([string]$Uri,[string]$OutFile) {
@@ -46,12 +53,39 @@ jobs:
           }
           New-Item -ItemType Directory -Force -Path whisper | Out-Null
           $source='https://github.com/ggml-org/whisper.cpp/releases/download/b5454/whisper-bin-x64.zip'
-          Download-WithRetry $source whisper-bin.zip
-          Expand-Archive -Path whisper-bin.zip -DestinationPath whisper-package -Force
-          $exe=Get-ChildItem -Path whisper-package -Recurse -Filter whisper-cli.exe | Select-Object -First 1
-          if (!$exe) {throw 'Whisper CLI missing from downloaded Windows release.'}
-          Copy-Item $exe.FullName whisper/whisper-cli.exe
-          Get-ChildItem -Path $exe.Directory.FullName -Filter '*.dll' | ForEach-Object { Copy-Item $_.FullName whisper/ }
+          $exe=$null
+          try {
+            Download-WithRetry $source whisper-bin.zip
+            Expand-Archive -Path whisper-bin.zip -DestinationPath whisper-package -Force
+            $exe=Get-ChildItem -Path whisper-package -Recurse -Filter whisper-cli.exe | Select-Object -First 1
+            if (!$exe) {throw 'No whisper-cli.exe in official binary archive.'}
+            Write-Host 'Using official Whisper prebuilt CLI.'
+          } catch {
+            # GitHub Releases assets can return HTTP 504. Use Git clone + CMake,
+            # not an unverified third-party download mirror.
+            Write-Warning "Whisper release asset unavailable: $($_.Exception.Message)"
+            Write-Host 'Building official pinned Whisper b5454 from source with MSVC.'
+            git clone --depth 1 --branch b5454 https://github.com/ggml-org/whisper.cpp.git whisper-src
+            if ($LASTEXITCODE -ne 0) {throw 'Whisper source clone failed'}
+            cmake -S whisper-src -B whisper-build -A x64 -DGGML_NATIVE=OFF -DBUILD_SHARED_LIBS=OFF -DWHISPER_SDL2=OFF
+            if ($LASTEXITCODE -ne 0) {throw 'Whisper CMake configure failed'}
+            cmake --build whisper-build --config Release --target whisper-cli --parallel 4
+            if ($LASTEXITCODE -ne 0) {throw 'Whisper CMake build failed'}
+            $exe=Get-ChildItem -Path whisper-build -Recurse -Filter whisper-cli.exe -File | Select-Object -First 1
+            if (!$exe) {throw 'Whisper CLI missing after source build'}
+          }
+          Copy-Item $exe.FullName whisper/whisper-cli.exe -Force
+          # Distributed prebuilt releases ship required runtime DLLs in the same dir.
+          # A CMake static build usually does not require DLLs, but copy if present.
+          if (Test-Path whisper-build) {
+            Get-ChildItem -Path whisper-build -Recurse -Filter '*.dll' -File |
+              ForEach-Object { Copy-Item $_.FullName whisper/ -Force }
+          } else {
+            Get-ChildItem -Path $exe.Directory.FullName -Filter '*.dll' -File |
+              ForEach-Object { Copy-Item $_.FullName whisper/ -Force }
+          }
+          if ((Get-Item whisper/whisper-cli.exe).Length -lt 100KB) {throw 'Whisper binary incomplete'}
+          Write-Host "PASS: Whisper CLI binary ready: $((Get-Item whisper/whisper-cli.exe).Length) bytes"
           $url='https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin'
           Download-WithRetry $url whisper/ggml-base.bin
           if ((Get-Item whisper/ggml-base.bin).Length -lt 100MB) {throw 'Downloaded Whisper model is incomplete.'}
