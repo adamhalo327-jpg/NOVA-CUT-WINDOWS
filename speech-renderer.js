@@ -1,17 +1,17 @@
 "use strict";
 const fs=require('fs'),path=require('path'),os=require('os'),{spawn}=require('child_process');
-function bins(){const dir=process.resourcesPath?path.join(process.resourcesPath,'whisper'):path.join(__dirname,'whisper');const dev=path.join(__dirname,'whisper');
+function bins(mode='base'){const dir=process.resourcesPath?path.join(process.resourcesPath,'whisper'):path.join(__dirname,'whisper');const dev=path.join(__dirname,'whisper');
  const home=fs.existsSync(path.join(dir,'whisper-cli.exe'))?dir:dev;
- const exe=path.join(home,'whisper-cli.exe'),model=path.join(home,'ggml-base.bin');
- if(!fs.existsSync(exe)||!fs.existsSync(model))throw Error('Brakuje silnika Whisper lub modelu ggml-base.bin. Zainstaluj pełną wersję NOVA CUT 8.0 Windows.');
+ const exe=path.join(home,'whisper-cli.exe'),model=path.join(home,mode==='tiny'?'ggml-tiny.bin':'ggml-base.bin');
+ if(!fs.existsSync(exe)||!fs.existsSync(model))throw Error('Brakuje silnika Whisper lub modelu offline. Zainstaluj pełną wersję NOVA CUT 10.0 Windows.');
  return {exe,model};}
 function ffmpegExe(){let f=require('ffmpeg-static');if(typeof f!=='string')f=f?.path;if(!f)throw Error('Nie znaleziono FFmpeg');return f.replace('app.asar'+path.sep,'app.asar.unpacked'+path.sep)}
 function run(exe,args,cwd){return new Promise((resolve,reject)=>{let errors='';const p=spawn(exe,args,{cwd,windowsHide:true,stdio:['ignore','ignore','pipe']});
  p.stderr.on('data',v=>errors=(errors+v.toString()).slice(-2500));p.on('error',reject);p.on('close',code=>code===0?resolve():reject(Error('Kod '+code+': '+errors.slice(-1200))))})}
 function seconds(v){if(typeof v==='number')return v;if(!v)return 0;const s=String(v);if(/^\d+(\.\d+)?$/.test(s))return Number(s);const p=s.replace(',','.').split(':').map(Number);if(p.some(x=>!Number.isFinite(x)))return 0;return p.reduce((acc,x)=>acc*60+x,0)}
-async function transcribeOffline({filePath,lang='auto'}={}){
+async function transcribeOffline({filePath,lang='auto',modelSize='base'}={}){
  if(!filePath||!path.isAbsolute(filePath)||!fs.existsSync(filePath))throw Error('Brak pliku audio/wideo na dysku.');
- const {exe,model}=bins();const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'nova8-whisper-'));
+ const {exe,model}=bins(modelSize==='tiny'?'tiny':'base');const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'nova8-whisper-'));
  try{const wav=path.join(tmp,'speech.wav'),prefix=path.join(tmp,'captions');
   await run(ffmpegExe(),['-hide_banner','-loglevel','error','-y','-i',filePath,'-vn','-ac','1','-ar','16000','-c:a','pcm_s16le',wav],tmp);
   const args=['-m',model,'-f',wav,'-oj','-of',prefix,'-t','4'];
