@@ -6,7 +6,7 @@ function bins(mode='base'){const dir=process.resourcesPath?path.join(process.res
  const model=mode==='small'?path.join(process.env.NOVA_CUT_MODEL_DIR||home,'ggml-small-q5_1.bin'):path.join(home,mode==='tiny'?'ggml-tiny.bin':'ggml-base.bin');
  if(!fs.existsSync(exe)||!fs.existsSync(model))throw Error('Brakuje silnika Whisper lub modelu offline. Zainstaluj pełną wersję NOVA CUT 10.0 Windows.');
  return {exe,model};}
-function ffmpegExe(){let f=require('ffmpeg-static');if(typeof f!=='string')f=f?.path;if(!f)throw Error('Nie znaleziono FFmpeg');return f.replace('app.asar'+path.sep,'app.asar.unpacked'+path.sep)}
+function ffmpegExe(){return require('./binary-tools').resolveTool('ffmpeg')}
 function run(exe,args,cwd){return new Promise((resolve,reject)=>{let errors='';const p=spawn(exe,args,{cwd,windowsHide:true,stdio:['ignore','ignore','pipe']});
  p.stderr.on('data',v=>errors=(errors+v.toString()).slice(-2500));p.on('error',reject);p.on('close',code=>code===0?resolve():reject(Error('Kod '+code+': '+errors.slice(-1200))))})}
 function seconds(v){if(typeof v==='number')return v;if(!v)return 0;const s=String(v);if(/^\d+(\.\d+)?$/.test(s))return Number(s);const p=s.replace(',','.').split(':').map(Number);if(p.some(x=>!Number.isFinite(x)))return 0;return p.reduce((acc,x)=>acc*60+x,0)}

@@ -1,0 +1,17 @@
+"use strict";
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const read=p=>fs.readFileSync(path.join(__dirname,'..',p),'utf8');
+const html=read('app/index.html');
+const seek=read('app/player-seek132.js');
+assert(html.includes('<script src="./player-seek132.js"></script>'));
+assert(html.includes('player-seek132.css'));
+assert(html.includes("$('seek').oninput=e=>{if(S.exporting)return;seekTo("),'seek must not pause playback');
+assert(!html.includes("$('seek').oninput=e=>{pause();"));
+assert(html.includes("el.addEventListener('seeked',()=>{if(!S.play)draw()})"),'seek must redraw decoded video frame');
+assert(seek.includes('aria-label'));
+assert(seek.includes('Przewiń 5 sekund'));
+assert(seek.includes('seek.oninput=()=>'));
+assert(seek.includes('api.seekTo('));
+console.log('✓ 13.2: scroll/seek player while playing + post-seek frame refresh + 5s step buttons');

@@ -1,8 +1,8 @@
-name: NOVA CUT 13.1 - MEDIA COMPATIBILITY FIX Windows EXE
+name: NOVA CUT 13.2 - PLAYER QUALITY PRO Windows EXE
 on:
   workflow_dispatch:
   push:
-    branches: ['release/nova-cut-13.1-media-compatibility-fix']
+    branches: ['release/nova-cut-13.2-media-compatibility-fix']
 permissions:
   contents: read
 jobs:
@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 75
     steps:
-      - name: Pobierz projekt 13.1
+      - name: Pobierz projekt 13.2
         uses: actions/checkout@v4
       - name: Node.js 22
         uses: actions/setup-node@v4
@@ -54,6 +54,24 @@ jobs:
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
         run: npm run build:win
+      - name: Sprawdz prawdziwy FFprobe i FFmpeg w aplikacji Windows (poza ASAR)
+        shell: pwsh
+        run: |
+          $tools=Join-Path 'dist/win-unpacked/resources' 'tools'
+          $probe=Join-Path $tools 'ffprobe.exe'
+          $ffmpeg=Join-Path $tools 'ffmpeg.exe'
+          if(!(Test-Path $probe)){throw "FFprobe missing from $probe"}
+          if(!(Test-Path $ffmpeg)){throw "FFmpeg missing from $ffmpeg"}
+          & $probe -version | Select-Object -First 1
+          if($LASTEXITCODE -ne 0){throw 'FFprobe failed to start'}
+          & $ffmpeg -version | Select-Object -First 1
+          if($LASTEXITCODE -ne 0){throw 'FFmpeg failed to start'}
+          $sample=Join-Path $env:RUNNER_TEMP 'nova-probe-test.mp4'
+          & $ffmpeg -hide_banner -loglevel error -f lavfi -i 'color=c=red:s=320x180:r=24:d=1' -c:v libx264 -pix_fmt yuv420p -y $sample
+          if($LASTEXITCODE -ne 0){throw 'Could not generate MP4 fixture'}
+          $resolution=(& $probe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 $sample).Trim()
+          if($LASTEXITCODE -ne 0 -or $resolution -ne '320x180'){throw "Probe returned invalid video dimensions: $resolution"}
+          Write-Host 'PASS: packaged FFprobe starts and analyzes 320x180 MP4.'
       - name: Dodaj zaawansowany offline model Whisper Small (quantized)
         shell: pwsh
         run: |
@@ -69,14 +87,14 @@ jobs:
           $exes=@(Get-ChildItem dist -Filter '*.exe' -File)
           if($exes.Count -lt 2){throw 'Expected two Windows executables.'}
           $exes | Select-Object Name, Length | Format-Table
-          Compress-Archive -Path 'dist/*.exe','dist/ggml-small-q5_1.bin' -DestinationPath 'dist/NOVA-CUT-13.1-MEDIA-FIX-WINDOWS.zip' -CompressionLevel Optimal -Force
-          $sizeMB=[math]::Round((Get-Item 'dist/NOVA-CUT-13.1-MEDIA-FIX-WINDOWS.zip').Length/1MB,2)
-          Write-Host "Pakiet NOVA CUT 13.1: $sizeMB MB (cel 1000-1100 MB)"
+          Compress-Archive -Path 'dist/*.exe','dist/ggml-small-q5_1.bin' -DestinationPath 'dist/NOVA-CUT-13.2-PLAYER-QUALITY-WINDOWS.zip' -CompressionLevel Optimal -Force
+          $sizeMB=[math]::Round((Get-Item 'dist/NOVA-CUT-13.2-PLAYER-QUALITY-WINDOWS.zip').Length/1MB,2)
+          Write-Host "Pakiet NOVA CUT 13.2: $sizeMB MB (cel 1000-1100 MB)"
           if($sizeMB -lt 1000 -or $sizeMB -gt 1100){Write-Warning 'Actual package is outside target size 1000-1100 MB; please verify before release.'}
       - name: Udostepnij instalator i Portable
         uses: actions/upload-artifact@v4
         with:
-          name: NOVA-CUT-Windows-13.1-MEDIA-FIX
-          path: dist/NOVA-CUT-13.1-MEDIA-FIX-WINDOWS.zip
+          name: NOVA-CUT-Windows-13.2-PLAYER-QUALITY
+          path: dist/NOVA-CUT-13.2-PLAYER-QUALITY-WINDOWS.zip
           if-no-files-found: error
           retention-days: 30

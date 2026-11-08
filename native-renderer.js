@@ -16,10 +16,8 @@ const number=(a,f=0)=>Number.isFinite(Number(a))?Number(a):f;
 const sec=a=>Math.max(0,number(a)).toFixed(5);
 const clamp=(x,min,max)=>Math.max(min,Math.min(max,x));
 function binary(pkg) {
-  const p = require(pkg).path || require(pkg);
-  const exe = (typeof p==='string' ? p : p.path).replace('app.asar'+path.sep,'app.asar.unpacked'+path.sep);
-  if(!fs.existsSync(exe))throw Error('Brakuje programu '+pkg+' w instalacji.');
-  return exe;
+  const {resolveTool}=require('./binary-tools');
+  return resolveTool(pkg==='ffprobe-static'?'ffprobe':'ffmpeg');
 }
 function run(bin,args){
   const p=spawnSync(bin,args,{encoding:'utf8',maxBuffer:20*1024*1024,windowsHide:true});
