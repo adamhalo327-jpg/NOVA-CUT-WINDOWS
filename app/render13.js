@@ -1,6 +1,7 @@
 /* NOVA CUT 13.0: queue works in background while Windows app is open/minimized. */
 (()=>{'use strict';const el=id=>document.getElementById(id),api=window.NovaUltra;if(!api)return;
 const pane=el('proToolsPane');if(!pane)return;
+document.title='NOVA CUT 13.1 — MEDIA COMPATIBILITY FIX';const badge=document.querySelector('.nc84-brand-wrap .chip');if(badge)badge.textContent='13.1 · MEDIA COMPATIBILITY FIX';
 const section=document.createElement('section');section.id='nc13Panel';section.innerHTML=`<h3>⚡ ULTRA RENDER ENGINE 13.0</h3>
 <label>Akceleracja eksportu<select id="nc13Gpu"><option value="auto">Auto — GPU jeśli działa, inaczej CPU</option><option value="off">CPU — najpewniejszy</option><option value="force">Tylko GPU (nie używaj CPU)</option></select></label>
 <label>Profil eksportu<select id="nc13Preset"><option value="uhd">4K UHD</option><option value="sixk">6K</option><option value="eightk">8K</option><option value="tenk">10K eksperymentalnie</option></select></label>
