@@ -1,8 +1,8 @@
 {
   "name": "nova-cut-desktop",
   "productName": "NOVA CUT",
-  "version": "13.2.0",
-  "description": "NOVA CUT 13.2 — PLAYER QUALITY + SEEK + Windows FFprobe/FFmpeg ENOENT fix; import MP4/MOV/MKV and original export.",
+  "version": "13.3.0",
+  "description": "NOVA CUT 13.3 — PLAYER QUALITY ULTRA: preview Auto–10K, source caps, media import and Windows export retained.",
   "main": "main.js",
   "author": "NOVA CUT",
   "license": "UNLICENSED",
@@ -76,13 +76,13 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "artifactName": "NOVA-CUT-13.2-PLAYER-QUALITY-Setup-${version}.${ext}",
+      "artifactName": "NOVA-CUT-13.3-PLAYER-QUALITY-ULTRA-Setup-${version}.${ext}",
       "installerIcon": "assets/novacut.ico",
       "uninstallerIcon": "assets/novacut.ico",
       "installerHeaderIcon": "assets/novacut.ico"
     },
     "portable": {
-      "artifactName": "NOVA-CUT-13.2-PLAYER-QUALITY-Portable-${version}.${ext}"
+      "artifactName": "NOVA-CUT-13.3-PLAYER-QUALITY-ULTRA-Portable-${version}.${ext}"
     },
     "publish": null,
     "extraResources": [

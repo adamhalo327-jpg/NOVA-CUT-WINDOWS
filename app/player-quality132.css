@@ -5,3 +5,8 @@
 #proViewer .control .nc132-player-quality select{min-width:94px;max-width:118px;background:#100e13;color:#fff;border:1px solid #964251;border-radius:6px;padding:4px;font-weight:700;font-size:12px;cursor:pointer}
 #nc132QualityStatus{font-size:11px;line-height:1.4;color:#f5bcc5;min-height:14px;padding:0 6px 2px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media(max-width:1180px){#proViewer .control .nc132-player-quality{font-size:11px;padding:3px 4px}#proViewer .control .nc132-player-quality select{max-width:97px;min-width:78px}}
+
+/* 13.3: expanded 8K / 10K profile names and detailed source-limit explanation. */
+#proViewer .nc132-player-quality select{width:auto;max-width:240px;min-width:135px;text-overflow:ellipsis}
+#nc132QualityStatus{white-space:normal;overflow-wrap:anywhere;text-overflow:clip;min-height:26px}
+@media(max-width:1180px){#proViewer .nc132-player-quality select{max-width:185px;min-width:110px}}

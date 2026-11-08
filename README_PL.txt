@@ -35,3 +35,7 @@ Dodatkowy model Whisper Small Q5 w paczce ZIP można zaimportować przyciskiem w
 NOWOŚĆ: Eksport → Nazwa filmu przed eksportem. Wpisana nazwa jest używana w oknie zapisu Windows, kolejce eksportu i pobraniu przeglądarkowym. Możesz później wybrać folder lub zmienić nazwę w systemowym dialogu zapisu.
 
 NOVA CUT 13.2 - NAPRAWA ENOENT: FFprobe.exe i FFmpeg.exe sa kopiowane do resources/tools/ poza app.asar; import MP4/MOV/MKV i badanie wlasciwosci dzialaja rowniez po instalacji Windows. Plik oryginalny jest nietkniety.
+
+
+NOVA CUT 13.3 — PLAYER QUALITY ULTRA
+Menu przy odtwarzaczu: Auto, 240p, 360p, 480p, 720p, 1080p, 1440p, 4K, 8K oraz 10K. 8K/10K to eksperymentalne ustawienia podglądu dla odpowiednio mocnych komputerów i materiałów źródłowych. Nie zmieniają jakości źródła ani eksportowanego MP4; do płynnego montażu używaj Auto albo 1080p. Profil eksportu jest oddzielnie w panelu Eksport.

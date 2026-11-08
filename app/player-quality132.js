@@ -28,14 +28,18 @@ function display(){
   badge.textContent=mode==='auto'?'AUTO':`${h}p`;
   badge.title=`Rozdzielczość podglądu ${w} × ${h} px (nie dotyczy eksportu MP4)`;
   if(!source.width||!source.height){status.textContent='Jakość podglądu: '+chosen+' · Dodaj film, aby sprawdzić rozdzielczość.';return;}
+  const ratio=w/Math.max(1,h),sourceLimit=Math.min(source.height,source.width/ratio);
   const constrained=mode!=='auto'&&h+1<requestedHeight();
-  status.textContent=`Podgląd: ${w} × ${h} px${constrained?' (ograniczony do źródła)':''} · Źródło: ${source.width} × ${source.height} px · Eksport osobno`;
+  const reason=constrained?(sourceLimit+1<requestedHeight()?' · ograniczenie: jakość źródła':' · ograniczenie: limit bezpiecznego podglądu'):'';
+  const experimental=mode==='p4320'||mode==='p5400'?' · TRYB EKSPERYMENTALNY':'';
+  status.textContent=`Wybrano ${chosen} · podgląd: ${w} × ${h} px${reason}${experimental} · oryginał: ${source.width} × ${source.height} px · eksport osobno`;
+  status.title=status.textContent;
 }
 select.addEventListener('change',()=>{
   const newMode=allowed.has(select.value)?select.value:'auto';
   mode=newMode;
   try{localStorage.setItem('novacut_preview_quality_132',mode)}catch{}
-  core.dimensions();display();
+  try{core.dimensions()}catch(err){mode='auto';select.value='auto';try{core.dimensions()}catch{};core.notify('Brak zasobów do wybranej jakości. Przywrócono Auto.')}display();
   core.notify('🎬 Zmieniono jakość PODGLĄDU na '+(select.selectedOptions[0]?.textContent||'Auto')+'. Eksport MP4 ma niezależne ustawienia.');
 });
 let lastCanvasSize='';
@@ -46,7 +50,7 @@ function refresh(){
    const rawW=a?.kind==='image'?el?.naturalWidth:(el?.videoWidth||0);
    const rawH=a?.kind==='image'?el?.naturalHeight:(el?.videoHeight||0);
    const key=`${a?.id||''}:${rawW}x${rawH}:${mode}`;
-   if(key!==lastCanvasSize){lastCanvasSize=key;core.dimensions()}
+   if(key!==lastCanvasSize){lastCanvasSize=key;try{core.dimensions()}catch(err){mode='auto';select.value='auto';try{core.dimensions()}catch{};core.notify('Podgląd wymaga zbyt wiele pamięci — przywrócono Auto.')}}
  }
  display();
 }
