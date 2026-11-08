@@ -11,6 +11,7 @@ contextBridge.exposeInMainWorld('NovaDesktop', Object.freeze({
     ipcRenderer.on('nova:mp4-preview-progress',handler);
     return ()=>ipcRenderer.removeListener('nova:mp4-preview-progress',handler);
   },
+  analyzeMedia(request) { return ipcRenderer.invoke('nova:analyze-media',request); },
   inspectMedia(mode='choose') { return ipcRenderer.invoke('nova:inspect-media', {mode}); },
   onProgress(callback) {
     const handler = (_event, msg) => callback(msg);

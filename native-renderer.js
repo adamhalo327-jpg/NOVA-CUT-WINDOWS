@@ -5,6 +5,7 @@ const path = require('path');
 const {spawn, spawnSync} = require('child_process');
 const {assess10K,diskFreeBytes}=require('./render-guard');
 const {cinemaDimensions,cinemaLookFilter,cinemaAudioSettings}=require('./cinema-engine');
+const {getAudioFilter}=require('./mega-render');
 let currentProcess = null;
 const SIZES = {standard:1280,high:1920,qhd:2560,uhd:3840,sixk:5760,eightk:7680,tenk:9600};
 const BITS = {standard:5,high:10,qhd:18,uhd:35,sixk:58,eightk:100,tenk:120};
@@ -111,6 +112,15 @@ async function renderProject({job,files,out,onProgress=()=>{}}){
   if(audio.length>1)filters.push(audio.map(t=>'['+t+']').join('')+`amix=inputs=${audio.length}:duration=longest:dropout_transition=0:normalize=0,atrim=duration=${sec(duration)},apad,aresample=48000,aformat=channel_layouts=stereo[outa]`);
   else if(audio.length===1)filters.push(`[${audio[0]}]atrim=duration=${sec(duration)},apad,aresample=48000,aformat=channel_layouts=stereo[outa]`);
   else filters.push(`anullsrc=channel_layout=stereo:sample_rate=48000,atrim=duration=${sec(duration)}[outa]`);
+  // Optional 9.0 audio denoise. Disabled for legacy projects and all default exports.
+  const megaAudio=getAudioFilter(job.mega9?.denoise||'off');
+  if(megaAudio){
+    // The existing [outa] output is renamed to [prea], then processed back to [outa].
+    const lastAudioIndex=filters.findIndex(x=>x.includes('[outa]'));
+    if(lastAudioIndex<0)throw Error('Nie znaleziono miksu audio.');
+    filters[lastAudioIndex]=filters[lastAudioIndex].replace('[outa]','[prea]');
+    filters.push(`[prea]${megaAudio}[outa]`);
+  }
   const f=job.filters||{};
   const cinemaLook=cinemaLookFilter(job.cinema?.look||'natural');
   const audioOutput=cinemaAudioSettings(job.cinema?.sound||'standard');

@@ -6,6 +6,7 @@ const { renderProject, cancelRender } = require('./native-renderer');
 const {transcribeOffline} = require('./speech-renderer');
 const {probeMedia} = require('./media-inspector');
 const {prepareMp4Preview,cancelActivePreview,cleanupPreviewFiles} = require('./mp4-preview');
+const {analyzeMedia}=require('./mega-engine');
 let lastExportPath = null;
 
 // NOVA CUT 8.4 - start-up self-diagnostics.
@@ -47,7 +48,7 @@ function createWindow() {
   showingError = false;
   win = new BrowserWindow({
     width: 1480, height: 910, minWidth: 960, minHeight: 650,
-    backgroundColor: '#09080c', title: 'NOVA CUT 8.4 - ULTRA CINEMA REDESIGN',
+    backgroundColor: '#09080c', title: 'NOVA CUT 9.0 - MEGA UPDATE',
     icon: path.join(__dirname,'assets','novacut.ico'),
     autoHideMenuBar: true, show: !smokeCheck,
     webPreferences: {
@@ -183,3 +184,6 @@ ipcMain.handle('nova:prepare-mp4',async(event,request)=>{
   }catch(e){log('MP4 proxy error: '+String(e.stack||e));return {ok:false,error:String(e.message||e)};}
 });
 app.on('before-quit',()=>{cancelActivePreview();cleanupPreviewFiles()});
+
+// Offline scene/silence detection for NOVA CUT 9.0.
+ipcMain.handle('nova:analyze-media',async(_event,request)=>{try{return {ok:true,result:await analyzeMedia(request)}}catch(e){log('MEGA analysis: '+String(e));return {ok:false,error:String(e.message||e)}}});

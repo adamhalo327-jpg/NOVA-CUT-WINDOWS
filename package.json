@@ -1,8 +1,8 @@
 {
   "name": "nova-cut-desktop",
   "productName": "NOVA CUT",
-  "version": "8.4.0",
-  "description": "NOVA CUT 8.4 — ULTRA CINEMA REDESIGN, NOVA SIGNATURE app icon, MP4 import and QUALITY INSPECTOR PRO.",
+  "version": "9.0.0",
+  "description": "NOVA CUT 9.0 MEGA UPDATE - cinema red, SRT, offline scene detection, group timeline tools, MP4 and native export.",
   "main": "main.js",
   "author": "NOVA CUT",
   "license": "UNLICENSED",
@@ -11,7 +11,7 @@
     "start": "electron .",
     "build:win": "electron-builder --win --x64",
     "build:win:portable": "electron-builder --win portable --x64",
-    "check": "node scripts/check-project.js && node scripts/check-ui.js && node scripts/check-timeline7.js && node --check app/ultra.js && node --check app/pro-ui.js && node --check app/timeline7.js && node --check app/studio8.js && node --check speech-renderer.js && node scripts/check-studio8.js && node scripts/check-10k.js && node scripts/check-cinema.js && node --check app/quality-inspector.js && node --check media-inspector.js && node scripts/check-quality.js && node --check mp4-preview.js && node scripts/check-mp4.js && node --check app/ultra-cinema-redesign.js && node scripts/check-redesign.js",
+    "check": "node scripts/check-project.js && node scripts/check-ui.js && node scripts/check-timeline7.js && node --check app/ultra.js && node --check app/pro-ui.js && node --check app/timeline7.js && node --check app/studio8.js && node --check speech-renderer.js && node scripts/check-studio8.js && node scripts/check-10k.js && node scripts/check-cinema.js && node --check app/quality-inspector.js && node --check media-inspector.js && node scripts/check-quality.js && node --check mp4-preview.js && node scripts/check-mp4.js && node --check app/ultra-cinema-redesign.js && node scripts/check-redesign.js && node --check app/mega9.js && node --check mega-engine.js && node scripts/check-mega9.js",
     "prebuild:win": "npm run check"
   },
   "dependencies": {
@@ -44,7 +44,9 @@
       "render-guard.js",
       "cinema-engine.js",
       "media-inspector.js",
-      "mp4-preview.js"
+      "mp4-preview.js",
+      "mega-render.js",
+      "mega-engine.js"
     ],
     "win": {
       "target": [
@@ -68,13 +70,13 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "artifactName": "NOVA-CUT-8.4-ULTRA-CINEMA-Setup-${version}.${ext}",
+      "artifactName": "NOVA-CUT-9.0-MEGA-UPDATE-Setup-${version}.${ext}",
       "installerIcon": "assets/novacut.ico",
       "uninstallerIcon": "assets/novacut.ico",
       "installerHeaderIcon": "assets/novacut.ico"
     },
     "portable": {
-      "artifactName": "NOVA-CUT-8.4-ULTRA-CINEMA-Portable-${version}.${ext}"
+      "artifactName": "NOVA-CUT-9.0-MEGA-UPDATE-Portable-${version}.${ext}"
     },
     "publish": null,
     "extraResources": [
