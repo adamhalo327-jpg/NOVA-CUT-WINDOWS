@@ -1,3 +1,17 @@
+NOVA CUT 8.4 — ULTRA CINEMA REDESIGN (Windows)
+
+Motyw: czarno-czerwony ULTRA CINEMA na podstawie wybranego podglądu.
+Nowa ikona NOVA SIGNATURE nr 3: assets/novacut.ico (wielorozmiarowa Windows ICO) i assets/nova-signature.png.
+Ikona stosowana w oknie, w pliku EXE i w instalatorze NSIS Setup/Uninstall.
+
+Biblioteka z miniaturami, wyszukiwaniem i filtrami, nawigacja Edycja/Efekty/Przejścia/Napisy/Kolor/Dźwięk/Jakość, pełny podgląd i TIMELINE ULTRA PRO.
+Zachowano import MP4 (w tym przeciąganie z Eksploratora i zastępczy podgląd FFmpeg), QUALITY INSPECTOR PRO, audio, efekty, 10K/ULTRA CINEMA, Whisper offline, autozapis i eksport Windows FFmpeg.
+Ograniczenia oryginalnego renderera: animowane napisy, naklejki, keyframes mogą wymagać eksportu przeglądarkowego.
+GitHub Actions: release/nova-cut-8.4-ultra-cinema-redesign → NSIS Setup + Portable Windows x64.
+
+TESTY: npm run check; uruchomienie Electron oraz test importu MP4 i exportu MP4 na komputerze.
+
+--- Poprzednie uwagi ---
 # NOVA CUT 8.2 — ULTRA CINEMA (Windows)
 
 Oparto na działającym 8.1. Zachowano montaż, keyframes, miniatury, waveformy, Whisper offline, autozapis oraz eksport MP4 z dźwiękiem.

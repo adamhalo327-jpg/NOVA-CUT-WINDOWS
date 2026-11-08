@@ -1,0 +1,14 @@
+"use strict";
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const root=path.resolve(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p),'utf8');
+const html=read('app/index.html'),css=read('app/ultra-cinema-redesign.css'),js=read('app/ultra-cinema-redesign.js'),pkg=require('../package.json');
+for(const id of ['proMediaPanel','proViewer','proTimeline','proInspector','assetList','mediaInput','mp4Input','addMp4Btn','qualityResults','qualityFileInput','desktopExport','proTabQuality','export'])assert(html.includes('id="'+id+'"'),'Missing '+id);
+for(const file of ['ultra-cinema-redesign.css','ultra-cinema-redesign.js','quality-inspector.js','pro-ui.js','studio8.js','timeline7.js'])assert(html.includes(file),'Missing '+file);
+for(const page of ['media','effects','transitions','titles','color','audio','quality'])assert(html.includes('data-nc84-nav="'+page+'"'),'Missing navigation: '+page);
+assert(css.includes('#proTimeline') && css.includes('.nc84-media-card'),'Redesigned layout missing');
+assert(js.includes('filterAssets') && js.includes('NovaCutRedesign'),'Navigation missing');
+for(const f of ['assets/novacut.ico','assets/nova-signature.png'])assert(fs.statSync(path.join(root,f)).size>4000,'Invalid icon: '+f);
+const ico=fs.readFileSync(path.join(root,'assets/novacut.ico'));assert(ico.readUInt16LE(2)===1 && ico.readUInt16LE(4)>=4,'Windows ICO must contain multiple sizes');
+assert.equal(pkg.version,'8.4.0');assert.equal(pkg.build.win.icon,'assets/novacut.ico');
+assert.equal(pkg.build.nsis.installerIcon,pkg.build.win.icon);assert.equal(pkg.build.nsis.uninstallerIcon,pkg.build.win.icon);
+console.log('✓ NOVA CUT 8.4 UI, full MP4 import, quality inspector, native export and icons');
