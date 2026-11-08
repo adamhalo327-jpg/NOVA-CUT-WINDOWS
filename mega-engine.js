@@ -4,7 +4,8 @@ const fs=require('fs');
 const path=require('path');
 const {spawn}=require('child_process');
 const {getAudioFilter}=require('./mega-render');
-const binary=()=>{const p=require('ffmpeg-static');const file=(p.path||p).replace('app.asar'+path.sep,'app.asar.unpacked'+path.sep);if(!fs.existsSync(file))throw Error('Nie znaleziono FFmpeg.');return file;};
+const {resolveTool}=require('./binary-tools');
+const binary=()=>resolveTool('ffmpeg');
 function analyzeMedia({filePath,mode='scenes',threshold}={}){
  return new Promise((resolve,reject)=>{
   if(typeof filePath!=='string'||!path.isAbsolute(filePath)||!fs.existsSync(filePath)||!fs.statSync(filePath).isFile())return reject(Error('Wybierz istniejący plik z dysku.'));

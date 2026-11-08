@@ -50,7 +50,7 @@ function createWindow() {
   showingError = false;
   win = new BrowserWindow({
     width: 1480, height: 910, minWidth: 960, minHeight: 650,
-    backgroundColor: '#09080c', title: 'NOVA CUT 13.1 - MEDIA COMPATIBILITY FIX',
+    backgroundColor: '#09080c', title: 'NOVA CUT 13.2 - PLAYER QUALITY PRO',
     icon: path.join(__dirname,'assets','novacut.ico'),
     autoHideMenuBar: true, show: !smokeCheck,
     webPreferences: {
@@ -225,7 +225,7 @@ ipcMain.handle('nova:detect-crop',async(_e,r)=>{try{return detectCrop(r)}catch(e
 ipcMain.handle('nova:speaker-labels',async(_e,r)=>{try{return suggestSpeakers(r)}catch(e){return {ok:false,error:String(e.message||e)}}});
 ipcMain.handle('nova:translate-captions',async(_e,r)=>{try{return await translateCaptions(r)}catch(e){return {ok:false,error:String(e.message||e)}}});
 
-// NOVA CUT 13.0 queue: tasks run sequentially while Electron process is alive (including minimized).
+// NOVA CUT 13.2 queue: tasks run sequentially while Electron process is alive (including minimized).
 const renderQueue=[];let queueBusy=false;
 function broadcastQueue(info){if(win&&!win.isDestroyed())win.webContents.send('nova:queue-status',info);}
 async function pumpQueue(){if(queueBusy)return;queueBusy=true;

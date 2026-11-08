@@ -1,3 +1,20 @@
+NOVA CUT 13.2 — SEEK FIX: przewijanie filmu suwakiem bez przerywania odtwarzania, przyciski ±5s obok play, odświeżanie klatki po seeked; oryginalny eksport bez zmian.
+
+NOVA CUT 13.2 — PLAYER QUALITY PRO (Windows)
+===================================================
+
+NOWOŚĆ: Ustawienia ⚙ Jakość obok przycisku ▶ Odtwórz.
+Wybór: Auto, 240p, 360p, 480p, 720p, 1080p, 1440p, 4K.
+Po zmianie rozdzielczość bufora podglądu jest dostosowana do wybranego profilu,
+bez zwiększania jakości ponad rzeczywistą rozdzielczość źródła.
+Jakość eksportu MP4 jest niezależna: użyj panelu Eksport.
+Uwaga: wybranie 4K podglądu może spowolnić komputer; Auto zalecane.
+Zapamiętanie wyboru w ustawieniach lokalnych programu.
+
+POZOSTAŁE: Wszystkie funkcje NOVA CUT 13.1 zachowane;
+import MP4/MOV/MKV, podglądy proxy, ikona NOVA SIGNATURE,
+napisy Whisper, LUT, renderowanie CPU/GPU i kolejka.
+
 NOVA CUT 13.1 — MEDIA COMPATIBILITY FIX
 
 Automatyczne rozpoznawanie kodeków FFprobe przy imporcie MP4, MOV, MKV i innych filmów.
@@ -16,3 +33,5 @@ Nie zamykaj programu podczas renderowania; nie jest to oddzielna usługa Windows
 Dodatkowy model Whisper Small Q5 w paczce ZIP można zaimportować przyciskiem w CINEMA MASTER.
 
 NOWOŚĆ: Eksport → Nazwa filmu przed eksportem. Wpisana nazwa jest używana w oknie zapisu Windows, kolejce eksportu i pobraniu przeglądarkowym. Możesz później wybrać folder lub zmienić nazwę w systemowym dialogu zapisu.
+
+NOVA CUT 13.2 - NAPRAWA ENOENT: FFprobe.exe i FFmpeg.exe sa kopiowane do resources/tools/ poza app.asar; import MP4/MOV/MKV i badanie wlasciwosci dzialaja rowniez po instalacji Windows. Plik oryginalny jest nietkniety.

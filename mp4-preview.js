@@ -7,7 +7,7 @@ const path=require('node:path');
 const crypto=require('node:crypto');
 const {spawn}=require('node:child_process');
 const {pathToFileURL}=require('node:url');
-const ffmpegStatic=require('ffmpeg-static');
+const {resolveTool}=require('./binary-tools');
 const {probeMedia}=require('./media-inspector');
 const active=new Set();
 const created=new Set();
@@ -40,8 +40,9 @@ async function inspectVideoForPreview(filePath,{ffprobePath}={}){
   if(!details.durationSeconds||details.durationSeconds<=0)throw Error('Nie można ustalić długości filmu.');
   return {ok:true,needsProxy:needsPreviewProxy(details,filePath),durationSeconds:details.durationSeconds,codec:details.videoCodec,pixelFormat:details.pixelFormat,resolution:details.resolution,audioCodec:details.audioCodec};
 }
-function transcode(input,output,{ffmpegPath=ffmpegStatic, timeoutMs=30*60*1000, onProgress=()=>{}}={}){
+function transcode(input,output,{ffmpegPath, timeoutMs=30*60*1000, onProgress=()=>{}}={}){
  return new Promise((resolve,reject)=>{
+  try{ffmpegPath=ffmpegPath===undefined?resolveTool('ffmpeg'):ffmpegPath;}catch(e){return reject(e)}
   if(!ffmpegPath||!fs.existsSync(ffmpegPath))return reject(Error('Brakuje lokalnego FFmpeg. Zainstaluj pełną aplikację NOVA CUT.'));
   const args=['-hide_banner','-nostdin','-y','-v','error','-stats_period','1','-progress','pipe:1','-i',input,
     '-map','0:v:0','-map','0:a:0?','-vf','scale=w=min(1280\\,iw):h=min(720\\,ih):force_original_aspect_ratio=decrease:force_divisible_by=2,fps=24',
@@ -67,7 +68,7 @@ function transcode(input,output,{ffmpegPath=ffmpegStatic, timeoutMs=30*60*1000, 
   });
  });
 }
-async function prepareVideoPreview(filePath,{cacheDir,ffmpegPath=ffmpegStatic,ffprobePath,onProgress}={}){
+async function prepareVideoPreview(filePath,{cacheDir,ffmpegPath,ffprobePath,onProgress}={}){
  const stat=validVideoPath(filePath);
  if(!cacheDir||!path.isAbsolute(cacheDir))throw Error('Brak bezpiecznego katalogu pamięci podręcznej.');
  const details=await probeMedia(filePath,{ffprobePath});

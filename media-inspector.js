@@ -3,8 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const {spawn} = require('child_process');
-const ffprobeStatic = require('ffprobe-static');
-const FFP = ffprobeStatic.path;
+const {resolveTool} = require('./binary-tools');
 const MAX_OUTPUT = 2 * 1024 * 1024;
 const PROBE_TIMEOUT = 20000;
 
@@ -65,13 +64,15 @@ function interpretProbe(probe, stat, filePath){
  };
  return result;
 }
-function probeMedia(filePath, {timeout=PROBE_TIMEOUT, ffprobePath=FFP}={}){
+function probeMedia(filePath, {timeout=PROBE_TIMEOUT, ffprobePath}={}){
  return new Promise((resolve,reject)=>{
    if(typeof filePath!=='string' || !path.isAbsolute(filePath))return reject(Error('Nieprawidłowa ścieżka pliku.'));
    let stat;
    try{stat=fs.statSync(filePath);if(!stat.isFile())throw Error('To nie jest plik.');}
    catch(e){return reject(Error('Nie udało się otworzyć pliku: '+e.message));}
-   if(!ffprobePath || !fs.existsSync(ffprobePath))return reject(Error('Brakuje FFprobe w instalacji. Zainstaluj ponownie pełną wersję NOVA CUT.'));
+   try{ffprobePath=ffprobePath===undefined?resolveTool('ffprobe'):ffprobePath;}
+   catch(e){return reject(e)}
+   if(!ffprobePath || !fs.existsSync(ffprobePath))return reject(Error('Nie znaleziono pliku wykonywalnego FFprobe. Zainstaluj ponownie pełną wersję NOVA CUT.'));
    const args=['-v','error','-show_format','-show_streams','-of','json','-i',filePath];
    const proc=spawn(ffprobePath,args,{windowsHide:true,stdio:['ignore','pipe','pipe']});
    let out='',err='',ended=false;

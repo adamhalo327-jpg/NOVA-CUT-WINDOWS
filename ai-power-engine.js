@@ -1,6 +1,6 @@
 "use strict";const fs=require('fs'),path=require('path');const {spawnSync}=require('child_process');
 function safeFile(f){if(typeof f!=='string'||!path.isAbsolute(f)||!fs.existsSync(f))throw Error('Wybierz istniejący lokalny plik MP4.');return f;}
-function ffmpeg(){let f=process.env.NOVACUT_TEST_FFMPEG||require('ffmpeg-static');return (f.path||f).replace('app.asar'+path.sep,'app.asar.unpacked'+path.sep);}
+function ffmpeg(){return process.env.NOVACUT_TEST_FFMPEG||require('./binary-tools').resolveTool('ffmpeg');}
 function detectCrop({filePath,startSeconds=0}={}){const file=safeFile(filePath);let start=Math.max(0,Math.min(86400,Number(startSeconds)||0));
  const p=spawnSync(ffmpeg(),['-hide_banner','-nostdin','-ss',String(start),'-i',file,'-an','-vf','cropdetect=limit=24:round=2:reset=0','-frames:v','80','-f','null','-'],{encoding:'utf8',timeout:40000,maxBuffer:3e6,windowsHide:true});if(p.error||p.status!==0)throw Error('Cropdetect: '+String(p.stderr||p.error?.message).slice(-500));
  const matches=[...p.stderr.matchAll(/crop=(\d+):(\d+):(\d+):(\d+)/g)];if(!matches.length)return {ok:true,crop:null};const counts=new Map();for(const m of matches){const key=m.slice(1).join(':');counts.set(key,(counts.get(key)||0)+1)}const key=[...counts].sort((a,b)=>b[1]-a[1])[0]?.[0];const [width,height,x,y]=key.split(':').map(Number);
