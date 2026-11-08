@@ -1,8 +1,8 @@
-name: NOVA CUT 10.0 - EDITOR MAX Windows EXE
+name: NOVA CUT 10.1 - AUTO SUBTITLES Windows EXE
 on:
   workflow_dispatch:
   push:
-    branches: ['release/nova-cut-10.0-editor-max']
+    branches: ['release/nova-cut-10.1-auto-subtitles']
 permissions:
   contents: read
 jobs:
@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 75
     steps:
-      - name: Pobierz projekt 10.0
+      - name: Pobierz projekt 10.1
         uses: actions/checkout@v4
       - name: Node.js 22
         uses: actions/setup-node@v4
@@ -48,6 +48,8 @@ jobs:
           Write-Host "Model Whisper tiny: $([math]::Round((Get-Item whisper/ggml-tiny.bin).Length/1MB)) MB"
       - name: Zainstaluj zaleznosci
         run: npm install --no-audit --no-fund
+      - name: Test napisow MP4 mov_text (FFmpeg)
+        run: node scripts/check-subtitle-render.js
       - name: Zbuduj Setup i Portable Windows
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
@@ -58,14 +60,14 @@ jobs:
           $exes=@(Get-ChildItem dist -Filter '*.exe' -File)
           if($exes.Count -lt 2){throw 'Expected two Windows executables.'}
           $exes | Select-Object Name, Length | Format-Table
-          Compress-Archive -Path 'dist/*.exe' -DestinationPath 'dist/NOVA-CUT-10.0-EDITOR-MAX-WINDOWS.zip' -CompressionLevel Optimal -Force
-          $sizeMB=[math]::Round((Get-Item 'dist/NOVA-CUT-10.0-EDITOR-MAX-WINDOWS.zip').Length/1MB,2)
-          Write-Host "Pakiet NOVA CUT 10.0: $sizeMB MB (cel 700-1000 MB)"
+          Compress-Archive -Path 'dist/*.exe' -DestinationPath 'dist/NOVA-CUT-10.1-AUTO-SUBTITLES-WINDOWS.zip' -CompressionLevel Optimal -Force
+          $sizeMB=[math]::Round((Get-Item 'dist/NOVA-CUT-10.1-AUTO-SUBTITLES-WINDOWS.zip').Length/1MB,2)
+          Write-Host "Pakiet NOVA CUT 10.1: $sizeMB MB (cel 700-1000 MB)"
           if($sizeMB -lt 700 -or $sizeMB -gt 1000){Write-Warning 'Actual package is outside target size 700-1000 MB; please verify before release.'}
       - name: Udostepnij instalator i Portable
         uses: actions/upload-artifact@v4
         with:
-          name: NOVA-CUT-Windows-10.0-EDITOR-MAX
-          path: dist/NOVA-CUT-10.0-EDITOR-MAX-WINDOWS.zip
+          name: NOVA-CUT-Windows-10.1-AUTO-SUBTITLES
+          path: dist/NOVA-CUT-10.1-AUTO-SUBTITLES-WINDOWS.zip
           if-no-files-found: error
           retention-days: 30
