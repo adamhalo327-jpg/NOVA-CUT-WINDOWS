@@ -40,7 +40,7 @@ const caps=document.createElement('div');caps.className='nc8-section';caps.id='n
 caps.innerHTML=`<h3>🗣 AUTOMATYCZNE NAPISY (OFFLINE)</h3>
 <p class="nc8-mini">Lokalne rozpoznawanie mowy przez Whisper; wybierz klip AUDIO lub wideo zawierające mowę. Wymagana aplikacja Windows z dołączonym modelem AI.</p>
 <label class="field">Język <select id="nc8Language"><option value="auto">Wykryj automatycznie</option><option value="pl">Polski</option><option value="en">English</option><option value="de">Deutsch</option><option value="es">Español</option></select></label>
-<label class="field">Model offline <select id="nc10WhisperModel"><option value="base">Base · dokładniejszy</option><option value="tiny">Tiny · szybszy, mniej pamięci</option></select></label>
+<label class="field">Model offline <select id="nc10WhisperModel"><option value="small">Small Q5 · bardzo dokładny (zaimportuj model)</option><option value="base">Base · dokładniejszy</option><option value="tiny">Tiny · szybszy, mniej pamięci</option></select></label>
 <button class="nc8-button" id="nc8Transcribe">🎤 Rozpoznaj mowę i dodaj napisy</button>
 <div class="nc8-state" id="nc8CaptionStatus">Wybierz materiał i kliknij Rozpoznaj.</div>`;
 inspector.prepend(caps);
