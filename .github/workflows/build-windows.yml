@@ -62,10 +62,12 @@ jobs:
           $ffmpeg=Join-Path $tools 'ffmpeg.exe'
           if(!(Test-Path $probe)){throw "FFprobe missing from $probe"}
           if(!(Test-Path $ffmpeg)){throw "FFmpeg missing from $ffmpeg"}
-          & $probe -version | Select-Object -First 1
+          $probeVersion = & $probe -version
           if($LASTEXITCODE -ne 0){throw 'FFprobe failed to start'}
-          & $ffmpeg -version | Select-Object -First 1
+          Write-Host $probeVersion[0]
+          $ffmpegVersion = & $ffmpeg -version
           if($LASTEXITCODE -ne 0){throw 'FFmpeg failed to start'}
+          Write-Host $ffmpegVersion[0]
           $sample=Join-Path $env:RUNNER_TEMP 'nova-probe-test.mp4'
           & $ffmpeg -hide_banner -loglevel error -f lavfi -i 'color=c=red:s=320x180:r=24:d=1' -c:v libx264 -pix_fmt yuv420p -y $sample
           if($LASTEXITCODE -ne 0){throw 'Could not generate MP4 fixture'}
