@@ -3,7 +3,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
 const root=path.join(__dirname,'..'),read=x=>fs.readFileSync(path.join(root,x),'utf8');
 const html=read('app/index.html'),js=read('app/editor-max10.js'),css=read('app/editor-max10.css');
 const pkg=JSON.parse(read('package.json'));
-assert(/^(10\.[01]|11\.0|12\.0|13\.[012])\.0$/.test(pkg.version), 'Unexpected version '+pkg.version);
+assert(/^(10\.[01]|11\.0|12\.0|13\.[0123])\.0$/.test(pkg.version), 'Unexpected version '+pkg.version);
 for(const x of ['app/index.html','assets/nova-signature.png','assets/novacut.ico','assets/editor-max-cinema-preview.jpg','native-renderer.js','mp4-preview.js','media-inspector.js'])assert(fs.existsSync(path.join(root,x)),x);
 for(const x of ['./editor-max10.css','./editor-max10.js','id="addMp4Btn"','id="desktopExport"','id="proTimeline"','id="nc9UISize"'])assert(html.includes(x),`Missing HTML: ${x}`);
 for(const x of ['nc10-ready','Biblioteka mediów','Korekcja kolorów','Napisy (SRT)','AI Studio','nc10Toolbar','__NOVA_EDITOR_MAX10_READY'])assert(js.includes(x),`Missing UI: ${x}`);
