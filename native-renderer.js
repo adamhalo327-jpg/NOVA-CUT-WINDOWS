@@ -7,6 +7,7 @@ const {assess10K,diskFreeBytes}=require('./render-guard');
 const {cinemaDimensions,cinemaLookFilter,cinemaAudioSettings}=require('./cinema-engine');
 const {getAudioFilter}=require('./mega-render');
 const {makeSrt}=require('./subtitle-engine');
+const {detectGPU,memoryPlan}=require('./render-engine13');
 const {buildCinemaFilters,resolveLut}=require('./cinema-master-engine');
 let currentProcess = null;
 const SIZES = {standard:1280,high:1920,qhd:2560,uhd:3840,sixk:5760,eightk:7680,tenk:9600};
@@ -55,6 +56,7 @@ async function renderProject({job,files,out,onProgress=()=>{}}){
   const cinema=cinemaDimensions(quality,ratio);
   const width=cinema?cinema.width:quality==='tenk'?9600:Math.max(2,Math.round(w*scale/2)*2),height=cinema?cinema.height:quality==='tenk'?5400:Math.max(2,Math.round(h*scale/2)*2);
   const fps=[24,30,60].includes(Number(job.render?.fps))?Number(job.render.fps):30;
+  const memory=memoryPlan({quality});for(const msg of memory.warnings)onProgress({phase:'warning',message:msg});
   const bitrate=clamp(number(job.render?.bitrateMbps,BITS[quality]),.5,300);
   const clipEnd=c=>number(c.at)+Math.max(.02,(number(c.end)-number(c.start))/clamp(number(c.speed,1),.25,4));
   const duration=Math.max(...job.clips.map(clipEnd),...(job.audioClips||[]).map(a=>number(a.at)+number(a.duration)),...(job.texts||[]).map(a=>number(a.end)),...(job.stickers||[]).map(a=>number(a.end)),...(job.sfx||[]).map(a=>number(a.at)+.4),0);
@@ -139,6 +141,10 @@ async function renderProject({job,files,out,onProgress=()=>{}}){
   const codecWanted=job.render?.codec;
   const codec=quality==='tenk'?tenkPlan.encoder:(codecWanted==='h265'&&enc.includes('libx265')?'libx265':enc.includes('libx264')?'libx264':enc.includes('mpeg4')?'mpeg4':null);
   if(!codec)throw Error('Zainstalowany FFmpeg nie obsługuje kodowania MP4.');
+  const gpuMode=['auto','off','force'].includes(job.render?.gpu)?job.render.gpu:'off';
+  if(quality==='tenk'&&gpuMode==='force')throw Error('10K nie jest dostępne w trybie tylko GPU. Wybierz CPU lub Auto.');
+  const gpuCodec=quality==='tenk'?null:detectGPU(ffmpeg,codecWanted==='h265'?'h265':'h264',gpuMode);
+  const selectedCodec=gpuCodec||codec;
   const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'novacut-render-'));
   const extra=buildCinemaFilters(job.cinema11||{});
   const lut=resolveLut(job.cinema11||{},__dirname);
@@ -156,14 +162,14 @@ async function renderProject({job,files,out,onProgress=()=>{}}){
   const args=['-hide_banner','-y','-nostdin','-loglevel','error','-progress','pipe:1',...inputs,'-filter_complex_script',script,
     '-map','[outv]','-map','[outa]',...(captions?['-map',String(captionInputIndex)+':0','-c:s','mov_text','-metadata:s:s:0','language=pol','-disposition:s:0','default']:[]),'-t',sec(duration),'-r',String(fps),'-pix_fmt','yuv420p',
     '-c:a','aac','-b:a',audioOutput.bitrate,'-ar',String(audioOutput.sampleRate),'-ac',String(audioOutput.channels),'-movflags','+faststart',
-    '-c:v',codec,'-b:v',String(Math.round(bitrate*1000000)),'-maxrate',String(Math.round(bitrate*1400000)),
+    '-c:v',selectedCodec,'-b:v',String(Math.round(bitrate*1000000)),'-maxrate',String(Math.round(bitrate*1400000)),
     '-bufsize',String(Math.round(bitrate*2800000))];
-  if(codec==='libx264')args.push('-preset','veryfast','-profile:v','high');
+  if(selectedCodec==='libx264')args.push('-preset','veryfast','-profile:v','high');
   if(quality==='tenk')args.push('-threads','2','-filter_complex_threads','1');
-  if(codec==='libaom-av1')args.push('-cpu-used','8','-row-mt','1','-threads','2');
-  if(codec==='libx265')args.push('-preset','ultrafast','-tag:v','hvc1');
+  if(selectedCodec==='libaom-av1')args.push('-cpu-used','8','-row-mt','1','-threads','2');
+  if(selectedCodec==='libx265')args.push('-preset','ultrafast','-tag:v','hvc1');
   args.push(out);
-  onProgress({phase:'rendering',progress:0,message:`Render ${width}×${height} · ${fps} FPS · ${codec}`});
+  onProgress({phase:'rendering',progress:0,message:`Render ${width}×${height} · ${fps} FPS · ${selectedCodec}`});
   let stderr='',cancelled=false;
   try{
     await new Promise((resolve,reject)=>{
@@ -184,7 +190,7 @@ async function renderProject({job,files,out,onProgress=()=>{}}){
     if(captions && !streams.some(st=>st.codec_type==='subtitle'))throw Error('Nie udało się zapisać ścieżki napisów w MP4.');
     if(captions){const sidecar=out.replace(/\.mp4$/i,'')+'.srt';try{fs.writeFileSync(sidecar,'\uFEFF'+captions,'utf8')}catch(e){onProgress({phase:'warning',message:'MP4 ma napisy, lecz dodatkowy plik SRT nie został zapisany: '+e.message})}}
     onProgress({phase:'done',progress:1,message:captions?'Gotowe · MP4 z dźwiękiem AAC i przełączalnymi napisami + SRT':'Gotowe · MP4 z dźwiękiem AAC'});
-    return {path:out,codec,width,height,audio:true,subtitles:!!captions};
+    return {path:out,codec:selectedCodec,width,height,audio:true,subtitles:!!captions};
   }catch(e){if(fs.existsSync(out))try{fs.unlinkSync(out)}catch{};throw e;}
   finally{currentProcess=null;try{fs.rmSync(tmp,{recursive:true,force:true})}catch{}}
 }

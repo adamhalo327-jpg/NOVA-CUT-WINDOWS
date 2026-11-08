@@ -1,8 +1,8 @@
-name: NOVA CUT 12.0 - AI POWER STUDIO Windows EXE
+name: NOVA CUT 13.0 - ULTRA RENDER ENGINE Windows EXE
 on:
   workflow_dispatch:
   push:
-    branches: ['release/nova-cut-12.0-ai-power-studio']
+    branches: ['release/nova-cut-13.0-ultra-render-engine']
 permissions:
   contents: read
 jobs:
@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 75
     steps:
-      - name: Pobierz projekt 12.0
+      - name: Pobierz projekt 13.0
         uses: actions/checkout@v4
       - name: Node.js 22
         uses: actions/setup-node@v4
@@ -69,14 +69,14 @@ jobs:
           $exes=@(Get-ChildItem dist -Filter '*.exe' -File)
           if($exes.Count -lt 2){throw 'Expected two Windows executables.'}
           $exes | Select-Object Name, Length | Format-Table
-          Compress-Archive -Path 'dist/*.exe','dist/ggml-small-q5_1.bin' -DestinationPath 'dist/NOVA-CUT-12.0-AI-POWER-STUDIO-WINDOWS.zip' -CompressionLevel Optimal -Force
-          $sizeMB=[math]::Round((Get-Item 'dist/NOVA-CUT-12.0-AI-POWER-STUDIO-WINDOWS.zip').Length/1MB,2)
-          Write-Host "Pakiet NOVA CUT 12.0: $sizeMB MB (cel 1000-1100 MB)"
+          Compress-Archive -Path 'dist/*.exe','dist/ggml-small-q5_1.bin' -DestinationPath 'dist/NOVA-CUT-13.0-ULTRA-RENDER-WINDOWS.zip' -CompressionLevel Optimal -Force
+          $sizeMB=[math]::Round((Get-Item 'dist/NOVA-CUT-13.0-ULTRA-RENDER-WINDOWS.zip').Length/1MB,2)
+          Write-Host "Pakiet NOVA CUT 13.0: $sizeMB MB (cel 1000-1100 MB)"
           if($sizeMB -lt 1000 -or $sizeMB -gt 1100){Write-Warning 'Actual package is outside target size 700-1000 MB; please verify before release.'}
       - name: Udostepnij instalator i Portable
         uses: actions/upload-artifact@v4
         with:
-          name: NOVA-CUT-Windows-12.0-AI-POWER-STUDIO
-          path: dist/NOVA-CUT-12.0-AI-POWER-STUDIO-WINDOWS.zip
+          name: NOVA-CUT-Windows-13.0-ULTRA-RENDER
+          path: dist/NOVA-CUT-13.0-ULTRA-RENDER-WINDOWS.zip
           if-no-files-found: error
           retention-days: 30

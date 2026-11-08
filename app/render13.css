@@ -1,0 +1,7 @@
+#nc13Panel{margin:10px 0;padding:12px;border:1px solid #d34a50;border-radius:10px;background:linear-gradient(120deg,#221116,#101018)}
+#nc13Panel h3{font-size:15px;color:#ffacaa;margin:0 0 10px}
+#nc13Panel button{border:1px solid #bd4753;background:#741a2b;border-radius:7px;color:#fff;padding:8px 10px;font-weight:700;cursor:pointer;margin:6px 4px 6px 0}
+#nc13Panel select{background:#16131a;border:1px solid #8b404c;color:#fff;border-radius:7px;padding:7px;width:100%}
+#nc13Panel label{font-size:12px;color:#e4c1c5;display:block;margin:8px 0}
+#nc13Queue>li{margin:6px 0;padding:7px;background:#1d1720;border:1px solid #62303b;border-radius:8px;list-style:none;font-size:12px}
+#nc13Queue{padding:0;margin:8px 0;max-height:240px;overflow:auto}#nc13Status{color:#f9bbae;font-size:12px;margin:5px 0}
