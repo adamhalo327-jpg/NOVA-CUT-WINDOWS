@@ -8,7 +8,7 @@ for(const item of ['app/timeline7.css','app/timeline7.js']){
  console.log('✓ '+item+' ('+content.length+' znaków)');
 }
 const html=fs.readFileSync(path.join(base,'app/index.html'),'utf8');
-for(const expected of ['8.2 · ULTRA CINEMA','<script src="./timeline7.js"></script>','href="./timeline7.css"']){
+for(const expected of ['8.3 · QUALITY INSPECTOR PRO','<script src="./timeline7.js"></script>','href="./timeline7.css"']){
  if(!html.includes(expected))throw Error('Brakuje elementu 7.0: '+expected)
 }
 if(!html.includes('NovaTimeline7?.canMoveTo'))throw Error('Brak zabezpieczenia przenoszenia do zablokowanej ścieżki');
