@@ -4,24 +4,29 @@
  const $=id=>document.getElementById(id);
  const app=$('proTimeline')?.closest('.app');
  if(!app)return;
- const tools=$('proToolsPane'),exportPane=$('proExportPane');
- const bTools=$('proTabTools'),bExport=$('proTabExport');
+ const tools=$('proToolsPane'),exportPane=$('proExportPane'),qualityPane=$('proQualityPane');
+ const bTools=$('proTabTools'),bExport=$('proTabExport'),bQuality=$('proTabQuality');
  const setTab=name=>{
-   const which=name==='export'?'export':'tools';
+   const which=['export','quality'].includes(name)?name:'tools';
    tools.classList.toggle('hide',which!=='tools');
    exportPane.classList.toggle('hide',which!=='export');
+   qualityPane.classList.toggle('hide',which!=='quality');
    bTools.classList.toggle('selected',which==='tools');
    bExport.classList.toggle('selected',which==='export');
+   bQuality.classList.toggle('selected',which==='quality');
    bTools.setAttribute('aria-selected',String(which==='tools'));
    bExport.setAttribute('aria-selected',String(which==='export'));
+   bQuality.setAttribute('aria-selected',String(which==='quality'));
    bTools.setAttribute('aria-controls','proToolsPane');
    bExport.setAttribute('aria-controls','proExportPane');
+   bQuality.setAttribute('aria-controls','proQualityPane');
    app.classList.remove('pro-inspector-hidden');
    $('proToggleInspector')?.setAttribute('aria-pressed','false');
    try {sessionStorage.setItem('nova61-tab',which)} catch {}
  };
  bTools.addEventListener('click',()=>setTab('tools'));
  bExport.addEventListener('click',()=>setTab('export'));
+ bQuality.addEventListener('click',()=>setTab('quality'));
  $('proOpenExport').addEventListener('click',()=>setTab('export'));
  $('proExportShortcut').addEventListener('click',()=>setTab('export'));
  $('export')?.addEventListener('click',()=>setTab('export'),{capture:true});
@@ -73,7 +78,9 @@
    try {localStorage.removeItem('nova61-timeline-size')}catch{}
  });
  document.addEventListener('keydown',ev=>{
-   if(ev.ctrlKey&&ev.shiftKey&&ev.code==='KeyE'){
+   if(ev.ctrlKey&&ev.shiftKey&&ev.code==='KeyQ'){
+     ev.preventDefault();setTab('quality');
+   }else if(ev.ctrlKey&&ev.shiftKey&&ev.code==='KeyE'){
      ev.preventDefault();setTab('export');
    }else if(ev.key==='F6'&&!ev.ctrlKey){
      ev.preventDefault();$('tracks')?.focus();
@@ -85,5 +92,5 @@
    if(Number.isFinite(saved)&&saved>=175)applySize(saved);
    setTab(sessionStorage.getItem('nova61-tab')==='export'?'export':'tools');
  }catch {setTab('tools')}
- window.NovaProfessionalUI=Object.freeze({version:'7.0',setTab,reset:()=>$('proResetLayout').click()});
+ window.NovaProfessionalUI=Object.freeze({version:'6.1',setTab,reset:()=>$('proResetLayout').click()});
 })();

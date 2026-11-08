@@ -1,0 +1,22 @@
+/* Independent scroll inside the inspector's existing fixed-height column. */
+#proQualityPane{--q-accent:#5de9db;color:var(--fg);line-height:1.4}
+.pro-inspector-tabs .pro-tab{font-size:11px;padding:9px 3px;white-space:nowrap}
+#proQualityPane .quality-heading{display:flex;align-items:center;gap:10px;padding:9px 5px 14px;border-bottom:1px solid #354354}
+#proQualityPane .quality-icon{font-size:28px;color:var(--q-accent)}
+#proQualityPane .quality-heading strong{font-size:13px;letter-spacing:.03em}
+#proQualityPane .quality-heading small{display:block;color:#94a8bf;font-size:11px;margin-top:3px}
+#proQualityPane .quality-intro{margin:12px 0;color:#b4cada;font-size:12px}
+#proQualityPane .quality-action{width:100%;margin-bottom:8px;min-height:39px;font-size:12px;font-weight:700}
+#proQualityPane #qualityLast{border-color:#416b8c;background:#203348}
+#proQualityPane #qualityLast:disabled{opacity:.5;cursor:default}
+#proQualityPane .quality-status{font-size:12px;border:1px solid #2a4354;border-radius:9px;background:#11202d;padding:10px;color:#bbd5e3;overflow-wrap:anywhere;margin:10px 0;min-height:36px}
+#proQualityPane .quality-status[data-kind=error]{color:#ffc4bd;border-color:#8e4b53;background:#2d1e27}
+#proQualityPane .quality-status[data-kind=success]{color:#b9ffe8;border-color:#376e63}
+#proQualityPane .quality-results{border:1px solid #344b5e;border-radius:11px;background:#101b2b;overflow:hidden}
+#proQualityPane .quality-badge{font-size:22px;line-height:1.25;color:#60f2dd;padding:14px 12px 4px;font-weight:850}
+#proQualityPane .quality-file{font-size:11px;color:#a6bed0;overflow-wrap:anywhere;padding:0 12px 12px}
+#proQualityPane .quality-grid{display:grid;grid-template-columns:minmax(0,42%) minmax(0,58%);font-size:11px}
+#proQualityPane .quality-grid div{border-top:1px solid #2a3648;padding:8px 11px;overflow-wrap:anywhere}
+#proQualityPane .quality-grid .quality-key{color:#a4b6cb;background:#142335}
+#proQualityPane .quality-grid .quality-value{font-weight:600;color:#f2f6ff;text-align:right}
+#proQualityPane .quality-footnote{font-size:11px;color:#8da6bb;line-height:1.6;padding-top:8px}
