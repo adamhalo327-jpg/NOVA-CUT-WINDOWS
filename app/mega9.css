@@ -1,0 +1,14 @@
+/* NOVA CUT 9.0 - cinema red controls (scoped to new tools). */
+.nc9-mega-panel{border:1px solid #7e2630;border-radius:12px;background:linear-gradient(135deg,#270d14,#121018 65%);margin:10px 0 17px;padding:12px;box-shadow:inset 0 1px #ffac7020}
+.nc9-mega-panel h2{color:#ffd0ba;font-weight:850;letter-spacing:.2px;margin:0 0 11px}
+.nc9-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin:0 0 12px}
+.nc9-tab{font-size:11px;padding:8px 5px;border:1px solid #70333c;background:#231b29;color:#f5d6d9}
+.nc9-tab.active{background:#8c212e;color:white;border-color:#f75154}
+.nc9-pane{min-width:0}.nc9-help{font-size:11px;color:#d1abb0;line-height:1.5;margin:8px 0 12px}.nc9-help select{margin-top:5px}
+.nc9-list{max-height:160px;overflow:auto;display:flex;flex-direction:column;gap:4px;margin:8px 0}.nc9-cliprow{display:flex;gap:6px;align-items:center;font-size:11px;padding:5px 6px;border:1px solid #502935;border-radius:8px;background:#160f17}.nc9-cliprow input{accent-color:#ff5050}.nc9-cliprow span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nc9-status{font-size:11px;line-height:1.5;color:#ffdbca;min-height:22px;margin:9px 0 0;white-space:pre-wrap}.nc9-analysis-results{display:flex;gap:4px;flex-wrap:wrap}.nc9-analysis-results button{padding:5px 7px;font-size:11px}
+.nc9-preset-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.nc9-preset-grid button{font-size:11px;border-color:#803344;padding:8px 5px}.nc9-mega-panel .primary{background:#ed4b54;color:white;border-color:#f37075}
+.nc9-mega-panel .row{margin-top:7px}
+
+[data-nc84-nav="mega"]{border-color:#d43347!important;background:#38121d!important;color:#ffafb2!important;font-weight:800!important}
+[data-nc84-nav="mega"].nc84-nav-active{background:#a82835!important;color:#fff!important}

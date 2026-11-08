@@ -20,6 +20,7 @@
   titles:()=>mediaSection('addText'),
   color:()=>inspectorSection('brightness'),
   audio:()=>inspectorSection('selectedAudioVolume'),
+  mega:()=>inspectorSection('nc9MegaPanel'),
   quality:()=>{showInspector();$('proTabQuality')?.click();},
  };
  for(const btn of document.querySelectorAll('[data-nc84-nav]')){

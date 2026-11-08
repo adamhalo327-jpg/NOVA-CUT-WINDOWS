@@ -1,3 +1,22 @@
+NOVA CUT 9.0 — MEGA UPDATE (Windows 64-bit)
+
+NOWOŚCI:
+- Grupowe zaznaczanie i przesuwanie klipów na osi czasu o 1 sekundę (nie zmienia pozycji wszystkich innych klipów).
+- Napisy: import SRT (UTF-8) i eksport SRT z istniejących napisów.
+- Analiza scen i ciszy offline za pomocą FFmpeg: wyniki jako klikalne znaczniki czasu (bez automatycznego cięcia).
+- Sześć nowych presetów kolorów: aktualizują natywne parametry korekcji brightness/contrast/saturation.
+- Opcjonalne odszumianie audio FFmpeg (mowa/muzyka), DOMYŚLNIE WYŁĄCZONE dla zgodności eksportu.
+- Zachowano import MP4, analizator jakości, proporcje kinowe, autozapis, Whisper, miniatury, fale audio i ikonę NOVA SIGNATURE.
+
+OGRANICZENIA:
+- Wykrywanie scen i ciszy jest heurystyczne: lokalnie przez FFmpeg, nie rozpoznaje semantycznie zawartości scen.
+- Odszumianie oraz niektóre nowe opcje działają tylko w natywnym eksporcie FFmpeg.
+- Native export nie renderuje jeszcze wszystkich animowanych keyframes/napisów/efektów przeglądarkowych; nie używaj tych funkcji, jeśli potrzebna jest pełna zgodność wizualna MP4.
+- Render 10K pozostaje eksperymentalny.
+- Zapis projektów JSON i autozapis nie osadzają plików MP4; po restarcie może być potrzebne ponowne wskazanie mediów.
+
+TESTY: npm install; npm run check; npm run build:win
+
 NOVA CUT 8.4 — ULTRA CINEMA REDESIGN (Windows)
 
 Motyw: czarno-czerwony ULTRA CINEMA na podstawie wybranego podglądu.

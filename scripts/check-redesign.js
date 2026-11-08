@@ -9,6 +9,6 @@ assert(css.includes('#proTimeline') && css.includes('.nc84-media-card'),'Redesig
 assert(js.includes('filterAssets') && js.includes('NovaCutRedesign'),'Navigation missing');
 for(const f of ['assets/novacut.ico','assets/nova-signature.png'])assert(fs.statSync(path.join(root,f)).size>4000,'Invalid icon: '+f);
 const ico=fs.readFileSync(path.join(root,'assets/novacut.ico'));assert(ico.readUInt16LE(2)===1 && ico.readUInt16LE(4)>=4,'Windows ICO must contain multiple sizes');
-assert.equal(pkg.version,'8.4.0');assert.equal(pkg.build.win.icon,'assets/novacut.ico');
+assert.equal(pkg.version,'9.0.0');assert.equal(pkg.build.win.icon,'assets/novacut.ico');
 assert.equal(pkg.build.nsis.installerIcon,pkg.build.win.icon);assert.equal(pkg.build.nsis.uninstallerIcon,pkg.build.win.icon);
-console.log('✓ NOVA CUT 8.4 UI, full MP4 import, quality inspector, native export and icons');
+console.log('✓ NOVA CUT 9.0 UI, full MP4 import, quality inspector, native export and icons');
