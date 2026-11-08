@@ -1,0 +1,10 @@
+/* NOVA CUT 10.1 — Subtitle generation controls */
+.nc101-feature{margin:12px 0;padding:12px;border:1px solid #8a343f;border-radius:12px;background:linear-gradient(135deg,#24131a,#11151b);color:#f1e5e7;display:grid;gap:9px}
+.nc101-title{font-size:13px;font-weight:900;color:#ff696d;letter-spacing:.4px}
+.nc101-feature p{margin:2px 0;color:#bfc3ce;font-size:12px;line-height:1.45}
+.nc101-feature label{display:grid;gap:5px;font-size:12px}.nc101-feature .nc101-check{display:flex;align-items:center;gap:7px}
+.nc101-feature .nc101-actions{display:flex;gap:7px;flex-wrap:wrap}.nc101-actions button{flex:1;min-width:130px;white-space:normal}
+#nc101Generate{background:#ad142a;border-color:#f54d5c;font-weight:800}#nc101Status{color:#ffbf8b;min-height:24px}
+
+#nc101Shortcut{background:linear-gradient(140deg,#b3142d,#8a1025);border-color:#e04f64;color:#fff;font-weight:800}
+#nc101Shortcut:hover{background:#dd2039}

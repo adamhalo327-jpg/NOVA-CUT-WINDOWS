@@ -141,7 +141,7 @@ ipcMain.handle('nova:native-render',async(event,{job,files})=>{
   try {
     const result=await renderProject({job,files,out:save.filePath,onProgress:send});
     lastExportPath=result.path;
-    return {ok:true,path:result.path,codec:result.codec,width:result.width,height:result.height,audio:result.audio};
+    return {ok:true,path:result.path,codec:result.codec,width:result.width,height:result.height,audio:result.audio,subtitles:!!result.subtitles};
   }catch(e){log('Render error: '+String(e.stack||e));return {error:String(e.message||e)};}
 });
 ipcMain.handle('nova:cancel-render',()=>{cancelRender();return true});

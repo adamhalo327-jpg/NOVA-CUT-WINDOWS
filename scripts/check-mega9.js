@@ -1,7 +1,7 @@
 /* NOVA CUT 9.0 feature and backwards compatibility tests. */
 'use strict';const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const root=path.resolve(__dirname,'..'),read=f=>fs.readFileSync(path.join(root,f),'utf8'),pkg=require('../package.json');
-assert.equal(pkg.version,'10.0.0');
+assert(/^10\.(0|1)\.0$/.test(pkg.version), 'Unexpected version '+pkg.version);
 assert(read('app/ultra-cinema-redesign.js').includes('nc9MegaPanel'),'Missing MEGA navigation');
 const html=read('app/index.html');
 for(const id of ['nc9MegaPanel','nc9ClipList','nc9MoveLeft','nc9MoveRight','nc9AnalyzeScenes','nc9AnalyzeSilence','nc9ImportSrt','nc9ExportSrt','nc9Denoise','addMp4Btn','desktopExport','qualityResults','canvas','timelineInner'])assert(html.includes('id="'+id+'"'),'Missing UI: '+id);

@@ -1,0 +1,13 @@
+"use strict";
+const fs=require('fs'),assert=require('assert'),path=require('path');
+const {segmentsToTimeline,makeSrt,stamp}=require('../subtitle-engine');
+const clip={id:'v1',at:12,start:3,end:11,speed:2};
+const out=segmentsToTimeline([{text:' Dzień dobry ',start:0,end:2},{text:' Drugi ',start:3,end:5}],clip);
+assert.equal(out.length,2);assert.equal(out[0].start,12);assert.equal(out[0].end,13);assert.equal(out[1].start,13.5);assert.equal(out[1].end,14.5);
+assert.equal(out[0].sourceClipId,'v1');assert.equal(stamp(62.245),'00:01:02,245');
+assert(makeSrt(out).includes('00:00:12,000 --> 00:00:13,000'));
+assert.equal(segmentsToTimeline([{text:'out',start:20,end:21}],clip).length,0);
+const src=fs.readFileSync(path.join(__dirname,'../native-renderer.js'),'utf8');assert(src.includes("'-c:s','mov_text'"));assert(src.includes("st.codec_type==='subtitle'"));
+const page=fs.readFileSync(path.join(__dirname,'../app/index.html'),'utf8');assert(page.includes('auto-subtitles10.js')&&page.includes('auto-subtitles10.css'));
+const ui=fs.readFileSync(path.join(__dirname,'../app/auto-subtitles10.js'),'utf8');assert(ui.includes('nc101Generate')&&ui.includes('startSeconds')&&ui.includes('durationSeconds'));
+console.log('OK: auto subtitles 10.1, clip speed, SRT, MP4 mov_text and UI');

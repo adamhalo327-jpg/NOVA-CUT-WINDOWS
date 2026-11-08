@@ -9,11 +9,12 @@ function ffmpegExe(){let f=require('ffmpeg-static');if(typeof f!=='string')f=f?.
 function run(exe,args,cwd){return new Promise((resolve,reject)=>{let errors='';const p=spawn(exe,args,{cwd,windowsHide:true,stdio:['ignore','ignore','pipe']});
  p.stderr.on('data',v=>errors=(errors+v.toString()).slice(-2500));p.on('error',reject);p.on('close',code=>code===0?resolve():reject(Error('Kod '+code+': '+errors.slice(-1200))))})}
 function seconds(v){if(typeof v==='number')return v;if(!v)return 0;const s=String(v);if(/^\d+(\.\d+)?$/.test(s))return Number(s);const p=s.replace(',','.').split(':').map(Number);if(p.some(x=>!Number.isFinite(x)))return 0;return p.reduce((acc,x)=>acc*60+x,0)}
-async function transcribeOffline({filePath,lang='auto',modelSize='base'}={}){
+async function transcribeOffline({filePath,lang='auto',modelSize='base',startSeconds=0,durationSeconds=0}={}){
  if(!filePath||!path.isAbsolute(filePath)||!fs.existsSync(filePath))throw Error('Brak pliku audio/wideo na dysku.');
+ if(!Number.isFinite(+startSeconds)||+startSeconds<0||!Number.isFinite(+durationSeconds)||+durationSeconds<0||+durationSeconds>10800)throw Error('Nieprawidłowy zakres filmu do rozpoznawania (maksymalnie 3 godziny).');
  const {exe,model}=bins(modelSize==='tiny'?'tiny':'base');const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'nova8-whisper-'));
  try{const wav=path.join(tmp,'speech.wav'),prefix=path.join(tmp,'captions');
-  await run(ffmpegExe(),['-hide_banner','-loglevel','error','-y','-i',filePath,'-vn','-ac','1','-ar','16000','-c:a','pcm_s16le',wav],tmp);
+  await run(ffmpegExe(),['-hide_banner','-loglevel','error','-y','-ss',String(+startSeconds),'-i',filePath,...(+durationSeconds>0?['-t',String(+durationSeconds)]:[]),'-vn','-ac','1','-ar','16000','-c:a','pcm_s16le',wav],tmp);
   const args=['-m',model,'-f',wav,'-oj','-of',prefix,'-t','4'];
   if(['pl','en','de','es'].includes(lang))args.push('-l',lang);
   await run(exe,args,tmp);
