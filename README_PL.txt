@@ -1,8 +1,8 @@
-NOVA CUT 12.0 — AI POWER STUDIO
-Zawiera wszystkie funkcje 11.0.
+NOVA CUT 13.0 — ULTRA RENDER ENGINE
+Zawiera funkcje 11.0 i 12.0 oraz kolejkę eksportu MP4 Windows.
 
-Nowości: wycinanie ciszy (lokalne FFmpeg, tylko wybrany klip), wykrywanie czarnych pasów (cropdetect), wstępne rozróżnianie głosów na podstawie cech akustycznych (eksperymentalne), animowane napisy w podglądzie, tłumaczenie tekstu napisów przez własny serwer LibreTranslate (tylko po zgodzie użytkownika).
+Nowe funkcje: tryb CPU / Auto GPU / Wymuś GPU, wykrywanie działających NVENC/QSV/AMF, kontrola wolnego RAM, kolejka 20 zadań, renderowanie w tle gdy aplikacja jest zminimalizowana, ponawianie na CPU po błędzie GPU w trybie Auto. Obsługa profili 4K, 6K, 8K oraz eksperymentalnego 10K.
 
-Ograniczenia: wykrywanie mówców nie identyfikuje osób; tłumaczenie wymaga własnego serwera HTTPS i wysyła wyłącznie tekst; napisy animowane w natywnym MP4 nadal są osobną ścieżką bez animacji.
+Nie zamykaj programu podczas renderowania; nie jest to oddzielna usługa Windows. Nie każdy GPU ma dostępny kodek; 10K wymaga wydajnego CPU/RAM i stosuje zabezpieczenia 10K z poprzednich wersji.
 
-Paczka zawiera oddzielny model Whisper Small Q5 (bin), import przez CINEMA MASTER.
+Dodatkowy model Whisper Small Q5 w paczce ZIP można zaimportować przyciskiem w CINEMA MASTER.

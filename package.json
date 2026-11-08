@@ -1,8 +1,8 @@
 {
   "name": "nova-cut-desktop",
   "productName": "NOVA CUT",
-  "version": "12.0.0",
-  "description": "AI POWER STUDIO 12.0: speech caption animations, speaker suggestions, silence cutting, crop detect, opt-in subtitle translation.",
+  "version": "13.0.0",
+  "description": "NOVA CUT 13.0 ULTRA RENDER ENGINE: detected GPU encoding, queue of Windows MP4 exports, RAM checks and resilient CPU retry.",
   "main": "main.js",
   "author": "NOVA CUT",
   "license": "UNLICENSED",
@@ -11,7 +11,7 @@
     "start": "electron .",
     "build:win": "electron-builder --win --x64",
     "build:win:portable": "electron-builder --win portable --x64",
-    "check": "node scripts/check-project.js && node scripts/check-ui.js && node scripts/check-timeline7.js && node --check app/ultra.js && node --check app/pro-ui.js && node --check app/timeline7.js && node --check app/studio8.js && node --check speech-renderer.js && node scripts/check-studio8.js && node scripts/check-10k.js && node scripts/check-cinema.js && node --check app/quality-inspector.js && node --check media-inspector.js && node scripts/check-quality.js && node --check mp4-preview.js && node scripts/check-mp4.js && node --check app/ultra-cinema-redesign.js && node scripts/check-redesign.js && node --check app/mega9.js && node --check mega-engine.js && node scripts/check-mega9.js && node --check app/readability9.js && node scripts/check-readability9.js && node --check app/editor-max10.js && node scripts/check-editor-max10.js && node --check app/auto-subtitles10.js && node scripts/check-subtitles101.js && node scripts/check-cinema11.js && node scripts/check-ai12.js",
+    "check": "node scripts/check-project.js && node scripts/check-ui.js && node scripts/check-timeline7.js && node --check app/ultra.js && node --check app/pro-ui.js && node --check app/timeline7.js && node --check app/studio8.js && node --check speech-renderer.js && node scripts/check-studio8.js && node scripts/check-10k.js && node scripts/check-cinema.js && node --check app/quality-inspector.js && node --check media-inspector.js && node scripts/check-quality.js && node --check mp4-preview.js && node scripts/check-mp4.js && node --check app/ultra-cinema-redesign.js && node scripts/check-redesign.js && node --check app/mega9.js && node --check mega-engine.js && node scripts/check-mega9.js && node --check app/readability9.js && node scripts/check-readability9.js && node --check app/editor-max10.js && node scripts/check-editor-max10.js && node --check app/auto-subtitles10.js && node scripts/check-subtitles101.js && node scripts/check-cinema11.js && node scripts/check-ai12.js && node scripts/check-render13.js",
     "prebuild:win": "npm run check"
   },
   "dependencies": {
@@ -49,7 +49,8 @@
       "mega-engine.js",
       "subtitle-engine.js",
       "cinema-master-engine.js",
-      "ai-power-engine.js"
+      "ai-power-engine.js",
+      "render-engine13.js"
     ],
     "win": {
       "target": [
@@ -73,13 +74,13 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "artifactName": "NOVA-CUT-12.0-AI-POWER-STUDIO-Setup-${version}.${ext}",
+      "artifactName": "NOVA-CUT-13.0-ULTRA-RENDER-Setup-${version}.${ext}",
       "installerIcon": "assets/novacut.ico",
       "uninstallerIcon": "assets/novacut.ico",
       "installerHeaderIcon": "assets/novacut.ico"
     },
     "portable": {
-      "artifactName": "NOVA-CUT-12.0-AI-POWER-STUDIO-Portable-${version}.${ext}"
+      "artifactName": "NOVA-CUT-13.0-ULTRA-RENDER-Portable-${version}.${ext}"
     },
     "publish": null,
     "extraResources": [

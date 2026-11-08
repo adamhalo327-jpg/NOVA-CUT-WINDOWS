@@ -49,7 +49,7 @@ function createWindow() {
   showingError = false;
   win = new BrowserWindow({
     width: 1480, height: 910, minWidth: 960, minHeight: 650,
-    backgroundColor: '#09080c', title: 'NOVA CUT 12.0 - AI POWER STUDIO',
+    backgroundColor: '#09080c', title: 'NOVA CUT 13.0 - ULTRA RENDER ENGINE',
     icon: path.join(__dirname,'assets','novacut.ico'),
     autoHideMenuBar: true, show: !smokeCheck,
     webPreferences: {
@@ -132,6 +132,7 @@ app.whenReady().then(() => {
 }).catch(e => log('Electron initialization error: '+(e.stack||e)));
 app.on('window-all-closed',()=>{if(process.platform!=='darwin') app.quit()});
 ipcMain.handle('nova:native-render',async(event,{job,files})=>{
+  if(queueBusy)return {error:'Trwa renderowanie w kolejce. Zaczekaj lub anuluj zadanie.'};
   if(!job || job.app!=='NOVA CUT') return {error:'Nieprawidłowy projekt'};
   const save=await dialog.showSaveDialog(BrowserWindow.fromWebContents(event.sender),{
     title:'Zapisz gotowy film MP4', defaultPath:'NOVA-CUT-'+(job?.render?.quality||'1080p')+'.mp4',
@@ -140,7 +141,11 @@ ipcMain.handle('nova:native-render',async(event,{job,files})=>{
   if(save.canceled||!save.filePath)return {cancelled:true};
   const send=x=>{if(!event.sender.isDestroyed())event.sender.send('nova:render-progress',x)};
   try {
-    const result=await renderProject({job,files,out:save.filePath,onProgress:send});
+    let result;
+    try{result=await renderProject({job,files,out:save.filePath,onProgress:send});}
+    catch(e){if(job.render?.gpu!=='auto'||/anulowany|cancelled/i.test(String(e.message||e)))throw e;
+      send({phase:'warning',message:'Pierwsza próba się nie powiodła; ponawiam eksport na CPU.'});
+      result=await renderProject({job:{...job,render:{...job.render,gpu:'off'}},files,out:save.filePath,onProgress:send});}
     lastExportPath=result.path;
     return {ok:true,path:result.path,codec:result.codec,width:result.width,height:result.height,audio:result.audio,subtitles:!!result.subtitles};
   }catch(e){log('Render error: '+String(e.stack||e));return {error:String(e.message||e)};}
@@ -212,3 +217,31 @@ ipcMain.handle('nova:analyze-media',async(_event,request)=>{try{return {ok:true,
 ipcMain.handle('nova:detect-crop',async(_e,r)=>{try{return detectCrop(r)}catch(e){return {ok:false,error:String(e.message||e)}}});
 ipcMain.handle('nova:speaker-labels',async(_e,r)=>{try{return suggestSpeakers(r)}catch(e){return {ok:false,error:String(e.message||e)}}});
 ipcMain.handle('nova:translate-captions',async(_e,r)=>{try{return await translateCaptions(r)}catch(e){return {ok:false,error:String(e.message||e)}}});
+
+// NOVA CUT 13.0 queue: tasks run sequentially while Electron process is alive (including minimized).
+const renderQueue=[];let queueBusy=false;
+function broadcastQueue(info){if(win&&!win.isDestroyed())win.webContents.send('nova:queue-status',info);}
+async function pumpQueue(){if(queueBusy)return;queueBusy=true;
+ try{for(const item of renderQueue){if(item.status!=='pending')continue;item.status='running';item.progress=0;broadcastQueue({message:'Eksport '+item.label+' rozpoczęty.'});
+  try{let result;
+   const progress=x=>{item.progress=Math.max(0,Math.min(1,Number(x.progress)||0));broadcastQueue(x)};
+   try{result=await renderProject({job:item.job,files:item.files,out:item.out,onProgress:progress})}
+   catch(err){if(item.job.render?.gpu==='auto'&&!/anulowany|cancelled/i.test(String(err.message))){
+      broadcastQueue({message:'GPU niedostępne: ponawiam eksport na CPU.'});const job={...item.job,render:{...item.job.render,gpu:'off'}};result=await renderProject({job,files:item.files,out:item.out,onProgress:progress});}
+    else throw err;}
+   item.status='done';item.progress=1;lastExportPath=result.path;broadcastQueue({message:'Gotowy film: '+result.path});
+  }catch(e){if(item.status!=='cancelled'){item.status='failed';item.error=String(e.message||e);broadcastQueue({message:'Błąd renderu: '+item.error});}else broadcastQueue({message:'Zadanie zostało anulowane.'});}
+  item.job=null;item.files=null;
+ }}finally{queueBusy=false;}}
+ipcMain.handle('nova:queue-add',async(event,request)=>{try{
+ if(!request?.job||request.job.app!=='NOVA CUT'||!Array.isArray(request.files)||!request.files.length)return {ok:false,error:'Nieprawidłowy projekt lub brak plików źródłowych.'};
+ const save=await dialog.showSaveDialog(BrowserWindow.fromWebContents(event.sender),{title:'Zapisz film z kolejki eksportu',defaultPath:'NOVA-CUT-13.0-'+(request.job.render?.quality||'1080p')+'.mp4',filters:[{name:'MP4',extensions:['mp4']}],properties:['createDirectory','showOverwriteConfirmation']});
+ if(save.canceled||!save.filePath)return {cancelled:true};
+ if(renderQueue.some(q=>['pending','running'].includes(q.status)&&path.resolve(q.out).toLowerCase()===path.resolve(save.filePath).toLowerCase()))return {ok:false,error:'Ta ścieżka docelowa jest już w kolejce.'};
+ if(renderQueue.filter(q=>['pending','running'].includes(q.status)).length>20)return {ok:false,error:'Kolejka pełna (maksymalnie 20 zadań).'};
+ const id='render13-'+Date.now()+'-'+Math.random().toString(36).slice(2,7);
+ const item={id,label:path.basename(save.filePath),out:save.filePath,status:'pending',progress:0,job:structuredClone(request.job),files:structuredClone(request.files),createdAt:new Date().toISOString()};
+ renderQueue.push(item);setImmediate(pumpQueue);return {ok:true,id};
+ }catch(e){return {ok:false,error:String(e.message||e)}}});
+ipcMain.handle('nova:queue-list',()=>({ok:true,items:renderQueue.map(({id,label,status,progress,createdAt,error})=>({id,label,status,progress,createdAt,error}))}));
+ipcMain.handle('nova:queue-cancel',(_event,id)=>{const q=renderQueue.find(x=>x.id===id);if(!q)return {ok:false,error:'Nie znaleziono zadania.'};if(q.status==='running'){cancelRender();q.status='cancelled';}else if(q.status==='pending'){q.status='cancelled';}broadcastQueue({message:'Anulowano zadanie '+q.label});return {ok:true};});
