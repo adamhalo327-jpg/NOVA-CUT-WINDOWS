@@ -1,3 +1,4 @@
+const {suggestedExportName}=require('./export-filename');
 "use strict";
 const { app, BrowserWindow, Menu, dialog, ipcMain, shell } = require('electron');
 const fs = require('fs');
@@ -5,7 +6,7 @@ const path = require('path');
 const { renderProject, cancelRender } = require('./native-renderer');
 const {transcribeOffline} = require('./speech-renderer');
 const {probeMedia} = require('./media-inspector');
-const {prepareMp4Preview,cancelActivePreview,cleanupPreviewFiles} = require('./mp4-preview');
+const {prepareMp4Preview,inspectVideoForPreview,cancelActivePreview,cleanupPreviewFiles} = require('./mp4-preview');
 const {analyzeMedia}=require('./mega-engine');
 const {detectCrop,suggestSpeakers,translateCaptions}=require('./ai-power-engine');
 let lastExportPath = null;
@@ -49,7 +50,7 @@ function createWindow() {
   showingError = false;
   win = new BrowserWindow({
     width: 1480, height: 910, minWidth: 960, minHeight: 650,
-    backgroundColor: '#09080c', title: 'NOVA CUT 13.0 - ULTRA RENDER ENGINE',
+    backgroundColor: '#09080c', title: 'NOVA CUT 13.1 - MEDIA COMPATIBILITY FIX',
     icon: path.join(__dirname,'assets','novacut.ico'),
     autoHideMenuBar: true, show: !smokeCheck,
     webPreferences: {
@@ -131,11 +132,11 @@ app.whenReady().then(() => {
   app.on('activate',()=>{if(BrowserWindow.getAllWindows().length===0) createWindow()});
 }).catch(e => log('Electron initialization error: '+(e.stack||e)));
 app.on('window-all-closed',()=>{if(process.platform!=='darwin') app.quit()});
-ipcMain.handle('nova:native-render',async(event,{job,files})=>{
+ipcMain.handle('nova:native-render',async(event,{job,files,fileName})=>{
   if(queueBusy)return {error:'Trwa renderowanie w kolejce. Zaczekaj lub anuluj zadanie.'};
   if(!job || job.app!=='NOVA CUT') return {error:'Nieprawidłowy projekt'};
   const save=await dialog.showSaveDialog(BrowserWindow.fromWebContents(event.sender),{
-    title:'Zapisz gotowy film MP4', defaultPath:'NOVA-CUT-'+(job?.render?.quality||'1080p')+'.mp4',
+    title:'Zapisz gotowy film MP4', defaultPath:suggestedExportName(fileName,job?.render?.quality||'1080p'),
     filters:[{name:'Film MP4',extensions:['mp4']}],properties:['createDirectory','showOverwriteConfirmation']
   });
   if(save.canceled||!save.filePath)return {cancelled:true};
@@ -196,13 +197,19 @@ ipcMain.handle('nova:inspect-media', async (event, request) => {
   } catch (e){log('Quality inspector: '+String(e.stack||e));return {ok:false,error:String(e.message||e)};}
 });
 
+// Detect unsupported codecs before trying to decode in Chromium; original media is never modified.
+ipcMain.handle('nova:inspect-import',async(_event,request)=>{
+ try{return await inspectVideoForPreview(request?.filePath)}
+ catch(e){log('Import inspect error: '+String(e.stack||e));return {ok:false,error:String(e.message||e)}}
+});
+
 // An MP4 input that Chromium cannot decode is converted to a *temporary preview*, not replaced in the project.
 ipcMain.handle('nova:prepare-mp4',async(event,request)=>{
   try {
     const filePath=request?.filePath;
     const current=BrowserWindow.fromWebContents(event.sender);
     if(!current||current.isDestroyed())return {ok:false,error:'Nieaktywne okno edytora.'};
-    const cacheDir=path.join(app.getPath('temp'),'nova-cut-mp4-proxies');
+    const cacheDir=path.join(app.getPath('temp'),'nova-cut-video-proxies');
     return await prepareMp4Preview(filePath,{cacheDir, onProgress:seconds=>{
       if(!event.sender.isDestroyed())event.sender.send('nova:mp4-preview-progress',{fileName:path.basename(filePath),seconds});
     }});
@@ -235,7 +242,7 @@ async function pumpQueue(){if(queueBusy)return;queueBusy=true;
  }}finally{queueBusy=false;}}
 ipcMain.handle('nova:queue-add',async(event,request)=>{try{
  if(!request?.job||request.job.app!=='NOVA CUT'||!Array.isArray(request.files)||!request.files.length)return {ok:false,error:'Nieprawidłowy projekt lub brak plików źródłowych.'};
- const save=await dialog.showSaveDialog(BrowserWindow.fromWebContents(event.sender),{title:'Zapisz film z kolejki eksportu',defaultPath:'NOVA-CUT-13.0-'+(request.job.render?.quality||'1080p')+'.mp4',filters:[{name:'MP4',extensions:['mp4']}],properties:['createDirectory','showOverwriteConfirmation']});
+ const save=await dialog.showSaveDialog(BrowserWindow.fromWebContents(event.sender),{title:'Zapisz film z kolejki eksportu',defaultPath:suggestedExportName(request.fileName,request.job.render?.quality||'1080p'),filters:[{name:'MP4',extensions:['mp4']}],properties:['createDirectory','showOverwriteConfirmation']});
  if(save.canceled||!save.filePath)return {cancelled:true};
  if(renderQueue.some(q=>['pending','running'].includes(q.status)&&path.resolve(q.out).toLowerCase()===path.resolve(save.filePath).toLowerCase()))return {ok:false,error:'Ta ścieżka docelowa jest już w kolejce.'};
  if(renderQueue.filter(q=>['pending','running'].includes(q.status)).length>20)return {ok:false,error:'Kolejka pełna (maksymalnie 20 zadań).'};

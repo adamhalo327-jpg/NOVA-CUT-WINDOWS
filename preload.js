@@ -2,7 +2,7 @@
 const { contextBridge, ipcRenderer, webUtils } = require('electron');
 contextBridge.exposeInMainWorld('NovaDesktop', Object.freeze({
   filePath(file) { try { return webUtils.getPathForFile(file); } catch { return ''; } },
-  render(job, files) { return ipcRenderer.invoke('nova:native-render', {job, files}); },
+  render(job, files, fileName='') { return ipcRenderer.invoke('nova:native-render', {job, files, fileName}); },
   cancelRender() { return ipcRenderer.invoke('nova:cancel-render'); },
   importWhisperSmall() { return ipcRenderer.invoke('nova:import-whisper-small'); },
   queueExport(request) {return ipcRenderer.invoke('nova:queue-add',request);},
@@ -14,6 +14,7 @@ contextBridge.exposeInMainWorld('NovaDesktop', Object.freeze({
   translateCaptions(request) {return ipcRenderer.invoke('nova:translate-captions',request);},
   chooseLut() { return ipcRenderer.invoke('nova:choose-lut'); },
   transcribe(request) { return ipcRenderer.invoke('nova:transcribe', request); },
+  inspectImport(filePath) { return ipcRenderer.invoke('nova:inspect-import',{filePath}); },
   prepareMp4(filePath) { return ipcRenderer.invoke('nova:prepare-mp4',{filePath}); },
   onMp4Progress(callback) {
     const handler=(_event,details)=>callback(details);

@@ -12,12 +12,33 @@ const {probeMedia}=require('./media-inspector');
 const active=new Set();
 const created=new Set();
 const MAX_CONCURRENT=2;
+const VIDEO_EXTENSIONS=new Set(['.mp4','.m4v','.mov','.mkv','.webm','.avi','.wmv','.mts','.m2ts','.ts']);
+const previewCache=new Map();
 
-function validMp4Path(filePath){
-  if(typeof filePath!=='string'||!path.isAbsolute(filePath)||!/\.mp4$/i.test(filePath))throw Error('Wybierz prawidłowy plik MP4 z dysku.');
+function validVideoPath(filePath){
+  if(typeof filePath!=='string'||!path.isAbsolute(filePath)||!VIDEO_EXTENSIONS.has(path.extname(filePath).toLowerCase()))throw Error('Wybierz prawidłowy plik wideo MP4, MOV, MKV, WebM lub AVI z dysku.');
   const stat=fs.statSync(filePath);
   if(!stat.isFile()||stat.size<128)throw Error('Plik MP4 jest pusty lub uszkodzony.');
   return stat;
+}
+const validMp4Path=validVideoPath; // backwards-compatible API
+function needsPreviewProxy(details,filePath){
+  const ext=path.extname(filePath||'').toLowerCase();
+  const codec=String(details?.videoCodec||'').toLowerCase();
+  const pix=String(details?.pixelFormat||'').toLowerCase();
+  if(!details?.streams?.video)return false;
+  if(ext==='.webm')return !['vp8','vp9','av1'].includes(codec);
+  if(ext!=='.mp4'&&ext!=='.m4v')return true; // Chromium does not reliably decode MOV/MKV/AVI
+  if(codec!=='h264')return true; // HEVC, MPEG-4 Part 2, unusual codecs
+  if(pix && !['yuv420p','yuvj420p'].includes(pix))return true; // 10-bit/4:2:2/4:4:4
+  return false;
+}
+async function inspectVideoForPreview(filePath,{ffprobePath}={}){
+  validVideoPath(filePath);
+  const details=await probeMedia(filePath,{ffprobePath});
+  if(!details.streams.video)throw Error('Plik nie zawiera poprawnego strumienia wideo.');
+  if(!details.durationSeconds||details.durationSeconds<=0)throw Error('Nie można ustalić długości filmu.');
+  return {ok:true,needsProxy:needsPreviewProxy(details,filePath),durationSeconds:details.durationSeconds,codec:details.videoCodec,pixelFormat:details.pixelFormat,resolution:details.resolution,audioCodec:details.audioCodec};
 }
 function transcode(input,output,{ffmpegPath=ffmpegStatic, timeoutMs=30*60*1000, onProgress=()=>{}}={}){
  return new Promise((resolve,reject)=>{
@@ -46,20 +67,27 @@ function transcode(input,output,{ffmpegPath=ffmpegStatic, timeoutMs=30*60*1000, 
   });
  });
 }
-async function prepareMp4Preview(filePath,{cacheDir,ffmpegPath=ffmpegStatic,ffprobePath,onProgress}={}){
- validMp4Path(filePath);
- if(active.size>=MAX_CONCURRENT)throw Error('Dwa podglądy MP4 są już przygotowywane. Dodaj następny film po zakończeniu.');
+async function prepareVideoPreview(filePath,{cacheDir,ffmpegPath=ffmpegStatic,ffprobePath,onProgress}={}){
+ const stat=validVideoPath(filePath);
  if(!cacheDir||!path.isAbsolute(cacheDir))throw Error('Brak bezpiecznego katalogu pamięci podręcznej.');
  const details=await probeMedia(filePath,{ffprobePath});
- if(!details.streams.video)throw Error('Wybrany MP4 nie zawiera ścieżki wideo.');
- if(!details.durationSeconds||details.durationSeconds<=0)throw Error('Nie można ustalić czasu trwania MP4.');
+ if(!details.streams.video)throw Error('Wybrany film nie zawiera ścieżki wideo.');
+ if(!details.durationSeconds||details.durationSeconds<=0)throw Error('Nie można ustalić czasu trwania filmu.');
  await fs.promises.mkdir(cacheDir,{recursive:true});
- const proxyPath=path.join(cacheDir,'preview-'+crypto.randomBytes(12).toString('hex')+'.mp4');
+ const key=crypto.createHash('sha256').update(JSON.stringify([path.resolve(filePath),stat.size,stat.mtimeMs])).digest('hex').slice(0,28);
+ const previous=previewCache.get(key);
+ if(previous&&fs.existsSync(previous)&&fs.statSync(previous).size>1024){
+   return {ok:true,previewUrl:pathToFileURL(previous).href,durationSeconds:details.durationSeconds,originalCodec:details.videoCodec,originalResolution:details.resolution,proxy:true,cached:true};
+ }
+ if(active.size>=MAX_CONCURRENT)throw Error('Dwa podglądy są już przygotowywane. Zaczekaj na zakończenie konwersji.');
+ const proxyPath=path.join(cacheDir,'preview-'+key+'.mp4');
  await transcode(filePath,proxyPath,{ffmpegPath,onProgress});
- created.add(proxyPath);
+ created.add(proxyPath);previewCache.set(key,proxyPath);
  return {ok:true,previewUrl:pathToFileURL(proxyPath).href,durationSeconds:details.durationSeconds,
    originalCodec:details.videoCodec,originalResolution:details.resolution,proxy:true};
 }
+const prepareMp4Preview=prepareVideoPreview;
+
 function cancelActivePreview(){for(const proc of active)try{proc.kill()}catch{}}
-function cleanupPreviewFiles(){for(const file of created)try{fs.unlinkSync(file)}catch{}created.clear()}
-module.exports={prepareMp4Preview,validMp4Path,cancelActivePreview,cleanupPreviewFiles,transcode};
+function cleanupPreviewFiles(){for(const file of created)try{fs.unlinkSync(file)}catch{}created.clear();previewCache.clear()}
+module.exports={prepareMp4Preview,prepareVideoPreview,inspectVideoForPreview,needsPreviewProxy,validMp4Path,validVideoPath,cancelActivePreview,cleanupPreviewFiles,transcode};
