@@ -4,7 +4,7 @@
 .stickerPalette{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.stickerPalette button{font-size:22px;padding:7px}.stickercard{display:flex;align-items:center;gap:6px;background:#1d2a3d;border:1px solid var(--border);border-radius:9px;padding:7px;margin-top:6px}.stickercard button:first-child{flex:1;text-align:left}.stickercard.active{border-color:var(--mint)}.studioNote{border:1px solid #43516b;border-radius:10px;padding:9px;margin-top:12px;background:#172135;color:#b6c9db;font-size:12px;line-height:1.55}.studioNote b{color:var(--mint)}
 
 .clip.imageclip{border-color:#61e5b1;background:linear-gradient(130deg,#17664d,#244b58);padding-right:18px}.resize-handle{position:absolute;right:0;top:0;bottom:0;width:17px;border-left:2px solid #afffdc;background:#ffffff22;cursor:ew-resize;touch-action:none;z-index:2;display:flex;align-items:center;justify-content:center;color:white;font-weight:900}.resize-handle:after{content:'⋮';font-size:20px}.clip.imageclip{overflow:visible}.clip.imageclip .resize-handle{border-radius:0 7px 7px 0}.trackcontent{touch-action:pan-x}.clip{touch-action:none;user-select:none;cursor:grab}.clip.dragging{opacity:.8;z-index:20;outline:2px dashed #fff;cursor:grabbing}.clip.overlay{background:linear-gradient(135deg,#663b9e,#375f9c)}.clip.audio{background:linear-gradient(135deg,#156c66,#174f58)}.clip.sfx{background:linear-gradient(135deg,#9a5b25,#7b3e5e)}.trackrow{min-height:46px}.trackcontent{min-height:42px}.tracklabel{font-size:11px}.viewer{align-self:start}select,input[type=number]{max-width:100%}.settings .field select{width:100%}#audioLibrary .asset{gap:6px}#audioLibrary .asset span{overflow:hidden;text-overflow:ellipsis}#notice{min-height:34px}@media(max-width:900px){.timeline{overflow:hidden}.tracks{overflow:auto;max-width:100%}}
-</style><link href="./pro-ui.css" rel="stylesheet"/><link href="./timeline7.css" rel="stylesheet"/><link href="./studio8.css" rel="stylesheet"/><link href="./cinema.css" rel="stylesheet"/><link href="./quality-inspector.css" rel="stylesheet"/><link href="./ultra-cinema-redesign.css" rel="stylesheet"/><link href="./mega9.css" rel="stylesheet"/></head><body>
+</style><link href="./pro-ui.css" rel="stylesheet"/><link href="./timeline7.css" rel="stylesheet"/><link href="./studio8.css" rel="stylesheet"/><link href="./cinema.css" rel="stylesheet"/><link href="./quality-inspector.css" rel="stylesheet"/><link href="./ultra-cinema-redesign.css" rel="stylesheet"/><link href="./mega9.css" rel="stylesheet"/><link href="./readability9.css" rel="stylesheet"/></head><body>
 <header class="nc84-header">
  <div class="row nc84-brand-wrap"><img class="nc84-app-icon" src="../assets/nova-signature.png" width="38" height="38" alt=""/><div class="brand">NOVA <b>CUT</b></div><span class="chip">9.0 · MEGA UPDATE</span></div>
  <nav class="nc84-main-nav" aria-label="Narzędzia edycji">
@@ -23,6 +23,7 @@
    <button class="small pro-header-button" id="proToggleInspector" type="button">⚙ Panel narzędzi</button>
    <button class="small pro-header-button" id="proExportShortcut" type="button">🎬 Ustawienia eksportu</button>
    <button class="small pro-header-button" id="proResetLayout" type="button">↺ Przywróć układ</button>
+   <div class="nc9-display-control"><label for="nc9UISize">🔎 Rozmiar interfejsu</label><select id="nc9UISize" aria-label="Rozmiar elementów interfejsu"><option value="normal">Standardowy</option><option value="comfortable">Czytelny (zalecany)</option><option value="large">Duże elementy</option></select></div>
    <button class="small" id="saveProject">💾 Zapisz projekt JSON</button>
    <button class="small" id="loadProjectBtn">📂 Otwórz projekt</button>
   </div></details>
@@ -664,4 +665,4 @@ preflightExport();
 window.NovaUltra={S,renderAll,seekTo,pause,notify,$,ratio,dimensions,updateCounters};
 renderAll();dimensions();updateCodecStatus();window.__NOVA_BOOTSTRAPPED=true;})();
 
-</script><script src="./ultra.js"></script><script src="./pro-ui.js"></script><script src="./timeline7.js"></script><script src="./studio8.js"></script><script src="./quality-inspector.js"></script><script src="./ultra-cinema-redesign.js"></script><script src="./mega9.js"></script></body></html>
+</script><script src="./ultra.js"></script><script src="./pro-ui.js"></script><script src="./timeline7.js"></script><script src="./studio8.js"></script><script src="./quality-inspector.js"></script><script src="./ultra-cinema-redesign.js"></script><script src="./mega9.js"></script><script src="./readability9.js"></script></body></html>

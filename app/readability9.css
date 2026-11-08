@@ -1,0 +1,25 @@
+/* NOVA CUT 9.0 - improved readability of the existing cinema layout; no renderer changes. */
+.nc9-display-control{display:flex;flex-direction:column;gap:5px;border:1px solid #63404a;border-radius:9px;padding:8px;background:#241820;color:#ffe2d5}
+.nc9-display-control label{font-size:12px;font-weight:750}
+.nc9-display-control select{width:100%;min-height:34px;font-size:12px;border-radius:7px}
+#proTimeline #timelineInner{min-width:100%!important}
+#proTimeline .trackrow{min-width:100%}
+#proTimeline .tracks{background-color:#111319;background-image:repeating-linear-gradient(90deg,transparent 0,transparent 80px,#2a202838 81px)}
+#proTimeline .tracklabel{padding:5px;line-height:1.3;overflow-wrap:anywhere}
+body[data-nc9-ui="comfortable"]{--pro-left-width:clamp(280px,22vw,375px);--pro-right-width:clamp(300px,22vw,370px)}
+body[data-nc9-ui="comfortable"] .nc84-main-nav button{font-size:12px;padding:9px 10px}
+body[data-nc9-ui="comfortable"] #proMediaPanel h3{font-size:12px;letter-spacing:.06em}
+body[data-nc9-ui="comfortable"] #proMediaPanel .nc84-search input,body[data-nc9-ui="comfortable"] .nc84-filters button,body[data-nc9-ui="comfortable"] #proMediaPanel .upload,body[data-nc9-ui="comfortable"] #proMediaPanel #mp4ImportStatus{font-size:12px}
+body[data-nc9-ui="comfortable"] .nc84-asset-name,body[data-nc9-ui="comfortable"] #proMediaPanel #assetList .nc84-asset-actions button,body[data-nc9-ui="comfortable"] #proInspector .pro-tab,body[data-nc9-ui="comfortable"] .nc9-tab,body[data-nc9-ui="comfortable"] .nc9-help,body[data-nc9-ui="comfortable"] .nc9-cliprow{font-size:12px}
+body[data-nc9-ui="comfortable"] #proTimeline .tracklabel,body[data-nc9-ui="comfortable"] #proTimeline .tools button,body[data-nc9-ui="comfortable"] #proTimeline #studio8Bar button,body[data-nc9-ui="comfortable"] #proTimeline #tl7Toolbar button{font-size:12px}
+body[data-nc9-ui="comfortable"] #proTimeline>div.row.spread h2{font-size:14px}
+body[data-nc9-ui="comfortable"] #proViewer .control button{min-height:34px;font-size:13px}
+body[data-nc9-ui="large"]{--pro-left-width:clamp(300px,24vw,415px);--pro-right-width:clamp(330px,24vw,410px)}
+body[data-nc9-ui="large"] .nc84-main-nav button{font-size:13px;padding:10px 11px}
+body[data-nc9-ui="large"] #proMediaPanel h3{font-size:14px;letter-spacing:.04em}
+body[data-nc9-ui="large"] #proMediaPanel .nc84-search input,body[data-nc9-ui="large"] .nc84-filters button,body[data-nc9-ui="large"] #proMediaPanel .upload,body[data-nc9-ui="large"] #proMediaPanel #mp4ImportStatus,body[data-nc9-ui="large"] .nc84-asset-name,body[data-nc9-ui="large"] #proMediaPanel #assetList .nc84-asset-actions button{font-size:13px}
+body[data-nc9-ui="large"] #proInspector .pro-tab,body[data-nc9-ui="large"] .nc9-tab,body[data-nc9-ui="large"] .nc9-help,body[data-nc9-ui="large"] .nc9-cliprow{font-size:13px}
+body[data-nc9-ui="large"] #proTimeline .tracklabel,body[data-nc9-ui="large"] #proTimeline .tools button,body[data-nc9-ui="large"] #proTimeline #studio8Bar button,body[data-nc9-ui="large"] #proTimeline #tl7Toolbar button{font-size:13px}
+body[data-nc9-ui="large"] #proTimeline>div.row.spread h2{font-size:15px}
+body[data-nc9-ui="large"] #proViewer .control button{min-height:38px;font-size:14px}
+@media(max-width:1450px){body[data-nc9-ui="large"]{--pro-left-width:275px;--pro-right-width:300px}body[data-nc9-ui="comfortable"]{--pro-left-width:255px;--pro-right-width:275px}}

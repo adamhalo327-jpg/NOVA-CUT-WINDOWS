@@ -11,7 +11,7 @@
     "start": "electron .",
     "build:win": "electron-builder --win --x64",
     "build:win:portable": "electron-builder --win portable --x64",
-    "check": "node scripts/check-project.js && node scripts/check-ui.js && node scripts/check-timeline7.js && node --check app/ultra.js && node --check app/pro-ui.js && node --check app/timeline7.js && node --check app/studio8.js && node --check speech-renderer.js && node scripts/check-studio8.js && node scripts/check-10k.js && node scripts/check-cinema.js && node --check app/quality-inspector.js && node --check media-inspector.js && node scripts/check-quality.js && node --check mp4-preview.js && node scripts/check-mp4.js && node --check app/ultra-cinema-redesign.js && node scripts/check-redesign.js && node --check app/mega9.js && node --check mega-engine.js && node scripts/check-mega9.js",
+    "check": "node scripts/check-project.js && node scripts/check-ui.js && node scripts/check-timeline7.js && node --check app/ultra.js && node --check app/pro-ui.js && node --check app/timeline7.js && node --check app/studio8.js && node --check speech-renderer.js && node scripts/check-studio8.js && node scripts/check-10k.js && node scripts/check-cinema.js && node --check app/quality-inspector.js && node --check media-inspector.js && node scripts/check-quality.js && node --check mp4-preview.js && node scripts/check-mp4.js && node --check app/ultra-cinema-redesign.js && node scripts/check-redesign.js && node --check app/mega9.js && node --check mega-engine.js && node scripts/check-mega9.js && node --check app/readability9.js && node scripts/check-readability9.js",
     "prebuild:win": "npm run check"
   },
   "dependencies": {
