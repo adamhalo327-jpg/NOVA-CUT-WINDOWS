@@ -4,8 +4,11 @@ const fs = require('fs');
 const path = require('path');
 const { renderProject, cancelRender } = require('./native-renderer');
 const {transcribeOffline} = require('./speech-renderer');
+const {probeMedia} = require('./media-inspector');
+const {prepareMp4Preview,cancelActivePreview,cleanupPreviewFiles} = require('./mp4-preview');
+let lastExportPath = null;
 
-// NOVA CUT 8.2 - start-up self-diagnostics.
+// NOVA CUT 8.3 - start-up self-diagnostics.
 // The old version showed an empty window if app/index.html was absent.
 let win = null;
 let showingError = false;
@@ -44,7 +47,7 @@ function createWindow() {
   showingError = false;
   win = new BrowserWindow({
     width: 1480, height: 910, minWidth: 960, minHeight: 650,
-    backgroundColor: '#080b12', title: 'NOVA CUT 8.2 - ULTRA CINEMA',
+    backgroundColor: '#080b12', title: 'NOVA CUT 8.3 - QUALITY INSPECTOR PRO',
     icon: path.join(__dirname,'assets','novacut.ico'),
     autoHideMenuBar: true, show: !smokeCheck,
     webPreferences: {
@@ -93,10 +96,12 @@ function createWindow() {
   Menu.setApplicationMenu(Menu.buildFromTemplate([
     {label:'Plik',submenu:[
       {label:'Dodaj film lub zdjęcie',accelerator:'CmdOrCtrl+O',click:()=>command('media')},
+      {label:'Dodaj MP4',accelerator:'CmdOrCtrl+Shift+M',click:()=>command('mp4')},
       {label:'Dodaj audio',accelerator:'CmdOrCtrl+Shift+O',click:()=>command('audio')},
       {label:'Zapisz projekt JSON',accelerator:'CmdOrCtrl+S',click:()=>command('save')},
       {type:'separator'},
       {label:'Eksport MP4 (Windows)',accelerator:'CmdOrCtrl+E',click:()=>command('export')},
+      {label:'Sprawdź jakość filmu',accelerator:'CmdOrCtrl+Shift+Q',click:()=>command('quality')},
       {type:'separator'}, {role:'quit',label:'Zakończ'}
     ]},
     {label:'Widok',submenu:[
@@ -134,6 +139,7 @@ ipcMain.handle('nova:native-render',async(event,{job,files})=>{
   const send=x=>{if(!event.sender.isDestroyed())event.sender.send('nova:render-progress',x)};
   try {
     const result=await renderProject({job,files,out:save.filePath,onProgress:send});
+    lastExportPath=result.path;
     return {ok:true,path:result.path,codec:result.codec,width:result.width,height:result.height,audio:result.audio};
   }catch(e){log('Render error: '+String(e.stack||e));return {error:String(e.message||e)};}
 });
@@ -141,3 +147,39 @@ ipcMain.handle('nova:cancel-render',()=>{cancelRender();return true});
 
 // NOVA CUT 8.0: Whisper offline speech-to-captions.
 ipcMain.handle('nova:transcribe', async(_event,request)=>{try{return await transcribeOffline(request)}catch(e){log('Speech error: '+(e.stack||e));return {ok:false,error:String(e.message||e)}}});
+
+
+// Read-only QUALITY INSPECTOR PRO; choose from Windows dialog or inspect this session's export.
+ipcMain.handle('nova:inspect-media', async (event, request) => {
+  try {
+    const mode=request?.mode === 'last' ? 'last' : 'choose';
+    let filePath;
+    if(mode==='last'){
+      if(!lastExportPath || !fs.existsSync(lastExportPath))return {ok:false,error:'Nie ma jeszcze wyeksportowanego filmu w tej sesji. Wybierz plik MP4 ręcznie.'};
+      filePath=lastExportPath;
+    }else{
+      const current=BrowserWindow.fromWebContents(event.sender);
+      const result=await dialog.showOpenDialog(current,{title:'Sprawdź rzeczywistą jakość filmu',properties:['openFile'],filters:[
+        {name:'Wideo i audio',extensions:['mp4','mov','mkv','webm','avi','m4v','wmv','mp3','wav','m4a','flac']},
+        {name:'Wszystkie pliki',extensions:['*']}
+      ]});
+      if(result.canceled||!result.filePaths?.length)return {cancelled:true};
+      filePath=result.filePaths[0];
+    }
+    return {ok:true,info:await probeMedia(filePath)};
+  } catch (e){log('Quality inspector: '+String(e.stack||e));return {ok:false,error:String(e.message||e)};}
+});
+
+// An MP4 input that Chromium cannot decode is converted to a *temporary preview*, not replaced in the project.
+ipcMain.handle('nova:prepare-mp4',async(event,request)=>{
+  try {
+    const filePath=request?.filePath;
+    const current=BrowserWindow.fromWebContents(event.sender);
+    if(!current||current.isDestroyed())return {ok:false,error:'Nieaktywne okno edytora.'};
+    const cacheDir=path.join(app.getPath('temp'),'nova-cut-mp4-proxies');
+    return await prepareMp4Preview(filePath,{cacheDir, onProgress:seconds=>{
+      if(!event.sender.isDestroyed())event.sender.send('nova:mp4-preview-progress',{fileName:path.basename(filePath),seconds});
+    }});
+  }catch(e){log('MP4 proxy error: '+String(e.stack||e));return {ok:false,error:String(e.message||e)};}
+});
+app.on('before-quit',()=>{cancelActivePreview();cleanupPreviewFiles()});

@@ -1,8 +1,8 @@
 {
   "name": "nova-cut-desktop",
   "productName": "NOVA CUT",
-  "version": "8.2.0",
-  "description": "NOVA CUT 8.2 - ULTRA CINEMA proportions 1.43:1 and 1.90:1, 4K/8K/10K Windows exports, cinematic color and AAC studio audio; preserves 8.1",
+  "version": "8.3.0",
+  "description": "NOVA CUT 8.3 - QUALITY INSPECTOR PRO + MP4 IMPORT (drag-and-drop, preview proxy for unsupported codecs).",
   "main": "main.js",
   "author": "NOVA CUT",
   "license": "UNLICENSED",
@@ -11,7 +11,7 @@
     "start": "electron .",
     "build:win": "electron-builder --win --x64",
     "build:win:portable": "electron-builder --win portable --x64",
-    "check": "node scripts/check-project.js && node scripts/check-ui.js && node scripts/check-timeline7.js && node --check app/ultra.js && node --check app/pro-ui.js && node --check app/timeline7.js && node --check app/studio8.js && node --check speech-renderer.js && node scripts/check-studio8.js && node scripts/check-10k.js && node scripts/check-cinema.js",
+    "check": "node scripts/check-project.js && node scripts/check-ui.js && node scripts/check-timeline7.js && node --check app/ultra.js && node --check app/pro-ui.js && node --check app/timeline7.js && node --check app/studio8.js && node --check speech-renderer.js && node scripts/check-studio8.js && node scripts/check-10k.js && node scripts/check-cinema.js && node --check app/quality-inspector.js && node --check media-inspector.js && node scripts/check-quality.js && node --check mp4-preview.js && node scripts/check-mp4.js",
     "prebuild:win": "npm run check"
   },
   "dependencies": {
@@ -42,7 +42,9 @@
       "package.json",
       "speech-renderer.js",
       "render-guard.js",
-      "cinema-engine.js"
+      "cinema-engine.js",
+      "media-inspector.js",
+      "mp4-preview.js"
     ],
     "win": {
       "target": [
@@ -66,10 +68,10 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "artifactName": "NOVA-CUT-8.2-Setup-${version}.${ext}"
+      "artifactName": "NOVA-CUT-8.3-Setup-${version}.${ext}"
     },
     "portable": {
-      "artifactName": "NOVA-CUT-8.2-Portable-${version}.${ext}"
+      "artifactName": "NOVA-CUT-8.3-Portable-${version}.${ext}"
     },
     "publish": null,
     "extraResources": [

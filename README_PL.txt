@@ -15,3 +15,21 @@ Oparto na działającym 8.1. Zachowano montaż, keyframes, miniatury, waveformy,
 
 ## Lokalna kontrola
 `npm run check` (Node 22). Kompilacja Windows: `npm install` i `npm run build:win`.
+
+
+NOVA CUT 8.3 — QUALITY INSPECTOR PRO
+- Zakładka 🔎 Jakość z analizą rozdzielczości, liczby FPS, kodeka, bitrate, HDR, wielkości i dźwięku.
+- Plik wskazujesz w oknie Windows; analizator FFprobe odczytuje metadane lokalnie i NIE zmienia pliku.
+- Po eksporcie MP4 można natychmiast sprawdzić ostatnio zapisany film (w bieżącej sesji programu).
+- Bez aplikacji Windows działa ograniczony odczyt wymiarów i rozmiaru pliku w przeglądarce, bez udawania danych FPS/kodeka.
+- Rozdzielczość jest miarą liczby pikseli, nie gwarancją detali czy jakości wizualnej.
+- Eksport z wersji 8.2, profile 10K/CINEMA, Whisper i oś czasu pozostają zachowane.
+
+
+NOVA CUT 8.3 — IMPORT MP4
+- Przycisk „Dodaj MP4” (Ctrl+Shift+M), wybór wielu plików i przeciąganie z Eksploratora Windows.
+- Po imporcie MP4 trafia do biblioteki oraz na oś czasu V1; można dodać go również na V2.
+- Dla H.264/AAC podgląd działa bez dodatkowej konwersji. W przypadku nieobsługiwanego kodeka aplikacja Windows próbuje utworzyć lżejszy, tymczasowy podgląd H.264 FFmpeg.
+- Podgląd zastępczy nie zmienia oryginału: eksport Windows używa oryginalnej ścieżki MP4. Podgląd może wymagać przetworzenia całego pliku i wolnego miejsca na dysku.
+- Proxy jest usuwane po prawidłowym zamknięciu aplikacji.
+- W wersji przeglądarkowej pliki o kodekach nieobsługiwanych przez Chromium mogą się nie otwierać.

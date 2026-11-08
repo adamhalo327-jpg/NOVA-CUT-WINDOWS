@@ -19,3 +19,10 @@ header{background:linear-gradient(100deg,#13131c,#201a25 72%,#131821);border-bot
 #ratioBar button.primary[data-ratio="1.43:1"],#ratioBar button.primary[data-ratio="1.90:1"]{background:#e5c184;color:#151218}
 .cinema-panel .cinema-note{font-size:11px;color:#b8aab0;line-height:1.4;margin:9px 0 0}
 @media(max-width:1100px){.cinema-panel .cinema-presets{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* NOVA CUT 8.3 MP4 import */
+.mp4-import-actions{margin-top:8px;align-items:center;gap:7px}
+.mp4-import-actions .muted{font-size:11px;line-height:1.4}
+.mp4-import-status{font-size:11px;line-height:1.45;margin:8px 0 12px;padding:8px 10px;border-radius:10px;border:1px solid #24504d;background:#11272c;color:#9decd7;overflow-wrap:anywhere}
+.mp4-import-status.mp4-error{background:#331b22;border-color:#944250;color:#ffc7ce}
+body.mp4-dragging #proMediaPanel,body.mp4-dragging #proViewer{outline:3px dashed #36d8bd;outline-offset:-5px;background-color:#10252a}

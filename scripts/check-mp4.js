@@ -1,0 +1,25 @@
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs'),path=require('node:path'),Module=require('node:module');
+const root=path.resolve(__dirname,'..');
+const original=Module._load;
+Module._load=function(name,parent,isMain){
+ if(name==='ffmpeg-static')return '/no-ffmpeg-placeholder';
+ if(name==='ffprobe-static')return {path:'/no-ffprobe-placeholder'};
+ return original.apply(this,arguments);
+};
+const {validMp4Path,prepareMp4Preview}=require('../mp4-preview');
+Module._load=original;
+const html=fs.readFileSync(path.join(root,'app','index.html'),'utf8');
+const preload=fs.readFileSync(path.join(root,'preload.js'),'utf8');
+const main=fs.readFileSync(path.join(root,'main.js'),'utf8');
+const pkg=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
+for(const name of ['addMp4Btn','mp4Input','mp4ImportStatus','mediaInput','assetList','proViewer'])assert(html.includes('id="'+name+'"'),'Brak elementu: '+name);
+for(const text of ['function mp4NativeFallback','async function importVideo','isMp4File','mp4Input','dragover','e.dataTransfer.files','originalPath','proxy:true'])assert(html.includes(text),'Brak importu MP4: '+text);
+assert(/\.mp4,video\/mp4/.test(html),'Brak filtra MP4');
+assert(preload.includes('prepareMp4(filePath)'),'Preload: brak mostu MP4');
+assert(main.includes("ipcMain.handle('nova:prepare-mp4'"),'Main: brak kanału MP4');
+assert(pkg.build.files.includes('mp4-preview.js'),'Electron-builder: brak modułu proxy');
+assert.throws(()=>validMp4Path('test.mp4'),/ścieżk|prawidł/i);
+assert.throws(()=>validMp4Path('/tmp/no-such-file.mp4'),/ENOENT/);
+prepareMp4Preview('/tmp/test.pdf',{cacheDir:'/tmp'}).then(()=>{throw Error('Unexpected successful PDF');},e=>assert.match(e.message,/MP4/i)).then(()=>console.log('✓ MP4 import: wybór plików, drop, ścieżka oryginału, FFmpeg proxy, IPC, packaging'));

@@ -5,6 +5,13 @@ contextBridge.exposeInMainWorld('NovaDesktop', Object.freeze({
   render(job, files) { return ipcRenderer.invoke('nova:native-render', {job, files}); },
   cancelRender() { return ipcRenderer.invoke('nova:cancel-render'); },
   transcribe(request) { return ipcRenderer.invoke('nova:transcribe', request); },
+  prepareMp4(filePath) { return ipcRenderer.invoke('nova:prepare-mp4',{filePath}); },
+  onMp4Progress(callback) {
+    const handler=(_event,details)=>callback(details);
+    ipcRenderer.on('nova:mp4-preview-progress',handler);
+    return ()=>ipcRenderer.removeListener('nova:mp4-preview-progress',handler);
+  },
+  inspectMedia(mode='choose') { return ipcRenderer.invoke('nova:inspect-media', {mode}); },
   onProgress(callback) {
     const handler = (_event, msg) => callback(msg);
     ipcRenderer.on('nova:render-progress', handler);
