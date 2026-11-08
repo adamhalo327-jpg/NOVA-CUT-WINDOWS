@@ -1,8 +1,8 @@
-name: NOVA CUT 10.1 - AUTO SUBTITLES Windows EXE
+name: NOVA CUT 11.0 - CINEMA MASTER Windows EXE
 on:
   workflow_dispatch:
   push:
-    branches: ['release/nova-cut-10.1-auto-subtitles']
+    branches: ['release/nova-cut-11.0-cinema-master']
 permissions:
   contents: read
 jobs:
@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 75
     steps:
-      - name: Pobierz projekt 10.1
+      - name: Pobierz projekt 11.0
         uses: actions/checkout@v4
       - name: Node.js 22
         uses: actions/setup-node@v4
@@ -54,20 +54,29 @@ jobs:
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
         run: npm run build:win
+      - name: Dodaj zaawansowany offline model Whisper Small (quantized)
+        shell: pwsh
+        run: |
+          $url='https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small-q5_1.bin'
+          Invoke-WebRequest -Uri $url -OutFile dist/ggml-small-q5_1.bin
+          if ((Get-Item dist/ggml-small-q5_1.bin).Length -lt 170MB) {throw 'Incomplete Whisper Small model.'}
+          $expected='ae85e4a935d7a567bd102fe55afc16bb595bdb618e11b2fc7591bc08120411bb'
+          $actual=(Get-FileHash dist/ggml-small-q5_1.bin -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($actual -ne $expected) {throw "Whisper model SHA256 mismatch: $actual"}
       - name: Sprawdz rozmiar i zawartosc pakietu
         shell: pwsh
         run: |
           $exes=@(Get-ChildItem dist -Filter '*.exe' -File)
           if($exes.Count -lt 2){throw 'Expected two Windows executables.'}
           $exes | Select-Object Name, Length | Format-Table
-          Compress-Archive -Path 'dist/*.exe' -DestinationPath 'dist/NOVA-CUT-10.1-AUTO-SUBTITLES-WINDOWS.zip' -CompressionLevel Optimal -Force
-          $sizeMB=[math]::Round((Get-Item 'dist/NOVA-CUT-10.1-AUTO-SUBTITLES-WINDOWS.zip').Length/1MB,2)
-          Write-Host "Pakiet NOVA CUT 10.1: $sizeMB MB (cel 700-1000 MB)"
-          if($sizeMB -lt 700 -or $sizeMB -gt 1000){Write-Warning 'Actual package is outside target size 700-1000 MB; please verify before release.'}
+          Compress-Archive -Path 'dist/*.exe','dist/ggml-small-q5_1.bin' -DestinationPath 'dist/NOVA-CUT-11.0-CINEMA-MASTER-WINDOWS.zip' -CompressionLevel Optimal -Force
+          $sizeMB=[math]::Round((Get-Item 'dist/NOVA-CUT-11.0-CINEMA-MASTER-WINDOWS.zip').Length/1MB,2)
+          Write-Host "Pakiet NOVA CUT 11.0: $sizeMB MB (cel 1000-1100 MB)"
+          if($sizeMB -lt 1000 -or $sizeMB -gt 1100){Write-Warning 'Actual package is outside target size 700-1000 MB; please verify before release.'}
       - name: Udostepnij instalator i Portable
         uses: actions/upload-artifact@v4
         with:
-          name: NOVA-CUT-Windows-10.1-AUTO-SUBTITLES
-          path: dist/NOVA-CUT-10.1-AUTO-SUBTITLES-WINDOWS.zip
+          name: NOVA-CUT-Windows-11.0-CINEMA-MASTER
+          path: dist/NOVA-CUT-11.0-CINEMA-MASTER-WINDOWS.zip
           if-no-files-found: error
           retention-days: 30

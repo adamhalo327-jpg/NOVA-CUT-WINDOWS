@@ -48,7 +48,7 @@ function createWindow() {
   showingError = false;
   win = new BrowserWindow({
     width: 1480, height: 910, minWidth: 960, minHeight: 650,
-    backgroundColor: '#09080c', title: 'NOVA CUT 10.0 - EDITOR MAX',
+    backgroundColor: '#09080c', title: 'NOVA CUT 11.0 - CINEMA MASTER',
     icon: path.join(__dirname,'assets','novacut.ico'),
     autoHideMenuBar: true, show: !smokeCheck,
     webPreferences: {
@@ -146,8 +146,27 @@ ipcMain.handle('nova:native-render',async(event,{job,files})=>{
 });
 ipcMain.handle('nova:cancel-render',()=>{cancelRender();return true});
 
+// Choose an authentic FFmpeg .cube LUT for Cinema Master, no file modification.
+ipcMain.handle('nova:choose-lut',async(event)=>{try{
+ const w=BrowserWindow.fromWebContents(event.sender);
+ const r=await dialog.showOpenDialog(w,{title:'NOVA CUT — wybierz LUT .cube',properties:['openFile'],filters:[{name:'3D LUT',extensions:['cube']}]});
+ if(r.canceled||!r.filePaths?.[0])return {cancelled:true};
+ const p=r.filePaths[0];if(fs.statSync(p).size>20e6)throw Error('LUT jest zbyt duży.');return {path:p,name:path.basename(p)};
+ }catch(e){return {error:String(e.message||e)}}});
+
 // NOVA CUT 8.0: Whisper offline speech-to-captions.
-ipcMain.handle('nova:transcribe', async(_event,request)=>{try{return await transcribeOffline(request)}catch(e){log('Speech error: '+(e.stack||e));return {ok:false,error:String(e.message||e)}}});
+// Optional high-accuracy Whisper model, downloaded separately in the release ZIP.
+ipcMain.handle('nova:import-whisper-small',async event=>{try{
+  const r=await dialog.showOpenDialog(BrowserWindow.fromWebContents(event.sender),{title:'Importuj zaawansowany model Whisper Small Q5',filters:[{name:'Whisper Small Q5',extensions:['bin']}],properties:['openFile']});
+  if(r.canceled||!r.filePaths?.[0])return {cancelled:true};
+  const source=r.filePaths[0],stats=fs.statSync(source);if(stats.size<175e6||stats.size>210e6)throw Error('Model ma nieprawidłowy rozmiar, oczekiwany ggml-small-q5_1.bin.');
+  const crypto=require('crypto'),sha=crypto.createHash('sha256').update(fs.readFileSync(source)).digest('hex');
+  if(sha!=='ae85e4a935d7a567bd102fe55afc16bb595bdb618e11b2fc7591bc08120411bb')throw Error('Nieprawidłowy SHA256 modelu.');
+  const dir=path.join(app.getPath('userData'),'models');fs.mkdirSync(dir,{recursive:true});
+  const dest=path.join(dir,'ggml-small-q5_1.bin');if(path.resolve(source)!==path.resolve(dest))fs.copyFileSync(source,dest);
+  return {ok:true,modelPath:dest};
+ }catch(e){return {ok:false,error:String(e.message||e)}}});
+ipcMain.handle('nova:transcribe', async(_event,request)=>{try{process.env.NOVA_CUT_MODEL_DIR=path.join(app.getPath('userData'),'models');return await transcribeOffline(request)}catch(e){log('Speech error: '+(e.stack||e));return {ok:false,error:String(e.message||e)}}});
 
 
 // Read-only QUALITY INSPECTOR PRO; choose from Windows dialog or inspect this session's export.
