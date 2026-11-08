@@ -1,0 +1,175 @@
+/* NOVA CUT 14.0 — independent desktop workspace influenced by common four-pane editors.
+   Retains NOVA CUT identity and its live media, timeline, inspector and native export. */
+:root{--nc14-surface:#17191e;--nc14-deep:#0c0e12;--nc14-pan:#1b1d23;--nc14-elev:#25272e;--nc14-line:#343840;--nc14-muted:#9ea4af;--nc14-ink:#e9ebf0;--nc14-accent:#19d5c1;--pro-left-width:clamp(318px,25vw,424px);--pro-right-width:clamp(290px,22vw,370px);--pro-timeline-size:44%;--nc10-label:186px}
+body.nc14-ready{color:var(--nc14-ink);background:var(--nc14-deep);font:13px 'Segoe UI',Inter,system-ui,sans-serif;min-width:980px}
+body.nc14-ready *{scrollbar-width:thin;scrollbar-color:#4b4e55 transparent}
+body.nc14-ready button{transition:background .14s,border-color .14s,color .14s}
+body.nc14-ready button:focus-visible,body.nc14-ready select:focus-visible,body.nc14-ready input:focus-visible,body.nc14-ready summary:focus-visible{outline:2px solid var(--nc14-accent);outline-offset:1px}
+body.nc14-ready button:hover{border-color:#64707c;background:#363941}
+body.nc14-ready button:disabled{opacity:.45}
+/* App header: a compact nameplate and genuine project actions. */
+body.nc14-ready header.nc84-header{min-height:55px;max-height:55px;flex-basis:55px;display:flex;align-items:center;gap:18px;background:#191a20;box-shadow:none;border-bottom:1px solid #34363f;padding:0 15px}
+body.nc14-ready .nc84-brand-wrap{min-width:180px;gap:10px}
+body.nc14-ready .nc84-brand-wrap .nc84-app-icon{width:33px;height:33px;border-radius:8px;border-color:#53565c;box-shadow:none}
+body.nc14-ready .nc84-brand-wrap .brand{font-size:18px;font-weight:800;color:white;letter-spacing:.2px}
+body.nc14-ready .nc84-brand-wrap .brand b{color:#e7e8ec}
+body.nc14-ready .nc84-brand-wrap .chip{font-size:10px;font-weight:700;color:#9da6b2;border:1px solid #454950;background:#272a31;border-radius:5px;padding:5px 8px}
+.nc14-project{display:flex;align-items:center;gap:9px;flex:1;justify-content:center;min-width:160px}
+.nc14-project-icon{color:#9ba3ad;font-size:16px}
+#nc14ProjectName{width:clamp(130px,18vw,290px);font-size:12px;font-weight:650;color:#e9eaf0;text-align:center;background:transparent;border:1px solid transparent;border-radius:6px;padding:7px 9px;text-overflow:ellipsis}
+#nc14ProjectName:hover,#nc14ProjectName:focus{border-color:#4c525b;background:#24262e}
+.nc14-local-label{font-size:10px;color:#798492;white-space:nowrap}
+body.nc14-ready .pro-header-actions{gap:9px;margin-left:auto}
+body.nc14-ready .nc84-more summary{min-height:30px;font-size:12px;border-radius:6px;background:#2c2e35;border-color:#484a51;padding:6px 10px;color:#c9ced7}
+body.nc14-ready .nc84-dropdown{background:#25272d;border:1px solid #4c4f58;box-shadow:0 16px 50px #000a;border-radius:8px}
+body.nc14-ready .nc84-dropdown button{background:transparent;border-color:transparent;text-align:left}
+body.nc14-ready .nc84-export{background:#19cfb9!important;color:#062b29!important;border:1px solid #1fe5cd!important;border-radius:7px;min-height:33px;font-size:12px;font-weight:850;padding:8px 20px!important;box-shadow:none!important}
+body.nc14-ready .nc84-export:hover{background:#4ce8d8!important}
+/* Workspace: separate subtle panes and a 5-track time ruler across the full width. */
+body.nc14-ready .app,body.nc14-ready[data-nc9-ui=comfortable] .app,body.nc14-ready[data-nc9-ui=large] .app{background:#111217;padding:6px;gap:6px;grid-template-columns:var(--pro-left-width) minmax(270px,1fr) var(--pro-right-width);grid-template-rows:minmax(230px,1fr) 6px minmax(260px,var(--pro-timeline-size))}
+body.nc14-ready .app>.panel,body.nc14-ready .app>.viewer,body.nc14-ready .app>.timeline{background:#1b1d23;border:1px solid #2b2e36;border-radius:5px;box-shadow:none;min-width:0}
+body.nc14-ready #proMediaPanel{padding:0 0 10px;background:#1b1d23;overflow:auto}
+.nc14-library-top{display:flex;flex-direction:column;border-bottom:1px solid #343740;background:#1d1f25;min-height:73px}
+body.nc14-ready .nc84-main-nav{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:1px;overflow-x:auto;justify-content:stretch;padding:7px 5px 2px;order:0;flex:none;background:transparent;max-width:none}
+body.nc14-ready .nc84-main-nav button,body.nc14-ready[data-nc9-ui=comfortable] .nc84-main-nav button,body.nc14-ready[data-nc9-ui=large] .nc84-main-nav button{border:0!important;background:transparent!important;box-shadow:none!important;min-width:0;min-height:62px!important;padding:5px 1px 6px!important;font-size:10px!important;font-weight:520;border-radius:5px;color:#aeb3bc!important;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;white-space:nowrap;line-height:1.25}
+body.nc14-ready .nc84-main-nav button:hover{background:#30323b!important;color:#fff!important}
+body.nc14-ready .nc84-main-nav button.nc84-nav-active{background:#292d35!important;color:#19d5c1!important}
+.nc14-tabicon{font-size:17px;display:block;height:19px;line-height:19px;font-weight:550}
+.nc14-tabtext{font-size:10px;display:block;white-space:nowrap}
+body.nc14-ready .nc84-media-heading{padding:13px 14px 9px;margin:0;background:transparent;display:flex;align-items:center}
+body.nc14-ready .nc84-media-heading h2{font-size:13px!important;font-weight:730;margin:0!important;color:#f3f5f8}
+body.nc14-ready .nc10-plus{font-size:18px!important;width:29px;height:27px;min-width:29px;min-height:27px;border:1px solid #4f515b!important;border-radius:5px!important;background:#31333b!important;color:#e8ecf0!important;box-shadow:none!important}
+body.nc14-ready #proMediaPanel .nc84-search{height:34px;margin:0 13px 9px;border:1px solid #42454f;border-radius:5px;background:#25282e}
+body.nc14-ready #proMediaPanel .nc84-search input{font-size:11px!important;color:#e6e7eb}
+body.nc14-ready #proMediaPanel .nc84-filters{margin:0 13px 10px;gap:5px}
+body.nc14-ready #proMediaPanel .nc84-filters button{min-height:27px!important;font-size:10px!important;font-weight:550;padding:4px 5px!important;background:#292b32;border:1px solid #373a44!important;color:#a9afb8;border-radius:5px}
+body.nc14-ready #proMediaPanel .nc84-filters button.is-active{background:#253c3d;border-color:#19b8a8!important;color:#26dfca}
+body.nc14-ready .nc10-quick-import{margin:0 13px 13px;gap:6px}
+body.nc14-ready .nc10-quick-import button{font-size:11px;min-height:30px;border-radius:5px;font-weight:670;padding:5px 8px!important}
+body.nc14-ready .nc10-quick-import .nc10-main-import{background:#12cbb4;color:#052c29;border-color:#12cbb4}
+body.nc14-ready .nc10-quick-import .nc10-secondary-import{background:#2d3036;border-color:#41454d;color:#d3d7de}
+body.nc14-ready #proMediaPanel #assetList{margin:0 12px;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+body.nc14-ready #proMediaPanel #assetList .nc84-media-card{padding:5px;border-radius:5px;background:#25282f;border:1px solid #343840;box-shadow:none}
+body.nc14-ready #proMediaPanel #assetList .nc84-media-card:hover{border-color:#15cbb6;box-shadow:none}
+body.nc14-ready .nc84-thumb{border-radius:4px;background:#101217}
+body.nc14-ready .nc84-thumb:before{color:#b2bec3}
+body.nc14-ready .nc84-filetype{background:#171a20dd;color:#e1e3e9;border-color:#5f6369;font-size:9px}
+body.nc14-ready .nc84-asset-name{font-size:11px!important;color:#e4e6ea}
+body.nc14-ready .nc84-duration{color:#d9dbe0;background:#14161a}
+body.nc14-ready #proMediaPanel #assetList .nc84-asset-actions button{font-size:11px!important;border-radius:4px;background:#343740;color:#e2e4e9;border:1px solid #50545c}
+body.nc14-ready #proMediaPanel #assetList .nc84-asset-actions button:hover{border-color:#18cbbb;color:#17dfca}
+body.nc14-ready #proMediaPanel #assetList:empty::before{font-size:12px;border:1px dashed #515660;border-radius:6px;background:#25282f;color:#a2a9b4;content:'Brak plików w projekcie. Kliknij Importuj i wybierz film, muzykę lub zdjęcia.'}
+body.nc14-ready .nc10-extra{margin:12px 13px;background:#25282e;border:1px solid #373b45;border-radius:5px}
+body.nc14-ready .nc10-extra summary{padding:10px;color:#bec5cd}
+body.nc14-ready .nc10-extra[open] summary{border-bottom:1px solid #41454e;background:#30333b}
+body.nc14-ready #proMediaPanel #audioLibrary{padding:0 13px;margin:10px 0}
+/* Preview player, real canvas output. No static screenshot is used as playback. */
+body.nc14-ready #proViewer{display:flex;flex-direction:column;padding:0;background:#1a1b20;min-height:0}
+.nc14-view-title{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:41px;padding:7px 13px;background:#202228;border-bottom:1px solid #34373e;font-size:12px;font-weight:750;color:#f3f3f5;flex:none}
+.nc14-view-title-right{display:flex;align-items:center;gap:9px;color:#858f9e;font-size:10px;font-weight:520;white-space:nowrap}
+body.nc14-ready #proViewer .stage{flex:1;min-height:0!important;max-height:none!important;height:auto!important;border:0!important;border-radius:0!important;background:#0a0b0e!important;box-shadow:none!important;display:flex;align-items:center;justify-content:center;padding:11px 12px}
+body.nc14-ready #proViewer .stage:before,body.nc14-ready #proViewer .stage:after{display:none}
+body.nc14-ready #proViewer .stage .placeholder:not(.hide){background:#0b0c11!important;inset:0;align-items:center;justify-content:center;gap:8px;color:#8e97a4;text-shadow:none;font-size:12px;line-height:1.55;padding:20px}
+body.nc14-ready #proViewer .stage .placeholder strong{font-size:17px;font-weight:730;color:#e6e9ee;text-shadow:none}
+body.nc14-ready #proViewer .stage canvas{border-radius:0;box-shadow:none;max-height:100%;max-width:100%;object-fit:contain}
+body.nc14-ready #cinemaBadge{color:#92ced3;border:1px solid #42606b;background:#18303bbb}
+body.nc14-ready #nc132QualityBadge{right:13px;top:12px;border:1px solid #444954;background:#202228bb;color:#d6e5ed;border-radius:3px;font-size:10px;box-shadow:none}
+body.nc14-ready .nc10-scrubber{padding:7px 14px 0;height:29px;margin:0;border-top:1px solid #31343b;gap:10px}
+body.nc14-ready .nc10-scrubber .nc10-clock{font-size:11px;color:#cdd3dc}
+body.nc14-ready input[type=range]{accent-color:#20d1bf}
+body.nc14-ready .nc10-viewer-bottom{min-height:42px;padding:3px 11px;gap:8px}
+body.nc14-ready #proViewer .control{flex:none;min-height:38px;gap:5px;padding:0;margin:0;background:transparent;border:0}
+body.nc14-ready #proViewer .control button{min-width:29px;min-height:27px;border:1px solid transparent;border-radius:4px;color:#d6dbe3;background:transparent;font-size:11px}
+body.nc14-ready #proViewer .control #play{min-width:37px;min-height:30px;font-size:16px;color:#fff;border:0;background:#34383e;box-shadow:none}
+body.nc14-ready #proViewer .control button:hover{background:#343740;border-color:#4e5661}
+body.nc14-ready #proViewer .control .nc132-player-quality{font-size:11px;border:1px solid #40464c;background:#292c34;color:#bfc5cb;border-radius:5px;min-height:28px;padding:2px 6px}
+body.nc14-ready #proViewer .control .nc132-player-quality select{border:0;min-width:74px;max-width:125px;background:transparent;color:#d9dde3;font-size:11px}
+body.nc14-ready .nc10-view-actions{gap:3px;margin-left:auto}
+body.nc14-ready .nc10-view-actions button{background:transparent;border-color:transparent;color:#afb5c0}
+body.nc14-ready #nc132QualityStatus{font-size:10px;color:#77838b;min-height:16px;padding:0 12px;text-align:left}
+body.nc14-ready #proViewer #notice{font-size:10px;color:#848c94;min-height:14px;max-height:17px;padding:0 12px 3px}
+/* Right inspector: compact clip properties with clear, keyboard-accessible tabs. */
+body.nc14-ready #proInspector{background:#1e2026;display:flex;flex-direction:column;min-height:0}
+.nc14-inspector-head{display:flex;align-items:center;justify-content:space-between;min-height:41px;border-bottom:1px solid #343840;padding:7px 12px;background:#202228;flex:none}
+.nc14-inspector-head strong{font-size:12px;color:#ebecf0}
+.nc14-inspector-meta{font-size:10px;color:#8c949e;white-space:nowrap}
+body.nc14-ready #proInspector .nc10-inspector-nav{min-height:45px;padding:5px 5px;background:#22242a;border-bottom:1px solid #3c3f48;gap:3px;flex:none;overflow-x:auto}
+body.nc14-ready #proInspector .nc10-inspector-nav button{min-width:max-content;flex:1;padding:7px 9px!important;font-size:11px;min-height:33px;font-weight:650;white-space:nowrap;background:transparent;color:#9da4b0;border:0;border-radius:4px;border-bottom:2px solid transparent}
+body.nc14-ready #proInspector .nc10-inspector-nav button.active{background:#25292e;color:#1be0c8;border-bottom:2px solid #20d4c0}
+body.nc14-ready #proToolsPane,body.nc14-ready #proExportPane,body.nc14-ready #proQualityPane{padding:10px;overflow:auto;background:#1e2026;flex:1;min-height:0}
+body.nc14-ready .nc10-accordion{background:#24262d;border:1px solid #343840;margin:0 0 5px;border-radius:5px}
+body.nc14-ready .nc10-accordion[open]{background:#25272e;border-color:#41464c}
+body.nc14-ready .nc10-accordion summary{padding:10px 12px;color:#e5e9ee;font-size:11px;font-weight:650;gap:7px}
+body.nc14-ready .nc10-accordion summary .nc10-ico{color:#a6b4bd;font-size:14px}
+body.nc14-ready .nc10-accordion[open] .nc10-accordion-body{border-top:1px solid #3e414a;padding:9px 9px 12px}
+body.nc14-ready .nc10-accordion input,body.nc14-ready .nc10-accordion select{font-size:11px;color:#e0e5ee;background:#272b33;border-color:#40434a}
+body.nc14-ready .field{color:#bbc0c9}
+body.nc14-ready select,body.nc14-ready input[type=text],body.nc14-ready input[type=number],body.nc14-ready textarea{background:#282a31;border-color:#42464f;color:#f2f4f6;border-radius:4px}
+body.nc14-ready #proQualityPane .quality-action,body.nc14-ready #proInspector button{border-radius:5px}
+.nc14-details-info{margin:0 0 9px;border:1px solid #40434c;background:#262931;border-radius:5px;padding:10px 11px;display:grid;grid-template-columns:1fr auto;gap:6px 8px;font-size:11px;color:#a1aab4}
+.nc14-details-info strong{color:#dce2e7;text-align:right;font-weight:550;max-width:138px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+body.nc14-ready .nc10-accordion button.small{background:#2d3238;border-color:#494b54}
+/* CapCut-like neutral timeline: real tracks and real draggable clips. */
+body.nc14-ready #proTimeline{background:#1b1d22;padding:0 0 6px;min-height:0;border-radius:4px}
+.nc14-timeline-title{display:flex;align-items:center;gap:9px;min-height:35px;padding:0 12px;border-bottom:1px solid #333741;background:#202228;font-size:12px;color:#e4e7ed;font-weight:730;flex:none}
+.nc14-timeline-title small{margin-left:auto;color:#8b959f;font-size:10px;font-weight:500}
+body.nc14-ready .nc10-toolbar{background:#202228;border-bottom:1px solid #343840;padding:5px 10px;min-height:40px;gap:5px}
+body.nc14-ready .nc10-toolbar button{font-size:11px;background:#2a2d34;border:1px solid #40444b;min-height:28px;padding:5px 8px;border-radius:5px;color:#ced4db;box-shadow:none}
+body.nc14-ready .nc10-toolbar button.nc10-main{color:#042e2b;background:#1bcbb8;border-color:#20dfc8;box-shadow:none}
+body.nc14-ready .nc10-toolbar input[type=range]{width:100px}
+body.nc14-ready .nc10-toolbar .nc10-timeline-zoom{margin-left:auto;font-size:11px;color:#959da9}
+body.nc14-ready .tracks{border:0;border-radius:0;background:#14161b;flex:1;min-height:140px;overflow:auto}
+body.nc14-ready .ruler{background:#1c1e23;border-bottom:1px solid #333740;height:27px;color:#8e969e;font-size:10px}
+body.nc14-ready .tick{border-color:#51535c;color:#929aa8}
+body.nc14-ready .trackrow{min-height:51px;border-bottom:1px solid #2b2e35}
+body.nc14-ready #proTimeline .trackrow.tl7-row .tracklabel,body.nc14-ready #proTimeline .tracklabel{background:#22242b;border-right:1px solid #44474f;color:#cdd4dc;font-size:11px;padding:7px 9px;width:var(--nc10-label);min-width:var(--nc10-label);max-width:var(--nc10-label)}
+body.nc14-ready #proTimeline .trackrow .trackcontent{background:repeating-linear-gradient(90deg,#14161b 0,#14161b 47px,#22242b 48px,#14161b 49px);min-height:51px}
+body.nc14-ready #proTimeline .clip{top:5px;height:41px;color:#f3f7fa;border-radius:4px;background:#376477;border-color:#498da6;box-shadow:none;font-weight:600}
+body.nc14-ready #proTimeline .clip.selected{outline:2px solid #22daca;outline-offset:1px}
+body.nc14-ready #proTimeline .clip.audio{background:#1d625d;border-color:#21af9d}
+body.nc14-ready #proTimeline .clip.caption{background:#624189;border-color:#a77bdf}
+body.nc14-ready #proTimeline .clip.sfx{background:#72582a;border-color:#c6a14c}
+body.nc14-ready #proTimeline .clip.nc8-decorated .nc8-label{background:#121519bb}
+body.nc14-ready #proTimeline #head{background:#eef6ff;box-shadow:none;width:2px}
+body.nc14-ready #proTimeline #head:before{color:#dfe5f0}
+body.nc14-ready #proTimeline .tracks .nc10-effect-row .tracklabel{background:#21232a;color:#b8b6d8}
+body.nc14-ready .nc10-effect-content{background:#24262c;color:#aaaac9}
+body.nc14-ready #proTimelineSplitter{background:#22242b;border-color:#333840;color:#949ba5;height:6px}
+body.nc14-ready #proTimelineSplitter:hover{background:#2b5455;border-color:#14c2b0}
+body.nc14-ready #proTimeline #zoom{accent-color:#15c9b8}
+body.nc14-ready .nc14-advanced-tip{color:#aab3bd;font-size:11px;padding:9px}
+body.nc14-ready footer{display:none}
+/* Layout variants: handle common desktop widths without horizontal page scrolling. */
+@media(max-width:1500px){:root{--pro-left-width:clamp(285px,25vw,360px);--pro-right-width:clamp(260px,22vw,320px)}body.nc14-ready .nc84-brand-wrap .chip{display:none}body.nc14-ready .nc84-main-nav .nc14-tabtext{font-size:9px}body.nc14-ready .nc10-toolbar{gap:3px}}
+@media(max-width:1190px){:root{--pro-left-width:275px;--pro-right-width:264px}body.nc14-ready header.nc84-header{gap:6px;padding:0 9px}body.nc14-ready .nc14-local-label{display:none}body.nc14-ready .nc84-brand-wrap{min-width:125px}body.nc14-ready .nc84-brand-wrap .brand{font-size:16px}body.nc14-ready #proInspector .nc10-inspector-nav button{font-size:10px;padding:7px!important}}
+@media(max-height:770px){:root{--pro-timeline-size:43%}body.nc14-ready .nc10-toolbar{min-height:34px}body.nc14-ready .app{grid-template-rows:minmax(180px,1fr) 6px minmax(215px,43%)}}
+/* Constrain the entire editor to the actual viewport. Other legacy styles may set grid min-content heights. */
+html:has(body.nc14-ready){height:100%;overflow:hidden}
+body.nc14-ready{height:100vh;max-height:100vh;min-height:560px;overflow:hidden;display:flex;flex-direction:column}
+body.nc14-ready .app,body.nc14-ready[data-nc9-ui=comfortable] .app,body.nc14-ready[data-nc9-ui=large] .app{height:calc(100vh - 55px);min-height:0;max-height:none;flex:1 1 auto;overflow:hidden;grid-template-rows:minmax(0,1fr) 6px minmax(0,var(--pro-timeline-size))}
+body.nc14-ready #proMediaPanel,body.nc14-ready #proViewer,body.nc14-ready #proInspector,body.nc14-ready #proTimeline{min-height:0;max-height:none;overflow:hidden}
+body.nc14-ready #proMediaPanel{overflow-y:auto}
+body.nc14-ready #proInspector #proToolsPane,body.nc14-ready #proInspector #proExportPane,body.nc14-ready #proInspector #proQualityPane{overflow-y:auto;min-height:0}
+body.nc14-ready #proTimeline{display:flex;flex-direction:column}
+body.nc14-ready #proTimeline .tracks{min-height:0;flex:1 1 auto;overflow:auto}
+body.nc14-ready #proTimeline #timelineInner{min-height:100%;}
+body.nc14-ready #proTimeline .nc10-toolbar{flex:0 0 auto;overflow-x:auto;overflow-y:hidden;white-space:nowrap;min-height:40px}
+body.nc14-ready #proInspectorTabs{display:none!important}
+body.nc14-ready .nc84-main-nav{grid-template-columns:repeat(8,minmax(0,1fr));width:100%}
+body.nc14-ready .nc14-advanced-pane{margin-top:8px}
+body.nc14-ready #proMediaPanel .nc84-search{width:calc(100% - 26px);max-width:none}
+body.nc14-ready #proMediaPanel .nc84-search input{min-width:0;width:100%}
+body.nc14-ready #proMediaPanel .nc84-filters{justify-content:stretch;max-width:none}
+body.nc14-ready #proMediaPanel .nc10-quick-import button{flex:1 1 auto}
+@media(max-height:770px){body.nc14-ready .app{grid-template-rows:minmax(0,1fr) 6px minmax(0,43%)}}
+/* Final refinements: eliminate leftover red UI accents. */
+body.nc14-ready .nc84-more > summary{list-style:none}
+body.nc14-ready .nc84-more > summary::-webkit-details-marker{display:none}
+body.nc14-ready #proTimeline .tl7-trackbuttons button{background:#2a2d36;border-color:#48505c;color:#b4c3cc}
+body.nc14-ready #proTimeline .tl7-trackbuttons button[aria-pressed=true]{background:#164d4b;border-color:#29bcae;color:#e1fff9}
+body.nc14-ready #proViewer input[type=range]::-webkit-slider-thumb{background:#20d7c1!important;border-color:#17ad9f!important;box-shadow:none!important}
+body.nc14-ready #proViewer input[type=range]::-moz-range-thumb{background:#20d7c1!important;border-color:#17ad9f!important;box-shadow:none!important}
+body.nc14-ready #proViewer .nc132-seek-step{border:0!important;background:#292c33!important;color:#b8c1ca!important}
+body.nc14-ready #proTimeline .nc10-timeline-zoom button{border-color:#454a52}
+body.nc14-ready #proMediaPanel #assetList .nc84-media-card .nc84-asset-actions button:hover{color:#27d9c5}
+

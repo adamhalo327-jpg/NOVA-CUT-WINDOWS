@@ -27,5 +27,5 @@ assert(html.includes('id="quality"'),'Original FFmpeg output resolution control 
 assert(html.includes('src="./player-quality132.js"'));
 assert(html.includes('src="./preview-quality-engine.js"'));
 assert(pkg.build.win.icon === 'assets/novacut.ico');
-assert(pkg.version==='13.3.0');
+assert(['13.3.0','14.0.0'].includes(pkg.version));
 console.log('PASS PLAYER QUALITY 13.3 — 240p-10K, source cap, independent export');

@@ -27,5 +27,5 @@ const preload=fs.readFileSync(path.join(root,'preload.js'),'utf8');
 for(const x of ['async function recoverVideoPreview','function monitorVideoPlayback','desktop.inspectImport','loadeddata','a.el=replacement.el','mp4NativeFallback','S.assets.set(a.id,a)'])assert(html.includes(x),'Missing safe import or recovery: '+x);
 for(const x of ["ipcMain.handle('nova:inspect-import'", "ipcMain.handle('nova:prepare-mp4'"])assert(main.includes(x),'Missing IPC handler: '+x);
 assert(preload.includes("inspectImport(filePath)"),'Missing import bridge');
-assert(/13\.[123]\.0/.test(fs.readFileSync(path.join(root,'package.json'),'utf8')),'Version mismatch');
+assert(/(13\.[123]|14\.0)\.0/.test(fs.readFileSync(path.join(root,'package.json'),'utf8')),'Version mismatch');
 console.log('✓ NOVA CUT 13.1: MP4/MOV/MKV codecs, valid frame import, FFmpeg fallback, playback recovery, IPC and version');
