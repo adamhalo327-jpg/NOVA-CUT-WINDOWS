@@ -30,20 +30,34 @@ jobs:
       - name: Przygotuj silnik napisow Whisper offline
         shell: pwsh
         run: |
+          function Download-WithRetry([string]$Uri,[string]$OutFile) {
+            for ($attempt=1; $attempt -le 4; $attempt++) {
+              try {
+                Invoke-WebRequest -Uri $Uri -OutFile $OutFile -MaximumRedirection 10 -TimeoutSec 150 -ErrorAction Stop
+                if (!(Test-Path $OutFile) -or (Get-Item $OutFile).Length -lt 100KB) { throw "Downloaded file is missing or empty: $OutFile" }
+                return
+              } catch {
+                if (Test-Path $OutFile) { Remove-Item $OutFile -Force -ErrorAction SilentlyContinue }
+                if ($attempt -ge 4) { throw }
+                Write-Warning "Download attempt $attempt failed: $($_.Exception.Message)"
+                Start-Sleep -Seconds (5 * $attempt)
+              }
+            }
+          }
           New-Item -ItemType Directory -Force -Path whisper | Out-Null
           $source='https://github.com/ggml-org/whisper.cpp/releases/download/b5454/whisper-bin-x64.zip'
-          Invoke-WebRequest -Uri $source -OutFile whisper-bin.zip
+          Download-WithRetry $source whisper-bin.zip
           Expand-Archive -Path whisper-bin.zip -DestinationPath whisper-package -Force
           $exe=Get-ChildItem -Path whisper-package -Recurse -Filter whisper-cli.exe | Select-Object -First 1
           if (!$exe) {throw 'Whisper CLI missing from downloaded Windows release.'}
           Copy-Item $exe.FullName whisper/whisper-cli.exe
           Get-ChildItem -Path $exe.Directory.FullName -Filter '*.dll' | ForEach-Object { Copy-Item $_.FullName whisper/ }
           $url='https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin'
-          Invoke-WebRequest -Uri $url -OutFile whisper/ggml-base.bin
+          Download-WithRetry $url whisper/ggml-base.bin
           if ((Get-Item whisper/ggml-base.bin).Length -lt 100MB) {throw 'Downloaded Whisper model is incomplete.'}
           Write-Host "Model Whisper base: $([math]::Round((Get-Item whisper/ggml-base.bin).Length/1MB)) MB"
           $tinyUrl='https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.bin'
-          Invoke-WebRequest -Uri $tinyUrl -OutFile whisper/ggml-tiny.bin
+          Download-WithRetry $tinyUrl whisper/ggml-tiny.bin
           if ((Get-Item whisper/ggml-tiny.bin).Length -lt 50MB) {throw 'Model Whisper Tiny is missing or incomplete.'}
           Write-Host "Model Whisper tiny: $([math]::Round((Get-Item whisper/ggml-tiny.bin).Length/1MB)) MB"
       - name: Zainstaluj zaleznosci
@@ -78,7 +92,16 @@ jobs:
         shell: pwsh
         run: |
           $url='https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small-q5_1.bin'
-          Invoke-WebRequest -Uri $url -OutFile dist/ggml-small-q5_1.bin
+          for ($attempt=1; $attempt -le 4; $attempt++) {
+            try {
+              Invoke-WebRequest -Uri $url -OutFile dist/ggml-small-q5_1.bin -TimeoutSec 150 -ErrorAction Stop
+              break
+            } catch {
+              if (Test-Path dist/ggml-small-q5_1.bin) {Remove-Item dist/ggml-small-q5_1.bin -Force}
+              if ($attempt -ge 4) {throw}
+              Start-Sleep -Seconds (5 * $attempt)
+            }
+          }
           if ((Get-Item dist/ggml-small-q5_1.bin).Length -lt 170MB) {throw 'Incomplete Whisper Small model.'}
           $expected='ae85e4a935d7a567bd102fe55afc16bb595bdb618e11b2fc7591bc08120411bb'
           $actual=(Get-FileHash dist/ggml-small-q5_1.bin -Algorithm SHA256).Hash.ToLowerInvariant()
