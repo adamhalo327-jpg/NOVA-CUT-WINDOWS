@@ -122,10 +122,42 @@ jobs:
           }
       - name: Test napisow MP4 mov_text (FFmpeg)
         run: node scripts/check-subtitle-render.js
+      - name: Przywroc cache Electron i elektron-builder
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/AppData/Local/electron/Cache
+            ~/AppData/Local/electron-builder/Cache
+          key: nova-cut-windows-electron-v43.8-builder-v26
       - name: Zbuduj Setup i Portable Windows
+        shell: pwsh
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
-        run: npm run build:win
+        run: |
+          $env:DEBUG='electron-builder*'
+          for ($attempt=1; $attempt -le 5; $attempt++) {
+            if ($attempt -eq 1) {
+              Remove-Item Env:ELECTRON_MIRROR -ErrorAction SilentlyContinue
+              Remove-Item Env:ELECTRON_BUILDER_BINARIES_MIRROR -ErrorAction SilentlyContinue
+              Write-Host 'Electron source: primary downloads'
+            } else {
+              $env:ELECTRON_MIRROR='https://npmmirror.com/mirrors/electron/'
+              $env:ELECTRON_BUILDER_BINARIES_MIRROR='https://npmmirror.com/mirrors/electron-builder-binaries/'
+              Write-Host "Electron source: documented alternate mirror, attempt $attempt"
+            }
+            npm run build:win
+            if ($LASTEXITCODE -eq 0) {
+              $built=@(Get-ChildItem dist -Filter '*.exe' -File -ErrorAction SilentlyContinue)
+              if ($built.Count -ge 2) {
+                Write-Host "PASS: Windows Setup and Portable created ($($built.Count) EXE files)."
+                break
+              }
+              Write-Warning 'Build exited 0 without two EXE outputs.'
+            }
+            if ($attempt -ge 5) {throw 'Windows Electron build failed after 5 primary/mirror attempts.'}
+            Write-Warning "Electron builder attempt $attempt failed, retrying after backoff."
+            Start-Sleep -Seconds (8 * $attempt)
+          }
       - name: Sprawdz prawdziwy FFprobe i FFmpeg w aplikacji Windows (poza ASAR)
         shell: pwsh
         run: |
