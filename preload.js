@@ -4,6 +4,8 @@ contextBridge.exposeInMainWorld('NovaDesktop', Object.freeze({
   filePath(file) { try { return webUtils.getPathForFile(file); } catch { return ''; } },
   render(job, files) { return ipcRenderer.invoke('nova:native-render', {job, files}); },
   cancelRender() { return ipcRenderer.invoke('nova:cancel-render'); },
+  importWhisperSmall() { return ipcRenderer.invoke('nova:import-whisper-small'); },
+  chooseLut() { return ipcRenderer.invoke('nova:choose-lut'); },
   transcribe(request) { return ipcRenderer.invoke('nova:transcribe', request); },
   prepareMp4(filePath) { return ipcRenderer.invoke('nova:prepare-mp4',{filePath}); },
   onMp4Progress(callback) {
