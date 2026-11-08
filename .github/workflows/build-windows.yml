@@ -60,15 +60,31 @@ jobs:
           Download-WithRetry $tinyUrl whisper/ggml-tiny.bin
           if ((Get-Item whisper/ggml-tiny.bin).Length -lt 50MB) {throw 'Model Whisper Tiny is missing or incomplete.'}
           Write-Host "Model Whisper tiny: $([math]::Round((Get-Item whisper/ggml-tiny.bin).Length/1MB)) MB"
-      - name: Zainstaluj zaleznosci
+      - name: Zainstaluj zaleznosci (FFmpeg: GitHub / mirror awaryjny)
         shell: pwsh
         run: |
-          for ($attempt=1; $attempt -le 5; $attempt++) {
+          # ffmpeg-static supports FFMPEG_BINARIES_URL (documented by its maintainers).
+          # If GitHub Releases returns HTTP 504, switch to its documented mirror.
+          $mirror='https://cdn.npmmirror.com/binaries/ffmpeg-static'
+          for ($attempt=1; $attempt -le 6; $attempt++) {
+            if ($attempt -ge 3) {
+              $env:FFMPEG_BINARIES_URL=$mirror
+              Write-Host "FFmpeg download: fallback mirror, attempt $attempt"
+            } else {
+              Remove-Item Env:FFMPEG_BINARIES_URL -ErrorAction SilentlyContinue
+              Write-Host "FFmpeg download: primary GitHub Releases, attempt $attempt"
+            }
             npm install --no-audit --no-fund
-            if ($LASTEXITCODE -eq 0) { Write-Host 'NPM dependencies ready.'; break }
-            if ($attempt -ge 5) { throw 'NPM install failed after 5 attempts.' }
-            Write-Warning "npm install failed on attempt $attempt (often due to a 504 while fetching FFmpeg). Retrying."
-            Start-Sleep -Seconds (8 * $attempt)
+            $npmOk=($LASTEXITCODE -eq 0)
+            $ffmpegOk=Test-Path 'node_modules/ffmpeg-static/ffmpeg.exe'
+            $ffprobeOk=Test-Path 'node_modules/ffprobe-static/bin/win32/x64/ffprobe.exe'
+            if ($npmOk -and $ffmpegOk -and $ffprobeOk) {
+              Write-Host 'PASS: npm dependencies + FFmpeg + FFprobe executables are available.'
+              break
+            }
+            if ($attempt -ge 6) { throw 'NPM/FFmpeg dependency download failed from primary and mirror.' }
+            Write-Warning "Attempt $attempt failed. npm=$npmOk, ffmpeg=$ffmpegOk, ffprobe=$ffprobeOk"
+            Start-Sleep -Seconds (5 * $attempt)
           }
       - name: Test napisow MP4 mov_text (FFmpeg)
         run: node scripts/check-subtitle-render.js
