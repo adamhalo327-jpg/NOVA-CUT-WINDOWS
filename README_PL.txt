@@ -1,3 +1,20 @@
+NOVA CUT 10.0 — EDITOR MAX (Windows x64)
+
+NOWY UKŁAD: zatwierdzony wzór ULTRA CINEMA z dużym podglądem, panelem mediów po lewej, narzędziami po prawej i osią czasu na dole.
+
+• Wybierz „Dodaj MP4” lub przeciągnij plik do edytora; pliki nie są wysyłane do sieci.
+• Biblioteka: filtry Wideo / Audio / Zdjęcia, wyszukiwarka, miniatury klipów.
+• Panel po prawej: zwijane sekcje Podstawowe, Transformacja, Kolor, LUT, Przejścia, Prędkość, Audio, Napisy SRT i AI Studio.
+• Os czasu: V1/V2, globalne efekty w wizualnym rzędzie V3, Audio, SFX; ścieżki napisów i naklejek pod przyciskiem „Ścieżki”. Rząd V3 opisuje istniejące efekty GLOBALNE i nie jest niezależną warstwą wideo.
+• Program zachowuje dotychczasowy renderer FFmpeg, import MP4 z proxy dla nieobsługiwanych kodeków, Quality Inspector, automatyczne napisy, keyframes i SRT.
+• Dwa lokalne modele napisów Whisper: Base (dokładniejszy) i Tiny (szybszy, mniej pamięci).
+• Nowa ikona NOVA SIGNATURE dla okna aplikacji, instalatora i Portable EXE.
+• Działające przed aktualizacją animowane keyframes i niektóre napisy nie są jeszcze obsługiwane we wszystkich natywnych ścieżkach eksportu FFmpeg; testuj krótki klip przed ważnym projektem.
+
+GitHub: release/nova-cut-10.0-editor-max
+Kompilacja: GitHub Actions -> NOVA CUT 10.0 - EDITOR MAX Windows EXE -> Artifacts -> NOVA-CUT-Windows-10.0-EDITOR-MAX
+Docelowa wielkość PAKIETU Setup + Portable: 700–1000 MB, weryfikowana w Actions; rozmiar pojedynczego EXE może być mniejszy. Pakiet zawiera użyteczne modele AI, bez sztucznego wypełniania.
+
 NOVA CUT 9.0 — MEGA UPDATE (Windows 64-bit)
 
 NOWOŚCI:

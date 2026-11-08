@@ -48,7 +48,7 @@ function createWindow() {
   showingError = false;
   win = new BrowserWindow({
     width: 1480, height: 910, minWidth: 960, minHeight: 650,
-    backgroundColor: '#09080c', title: 'NOVA CUT 9.0 - MEGA UPDATE',
+    backgroundColor: '#09080c', title: 'NOVA CUT 10.0 - EDITOR MAX',
     icon: path.join(__dirname,'assets','novacut.ico'),
     autoHideMenuBar: true, show: !smokeCheck,
     webPreferences: {

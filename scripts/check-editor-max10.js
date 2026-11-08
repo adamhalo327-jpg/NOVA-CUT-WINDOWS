@@ -1,0 +1,16 @@
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const root=path.join(__dirname,'..'),read=x=>fs.readFileSync(path.join(root,x),'utf8');
+const html=read('app/index.html'),js=read('app/editor-max10.js'),css=read('app/editor-max10.css');
+const pkg=JSON.parse(read('package.json'));
+assert.equal(pkg.version,'10.0.0');
+for(const x of ['app/index.html','assets/nova-signature.png','assets/novacut.ico','assets/editor-max-cinema-preview.jpg','native-renderer.js','mp4-preview.js','media-inspector.js'])assert(fs.existsSync(path.join(root,x)),x);
+for(const x of ['./editor-max10.css','./editor-max10.js','id="addMp4Btn"','id="desktopExport"','id="proTimeline"','id="nc9UISize"'])assert(html.includes(x),`Missing HTML: ${x}`);
+for(const x of ['nc10-ready','Biblioteka mediów','Korekcja kolorów','Napisy (SRT)','AI Studio','nc10Toolbar','__NOVA_EDITOR_MAX10_READY'])assert(js.includes(x),`Missing UI: ${x}`);
+for(const x of ['--nc10-label:186px','--pro-timeline-size','nc10-accordion','nc10-quick-import','nc10-scrubber','nc10-inspector-nav'])assert(css.includes(x),`Missing CSS: ${x}`);
+assert(html.includes('offset=186')&&html.includes('e.clientX-rect.left-186'), 'Timeline alignment does not match expanded labels');
+assert(read('app/timeline7.js').includes('-186'), 'Timeline7 zoom anchor must align');
+const speech=read('speech-renderer.js');assert(speech.includes('ggml-tiny.bin')&&speech.includes('modelSize'));assert(read('app/studio8.js').includes('nc10WhisperModel'));
+assert(read('.github/workflows/build-windows.yml').includes('ggml-tiny.bin'));
+assert(pkg.build.nsis.installerIcon==='assets/novacut.ico'&&pkg.build.win.icon==='assets/novacut.ico');
+console.log('✓ NOVA CUT 10.0: EDITOR MAX layout / timeline alignment / MP4 / Windows renderer / icon / Whisper models');

@@ -1,8 +1,8 @@
-name: NOVA CUT 9.0 - MEGA UPDATE Windows EXE
+name: NOVA CUT 10.0 - EDITOR MAX Windows EXE
 on:
   workflow_dispatch:
   push:
-    branches: ['release/nova-cut-9.0-mega-update']
+    branches: ['release/nova-cut-10.0-editor-max']
 permissions:
   contents: read
 jobs:
@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 75
     steps:
-      - name: Pobierz projekt 9.0
+      - name: Pobierz projekt 10.0
         uses: actions/checkout@v4
       - name: Node.js 22
         uses: actions/setup-node@v4
@@ -42,6 +42,10 @@ jobs:
           Invoke-WebRequest -Uri $url -OutFile whisper/ggml-base.bin
           if ((Get-Item whisper/ggml-base.bin).Length -lt 100MB) {throw 'Downloaded Whisper model is incomplete.'}
           Write-Host "Model Whisper base: $([math]::Round((Get-Item whisper/ggml-base.bin).Length/1MB)) MB"
+          $tinyUrl='https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.bin'
+          Invoke-WebRequest -Uri $tinyUrl -OutFile whisper/ggml-tiny.bin
+          if ((Get-Item whisper/ggml-tiny.bin).Length -lt 50MB) {throw 'Model Whisper Tiny is missing or incomplete.'}
+          Write-Host "Model Whisper tiny: $([math]::Round((Get-Item whisper/ggml-tiny.bin).Length/1MB)) MB"
       - name: Zainstaluj zaleznosci
         run: npm install --no-audit --no-fund
       - name: Zbuduj Setup i Portable Windows
@@ -54,14 +58,14 @@ jobs:
           $exes=@(Get-ChildItem dist -Filter '*.exe' -File)
           if($exes.Count -lt 2){throw 'Expected two Windows executables.'}
           $exes | Select-Object Name, Length | Format-Table
-          Compress-Archive -Path 'dist/*.exe' -DestinationPath 'dist/NOVA-CUT-9.0-MEGA-UPDATE-WINDOWS.zip' -CompressionLevel Optimal -Force
-          $sizeMB=[math]::Round((Get-Item 'dist/NOVA-CUT-9.0-MEGA-UPDATE-WINDOWS.zip').Length/1MB,2)
-          Write-Host "Pakiet NOVA CUT 9.0: $sizeMB MB (wymaganie 500-750 MB)"
-          if($sizeMB -lt 500 -or $sizeMB -gt 750){Write-Warning 'Actual package is outside requested size 500-750 MB; please verify before release.'}
+          Compress-Archive -Path 'dist/*.exe' -DestinationPath 'dist/NOVA-CUT-10.0-EDITOR-MAX-WINDOWS.zip' -CompressionLevel Optimal -Force
+          $sizeMB=[math]::Round((Get-Item 'dist/NOVA-CUT-10.0-EDITOR-MAX-WINDOWS.zip').Length/1MB,2)
+          Write-Host "Pakiet NOVA CUT 10.0: $sizeMB MB (cel 700-1000 MB)"
+          if($sizeMB -lt 700 -or $sizeMB -gt 1000){Write-Warning 'Actual package is outside target size 700-1000 MB; please verify before release.'}
       - name: Udostepnij instalator i Portable
         uses: actions/upload-artifact@v4
         with:
-          name: NOVA-CUT-Windows-9.0-MEGA-UPDATE
-          path: dist/NOVA-CUT-9.0-MEGA-UPDATE-WINDOWS.zip
+          name: NOVA-CUT-Windows-10.0-EDITOR-MAX
+          path: dist/NOVA-CUT-10.0-EDITOR-MAX-WINDOWS.zip
           if-no-files-found: error
           retention-days: 30

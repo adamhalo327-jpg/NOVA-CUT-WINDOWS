@@ -8,7 +8,7 @@ const cfg={autoSave:true,effect:'none'};
 const state={wave:new Map(),thumb:new Map(),wavePending:new Set(),thumbPending:new Set(),renderingDecor:false};
 const saveKey='nova-cut-8-autosave';
 const bars=document.createElement('div');bars.id='studio8Bar';
-bars.innerHTML=`<span class="brand8">◆ NOVA CUT 8.0</span>
+bars.innerHTML=`<span class="brand8">◆ STUDIO SMART</span>
 <button type="button" id="nc8Mark">◇ Keyframe</button><button type="button" id="nc8AutoCaptions">📝 Automatyczne napisy</button>
 <button type="button" id="nc8SaveNow">💾 Zapisz teraz</button>
 <span class="status8" id="nc8Status">Wizualizacja waveformów · miniatury · keyframes · autozapis</span>`;
@@ -40,6 +40,7 @@ const caps=document.createElement('div');caps.className='nc8-section';caps.id='n
 caps.innerHTML=`<h3>🗣 AUTOMATYCZNE NAPISY (OFFLINE)</h3>
 <p class="nc8-mini">Lokalne rozpoznawanie mowy przez Whisper; wybierz klip AUDIO lub wideo zawierające mowę. Wymagana aplikacja Windows z dołączonym modelem AI.</p>
 <label class="field">Język <select id="nc8Language"><option value="auto">Wykryj automatycznie</option><option value="pl">Polski</option><option value="en">English</option><option value="de">Deutsch</option><option value="es">Español</option></select></label>
+<label class="field">Model offline <select id="nc10WhisperModel"><option value="base">Base · dokładniejszy</option><option value="tiny">Tiny · szybszy, mniej pamięci</option></select></label>
 <button class="nc8-button" id="nc8Transcribe">🎤 Rozpoznaj mowę i dodaj napisy</button>
 <div class="nc8-state" id="nc8CaptionStatus">Wybierz materiał i kliknij Rozpoznaj.</div>`;
 inspector.prepend(caps);
@@ -156,7 +157,7 @@ function decorate(){for(const tile of $('tracks').querySelectorAll('.clip')){
 const observer=new MutationObserver(()=>{if(thumbnailLoop)return;thumbnailLoop=requestAnimationFrame(()=>{thumbnailLoop=null;decorate()})});
 observer.observe($('tracks'),{childList:true,subtree:true});decorate();
 // Save-project snapshots: require relinking media after reload, never stores raw media blobs.
-function serialize(){return {app:'NOVA CUT',version:8.2,ratio:S.ratio,cinemaLook:S.cinemaLook,cinemaSound:S.cinemaSound,fade:S.fade,effectPreset:S.effectPreset,motionEffect:S.motionEffect,effectStrength:S.effectStrength,transitionType:S.transitionType,filters:S.filters,vol:S.vol,musicVol:S.musicVol,
+function serialize(){return {app:'NOVA CUT',version:8.3,ratio:S.ratio,cinemaLook:S.cinemaLook,cinemaSound:S.cinemaSound,fade:S.fade,effectPreset:S.effectPreset,motionEffect:S.motionEffect,effectStrength:S.effectStrength,transitionType:S.transitionType,filters:S.filters,vol:S.vol,musicVol:S.musicVol,
  assets:[...S.assets.values()].map(a=>({id:a.id,name:a.name,size:a.size,kind:a.kind,duration:a.duration})),
  audioAssets:[...S.audioAssets.values()].map(a=>({id:a.id,name:a.name,size:a.size,duration:a.duration})),
  clips:S.clips,audioClips:S.audioClips,texts:S.texts,stickers:S.stickers,sfx:S.sfx,studio8:{effect:cfg.effect,transition:cfg.transition}}}
@@ -185,7 +186,7 @@ $('nc8Transcribe').onclick=async()=>{
  if(!a?.desktopPath){$('nc8CaptionStatus').textContent='Dodaj audio lub film z mową i wybierz klip. Plik musi być dostępny na dysku.';return}
  $('nc8Transcribe').disabled=true;$('nc8CaptionStatus').textContent='Przetwarzanie offline… (na CPU może potrwać kilka minut)';
  try{
-  const answer=await window.NovaDesktop.transcribe({filePath:a.desktopPath,lang:$('nc8Language').value});
+  const answer=await window.NovaDesktop.transcribe({filePath:a.desktopPath,lang:$('nc8Language').value,modelSize:$('nc10WhisperModel')?.value||'base'});
   if(!answer?.ok)throw Error(answer?.error||'Transkrypcja nie powiodła się');
   const origin=(c.at||0)-(c.start||0);const clipEnd=(c.at||0)+(ac?c.duration:(c.end-c.start)/(c.speed||1));let count=0;
   for(const segment of answer.segments||[]){const start=Math.max(c.at||0,origin+segment.start),end=Math.min(clipEnd,Math.max(start+.18,origin+segment.end)),txt=String(segment.text||'').trim();if(!txt||end<=start)continue;

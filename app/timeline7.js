@@ -22,7 +22,7 @@
  }));
  const persist=()=>{try{localStorage.setItem('nova-cut-timeline7',JSON.stringify(Object.fromEntries(config)))}catch{}};
  const toolbar=document.createElement('div');toolbar.id='tl7Toolbar';toolbar.setAttribute('aria-label','Narzędzia TIMELINE ULTRA PRO');
- toolbar.innerHTML=`<span class="tl7-brand">⚡ TIMELINE 7.0</span>
+ toolbar.innerHTML=`<span class="tl7-brand">⚡ NARZĘDZIA ŚCIEŻEK</span>
   <button type="button" id="tl7ZoomOut" title="Zmniejsz skalę (-)">−</button>
   <button type="button" id="tl7ZoomFit" title="Dopasuj szerokość projektu">⇔ Dopasuj</button>
   <button type="button" id="tl7ZoomIn" title="Zwiększ skalę (+)">+</button>
@@ -36,10 +36,10 @@
  const updateZoomLabel=()=>{$('tl7ZoomLabel').textContent=Math.round(S.zoom)+' px/s';};
  const setZoom=(value,anchor=null)=>{
   const old=Math.max(1,S.zoom||48),val=Math.max(12,Math.min(320,Math.round(value)));
-  const box=$('tracks'),head=box.scrollLeft+Math.max(0,box.clientWidth/2)-101;
+  const box=$('tracks'),head=box.scrollLeft+Math.max(0,box.clientWidth/2)-186;
   const center=anchor===null?Math.max(0,head)/old:anchor;
   zoomInput.value=String(val);zoomInput.dispatchEvent(new Event('input',{bubbles:true}));
-  box.scrollLeft=Math.max(0,101+center*val-box.clientWidth/2);updateZoomLabel();
+  box.scrollLeft=Math.max(0,186+center*val-box.clientWidth/2);updateZoomLabel();
  };
  const duration=()=>Math.max(0,...S.clips.map(c=>c.at+(c.end-c.start)/(c.speed||1)),...S.audioClips.map(c=>c.at+c.duration),...S.texts.map(t=>t.end),...S.stickers.map(t=>t.end));
  const fitZoom=()=>{const w=$('tracks').clientWidth-148;setZoom(Math.min(320,Math.max(12,w/Math.max(1,duration()))),0);$('tracks').scrollLeft=0;};
@@ -65,7 +65,8 @@
  function editTrack(key,action){const st=config.get(key);if(!st)return;
   if(action==='lock'){st.locked=!st.locked;notify(st.locked?'🔒 Zablokowano ścieżkę '+key+'.':'Odblokowano ścieżkę '+key+'.');}
   if(action==='eye'){st.hidden=!st.hidden;notify('Widoczność ścieżki na osi: '+(st.hidden?'ukryta':'włączona')+'. Eksport filmu nie zmieni się.');}
-  if(action==='collapse'){st.collapsed=!st.collapsed;notify('Zmieniono zwijanie ścieżki '+key+'.');}  applyRow(key);persist();
+  if(action==='collapse'){st.collapsed=!st.collapsed;notify('Zmieniono zwijanie ścieżki '+key+'.');}
+  applyRow(key);persist();
  }
  for(const def of trackDefs){
   const row=$(def.id)?.closest('.trackrow');if(!row)throw Error('Brak ścieżki '+def.id);
@@ -143,7 +144,7 @@
   markerContainer.replaceChildren();
   for(const [i,time] of markers.entries()){
    const b=document.createElement('button');b.type='button';b.textContent='◆';
-   b.style.left=(101+time*S.zoom)+'px';b.title='Znacznik '+(i+1)+' · '+time.toFixed(2)+' s (kliknij, by przejść; Alt+klik, aby usunąć)';
+   b.style.left=(186+time*S.zoom)+'px';b.title='Znacznik '+(i+1)+' · '+time.toFixed(2)+' s (kliknij, by przejść; Alt+klik, aby usunąć)';
    b.addEventListener('click',ev=>{ev.stopPropagation();if(ev.altKey){markers.splice(i,1);markerDraw();saveMarkers();notify('Usunięto znacznik.');}else{pause();seekTo(time)}});
    markerContainer.append(b);
   }
