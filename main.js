@@ -50,7 +50,7 @@ function createWindow() {
   showingError = false;
   win = new BrowserWindow({
     width: 1480, height: 910, minWidth: 960, minHeight: 650,
-    backgroundColor: '#09080c', title: 'NOVA CUT 13.2 - PLAYER QUALITY PRO',
+    backgroundColor: '#17191e', title: 'NOVA CUT 14.0 — STUDIO DESKTOP',
     icon: path.join(__dirname,'assets','novacut.ico'),
     autoHideMenuBar: true, show: !smokeCheck,
     webPreferences: {

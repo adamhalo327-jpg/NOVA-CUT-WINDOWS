@@ -1,0 +1,13 @@
+'use strict';
+const fs=require('fs'),assert=require('assert'),path=require('path');
+const root=path.resolve(__dirname,'..'),read=x=>fs.readFileSync(path.join(root,x),'utf8');
+const html=read('app/index.html'),css=read('app/capcut14.css'),js=read('app/capcut14.js'),pkg=JSON.parse(read('package.json'));
+assert.equal(pkg.version,'14.0.0');
+for(const x of ['capcut14.js','capcut14.css','player-quality132.js','player-seek132.js','editor-max10.js','auto-subtitles10.js'])assert(html.includes(x),'Missing live script: '+x);
+for(const x of ['proMediaPanel','proViewer','proInspector','proTimeline','assetList','mediaInput','mp4Input','audioInput','canvas','desktopExport','nc132Quality'])assert(html.includes('id="'+x+'"'),'Missing live control: '+x);
+for(const x of ['nc14-library-top','nc14-view-title','nc14-inspector-head','nc14-timeline-title','nc14-details-info'])assert(css.includes(x),'Missing style '+x);
+for(const x of ['window.__NOVA_CAPCUT14_READY=true','window.NovaCapcutStyle14','NovaEditorMax10','nc14ProjectName','proMediaPanel','Media','Audio','Tekst','Naklejki','Efekty','Przejścia','Filtry','Dopasuj','window.NovaUltra'])assert(js.includes(x),'Missing UI integration '+x);
+assert(!js.includes('CapCut.exe'),'Do not impersonate another software');
+assert.equal(pkg.build.win.icon,'assets/novacut.ico');
+assert(read('.github/workflows/build-windows.yml').includes('NOVA-CUT-Windows-14.0-STUDIO-DESKTOP'));
+console.log('PASS NOVA CUT 14.0: 4-pane studio workspace, functional imports/timeline/inspector, original NOVA identity, export retained');

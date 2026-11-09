@@ -39,3 +39,8 @@ NOVA CUT 13.2 - NAPRAWA ENOENT: FFprobe.exe i FFmpeg.exe sa kopiowane do resourc
 
 NOVA CUT 13.3 — PLAYER QUALITY ULTRA
 Menu przy odtwarzaczu: Auto, 240p, 360p, 480p, 720p, 1080p, 1440p, 4K, 8K oraz 10K. 8K/10K to eksperymentalne ustawienia podglądu dla odpowiednio mocnych komputerów i materiałów źródłowych. Nie zmieniają jakości źródła ani eksportowanego MP4; do płynnego montażu używaj Auto albo 1080p. Profil eksportu jest oddzielnie w panelu Eksport.
+
+
+NOVA CUT 14.0 — STUDIO DESKTOP
+Interfejs inspirowany powszechnym układem profesjonalnych edytorów: zakładki mediów po lewej, odtwarzacz w centrum, inspektor właściwości po prawej i wielościeżkowa oś czasu na dole. Własna nazwa i identyfikacja NOVA CUT; nie jest to produkt CapCut.
+Importuj MP4/MOV/MKV, dodaj na oś czasu. Użyj playera, jakości Auto–10K, narzędzi przy klipach i eksportu Windows MP4. Funkcje z 13.3 pozostają.
